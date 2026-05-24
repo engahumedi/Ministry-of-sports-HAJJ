@@ -16,6 +16,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
 
+/* CONFIG BANNER */
 #configBanner{
   background:linear-gradient(90deg,#fff3cd,#ffe8a1);border-bottom:2px solid #f0ad4e;
   padding:12px 2rem;text-align:center;font-size:.9rem;color:#856404;
@@ -23,6 +24,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 }
 #configBanner a{color:#533f03;font-weight:800;text-decoration:underline;cursor:pointer}
 
+/* NAV */
 nav{
   position:fixed;top:0;width:100%;z-index:999;
   background:rgba(10,46,24,.97);backdrop-filter:blur(12px);
@@ -44,6 +46,7 @@ nav{
 }
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(76,175,80,.5)}70%{box-shadow:0 0 0 8px rgba(76,175,80,0)}100%{box-shadow:0 0 0 0 rgba(76,175,80,0)}}
 
+/* HERO */
 .page-hero{
   background:linear-gradient(150deg,var(--g1) 0%,var(--g2) 60%,#1e4d2f 100%);
   padding:100px 2rem 60px;text-align:center;position:relative;overflow:hidden;
@@ -64,8 +67,10 @@ nav{
 .page-title .gold{color:var(--gold2)}
 .page-subtitle{font-size:1rem;color:rgba(255,255,255,.65)}
 
+/* MAIN */
 .main-wrap{max-width:680px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
 
+/* TABS */
 .tabs{display:flex;background:var(--white);border-radius:16px;padding:6px;box-shadow:var(--shadow);margin-bottom:2rem;gap:6px}
 .tab-btn{
   flex:1;padding:10px;border-radius:12px;border:none;cursor:pointer;
@@ -75,6 +80,7 @@ nav{
 .tab-btn.active{background:var(--g2);color:white;box-shadow:0 4px 12px rgba(26,107,60,.3)}
 .tab-btn:hover:not(.active){background:var(--cream);color:var(--g2)}
 
+/* CARD */
 .card{background:var(--white);border-radius:24px;padding:2rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
 .card-title{
   font-size:1.1rem;font-weight:800;color:var(--g1);
@@ -82,6 +88,7 @@ nav{
   border-bottom:2px solid var(--cream2);display:flex;align-items:center;justify-content:space-between;
 }
 
+/* FORM */
 .form-group{margin-bottom:1.25rem}
 label{display:block;font-size:.9rem;font-weight:700;color:var(--g1);margin-bottom:.5rem}
 label .req{color:var(--red);margin-right:2px}
@@ -94,6 +101,7 @@ input:focus{border-color:var(--g3);background:white;box-shadow:0 0 0 3px rgba(46
 input.error{border-color:var(--red)}
 .hint{font-size:.78rem;color:var(--grey);margin-top:.35rem}
 
+/* LOCATION BOX */
 .loc-box{
   background:var(--cream);border-radius:14px;padding:1rem 1.25rem;
   border:2px solid var(--cream2);display:flex;align-items:center;gap:12px;transition:border .3s;
@@ -114,6 +122,7 @@ input.error{border-color:var(--red)}
 .loc-btn:hover{background:var(--g1);transform:scale(1.03)}
 .loc-btn:disabled{background:var(--grey);cursor:not-allowed;opacity:.7}
 
+/* SUBMIT */
 .submit-btn{
   width:100%;padding:14px;border-radius:16px;border:none;cursor:pointer;
   font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;
@@ -125,6 +134,7 @@ input.error{border-color:var(--red)}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,107,60,.4)}
 .submit-btn:disabled{background:#aaa;cursor:not-allowed;transform:none;box-shadow:none}
 
+/* SUCCESS */
 .success-card{
   background:linear-gradient(135deg,var(--g1),var(--g2));
   border-radius:24px;padding:2.5rem 2rem;text-align:center;color:white;display:none;
@@ -145,6 +155,7 @@ input.error{border-color:var(--red)}
 }
 .btn-new:hover{transform:translateY(-2px)}
 
+/* ADMIN */
 .admin-sec{display:none}
 .admin-sec.show{display:block}
 .admin-lock{text-align:center;padding:2rem}
@@ -158,6 +169,7 @@ input.error{border-color:var(--red)}
 }
 .signout-btn:hover{background:var(--red);color:white}
 
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
 .stat-mini{
   background:var(--g1);border-radius:16px;padding:1.25rem 1rem;
@@ -170,6 +182,7 @@ input.error{border-color:var(--red)}
 .stat-mini-num{font-size:2rem;font-weight:900;color:var(--gold2);display:block}
 .stat-mini-lbl{font-size:.78rem;color:rgba(255,255,255,.6);margin-top:.2rem}
 
+/* TOOLBAR */
 .toolbar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .search-box{
   flex:1;min-width:160px;padding:9px 14px;border:2px solid var(--cream2);
@@ -187,6 +200,7 @@ input.error{border-color:var(--red)}
 .btn-danger{background:#ffeaea;color:var(--red);border:1px solid #ffc0b8}
 .btn-danger:hover{background:var(--red);color:white}
 
+/* TABLE */
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;background:white;font-size:.88rem}
 thead tr{background:var(--g1);color:white}
@@ -201,6 +215,30 @@ tr:hover td{background:var(--cream)}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--grey)}
 .empty-icon{font-size:2.5rem;display:block;margin-bottom:.5rem}
 
+/* SETUP GUIDE */
+.setup-guide{max-width:680px;margin:0 auto;padding:0 1.5rem 5rem;display:none}
+.setup-head{text-align:center;margin-bottom:2rem}
+.setup-step{
+  background:var(--white);border-radius:20px;padding:1.5rem;margin-bottom:1rem;
+  box-shadow:var(--shadow);border-right:4px solid var(--g3);
+}
+.step-title{font-size:1rem;font-weight:800;color:var(--g1);display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+.step-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;background:var(--g2);color:white;
+  font-size:.85rem;font-weight:800;flex-shrink:0;
+}
+.step-body{font-size:.9rem;color:var(--grey);line-height:1.9}
+.step-body strong{color:var(--g1)}
+.step-body a{color:var(--g2);font-weight:700}
+code{background:var(--cream2);padding:2px 8px;border-radius:6px;font-size:.82rem;color:var(--g1);font-family:monospace}
+.rules-box{
+  background:#0d1b0e;color:#7ec89e;font-family:monospace;font-size:.77rem;
+  padding:1.1rem;border-radius:12px;margin-top:.9rem;line-height:1.9;
+  overflow-x:auto;white-space:pre;
+}
+
+/* TOAST */
 #toast{
   position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
   background:var(--g1);color:white;padding:12px 24px;border-radius:30px;
@@ -224,6 +262,13 @@ tr:hover td{background:var(--cream)}
 </head>
 <body>
 
+<!-- CONFIG BANNER -->
+<div id="configBanner">
+  ⚙️ لم يتم ربط قاعدة البيانات بعد —
+  <a id="showSetupLink">اتبع خطوات الإعداد أدناه</a>
+</div>
+
+<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-text">معسكر المعيصم (١)<span>الهيئة العامة للرياضة – حج ١٤٤٧هـ</span></div>
@@ -231,33 +276,39 @@ tr:hover td{background:var(--cream)}
   <a href="index.html" class="nav-back">&#8592; الرئيسية</a>
 </nav>
 
+<!-- HERO -->
 <div class="page-hero">
   <div class="page-badge">&#128205; تسجيل الحضور</div>
   <h1 class="page-title">نظام <span class="gold">تحضير</span> المشاركين</h1>
   <p class="page-subtitle">سجّل حضورك بالاسم ورقم الهوية مع تحديد موقعك الجغرافي</p>
 </div>
 
+<!-- MAIN WRAP -->
 <div class="main-wrap" id="mainWrap">
   <div class="tabs">
     <button class="tab-btn active" id="tabRegBtn">&#9997; تسجيل الحضور</button>
     <button class="tab-btn" id="tabAdminBtn">
-      <span class="live-dot" id="liveDot"></span>&#128203; لوحة المشرف
+      <span class="live-dot" id="liveDot" style="display:none"></span>&#128203; لوحة المشرف
     </button>
   </div>
 
+  <!-- ══ REGISTER TAB ══ -->
   <div id="tabReg">
     <div class="card" id="formCard">
       <div class="card-title">&#9997;&#65039; بيانات المشارك</div>
+
       <div class="form-group">
         <label>الاسم الكامل <span class="req">*</span></label>
         <input type="text" id="fullName" placeholder="أدخل اسمك الكامل" autocomplete="name">
         <p class="hint">الاسم الرباعي كما هو في الهوية الوطنية</p>
       </div>
+
       <div class="form-group">
         <label>رقم الهوية الوطنية <span class="req">*</span></label>
         <input type="text" id="idNumber" placeholder="مثال: 1XXXXXXXXX" maxlength="10" inputmode="numeric">
         <p class="hint">10 أرقام تبدأ بـ 1 (مواطن) أو 2 (مقيم)</p>
       </div>
+
       <div class="form-group">
         <label>الموقع الجغرافي <span class="req">*</span></label>
         <div class="loc-box" id="locBox">
@@ -270,8 +321,10 @@ tr:hover td{background:var(--cream)}
         </div>
         <p class="hint">اضغط الزر للسماح بالوصول إلى موقعك الجغرافي</p>
       </div>
+
       <button class="submit-btn" id="submitBtn">&#10003; تسجيل الحضور</button>
     </div>
+
     <div class="success-card" id="successCard">
       <span class="success-icon">&#127881;</span>
       <div class="success-title">تم تسجيل حضورك بنجاح!</div>
@@ -281,7 +334,10 @@ tr:hover td{background:var(--cream)}
     </div>
   </div>
 
+  <!-- ══ ADMIN TAB ══ -->
   <div id="tabAdmin" style="display:none">
+
+    <!-- LOGIN FORM -->
     <div class="card" id="adminLock">
       <div class="admin-lock">
         <span class="lock-icon">&#128274;</span>
@@ -297,8 +353,11 @@ tr:hover td{background:var(--cream)}
         <p id="loginErr" style="margin-top:.8rem;color:var(--red);font-size:.85rem;min-height:1.2rem"></p>
       </div>
     </div>
+
+    <!-- ADMIN PANEL (shown after auth) -->
     <div id="adminPanel" class="admin-sec">
       <div class="stats-row" id="statsRow"></div>
+
       <div class="card" style="padding:1.25rem">
         <div class="toolbar">
           <input type="text" class="search-box" id="searchBox" placeholder="&#128269; بحث بالاسم أو الهوية...">
@@ -307,10 +366,13 @@ tr:hover td{background:var(--cream)}
           <button class="signout-btn" id="signoutBtn">&#128682; خروج</button>
         </div>
       </div>
+
       <div class="card" style="padding:0;overflow:hidden">
         <div class="table-wrap">
           <table>
-            <thead><tr><th>#</th><th>الاسم الكامل</th><th>رقم الهوية</th><th>الوقت</th><th>الموقع</th><th></th></tr></thead>
+            <thead>
+              <tr><th>#</th><th>الاسم الكامل</th><th>رقم الهوية</th><th>الوقت</th><th>الموقع</th><th></th></tr>
+            </thead>
             <tbody id="tableBody"></tbody>
           </table>
         </div>
@@ -319,9 +381,84 @@ tr:hover td{background:var(--cream)}
   </div>
 </div>
 
+<!-- SETUP GUIDE -->
+<div class="setup-guide" id="setupGuide">
+  <div class="setup-head">
+    <div style="font-size:2rem;margin-bottom:.4rem">&#9881;&#65039;</div>
+    <div style="font-size:1.3rem;font-weight:900;color:var(--g1)">خطوات ربط قاعدة البيانات</div>
+    <div style="font-size:.88rem;color:var(--grey);margin-top:.4rem">مجانية — تكفي لآلاف السجلات — آمنة بالكامل</div>
+  </div>
+
+  <div class="setup-step">
+    <div class="step-title"><span class="step-num">١</span> أنشئ مشروعاً في Firebase</div>
+    <div class="step-body">
+      افتح <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>
+      ← <strong>Add project</strong> ← اختر اسماً مثل <code>hajj-maisam-1447</code> ← أكمل الإعداد.
+    </div>
+  </div>
+
+  <div class="setup-step">
+    <div class="step-title"><span class="step-num">٢</span> فعّل Firestore Database</div>
+    <div class="step-body">
+      من القائمة الجانبية ← <strong>Firestore Database</strong> ← <strong>Create database</strong>
+      ← <strong>Start in production mode</strong> ← اختر region قريبة ← <strong>Enable</strong>.
+    </div>
+  </div>
+
+  <div class="setup-step">
+    <div class="step-title"><span class="step-num">٣</span> فعّل المصادقة Authentication</div>
+    <div class="step-body">
+      من القائمة ← <strong>Authentication</strong> ← <strong>Get started</strong>
+      ← اختر <strong>Email/Password</strong> ← فعّله ← <strong>Save</strong>.<br><br>
+      ثم من تبويب <strong>Users</strong> ← <strong>Add user</strong> ← أدخل إيميلك وكلمة مرور قوية.
+      هذا هو حساب المشرف الوحيد الذي يقدر يفتح لوحة البيانات.
+    </div>
+  </div>
+
+  <div class="setup-step">
+    <div class="step-title"><span class="step-num">٤</span> اضبط قواعد الأمان</div>
+    <div class="step-body">
+      من Firestore ← <strong>Rules</strong> ← استبدل النص الموجود بما يلي ← <strong>Publish</strong>:
+      <div class="rules-box">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /hajj_attendance_1447/{doc} {
+
+      // أي شخص يقدر يسجل حضوره — مع التحقق من صحة البيانات
+      allow create: if request.resource.data.keys()
+                         .hasAll(['name','id','time','date'])
+                      && request.resource.data.name is string
+                      && request.resource.data.name.size() >= 4
+                      && request.resource.data.id.matches('[12][0-9]{9}');
+
+      // القراءة والحذف للمشرف المسجّل دخوله فقط
+      allow read, delete: if request.auth != null;
+
+      // لا أحد يقدر يعدّل سجلاً بعد إنشائه
+      allow update: if false;
+    }
+  }
+}</div>
+    </div>
+  </div>
+
+  <div class="setup-step">
+    <div class="step-title"><span class="step-num">٥</span> احصل على إعدادات التطبيق والصقها في الملف</div>
+    <div class="step-body">
+      من Project Overview ← ⚙️ Project settings ← أسفل الصفحة اضغط <strong>&lt;/&gt; Web</strong>
+      ← اكتب اسماً ← <strong>Register app</strong>.<br><br>
+      انسخ كائن <code>firebaseConfig</code> الظاهر، افتح <code>attendance.html</code>
+      وابحث عن السطر <code>const firebaseConfig = {</code> والصق قيمك بدلاً من <code>PASTE_…</code>.
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <script type="module">
+// ── FIREBASE CONFIG ─────────────────────────────────────────────────────────
+// ضع هنا إعدادات مشروعك من Firebase Console  (الخطوة ٥ في الدليل أدناه)
 const firebaseConfig = {
   apiKey:            "AIzaSyA1SQpkID81eMOIhYBmYBVzATJ4ySqOaa8",
   authDomain:        "hajj-maisam.firebaseapp.com",
@@ -330,6 +467,7 @@ const firebaseConfig = {
   messagingSenderId: "621089100882",
   appId:             "1:621089100882:web:85dcdaca9d4bb049d57b8b",
 };
+// ────────────────────────────────────────────────────────────────────────────
 
 import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, query, orderBy, where }
@@ -337,14 +475,33 @@ import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, 
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
-const COL = 'hajj_attendance_1447';
+// ── Bootstrap ───────────────────────────────────────────────────────────────
+const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).startsWith('PASTE_'));
+const COL        = 'hajj_attendance_1447';
+
 let db, auth, locationData = null, unsubListener = null, allDocs = [];
 
-const app = initializeApp(firebaseConfig);
-db   = getFirestore(app);
-auth = getAuth(app);
-onAuthStateChanged(auth, user => { if (user) showAdminPanel(); });
+if (CONFIGURED) {
+  const app = initializeApp(firebaseConfig);
+  db   = getFirestore(app);
+  auth = getAuth(app);
+  document.getElementById('liveDot').style.display = 'inline-block';
 
+  // Restore session if admin already logged in
+  onAuthStateChanged(auth, user => {
+    if (user) showAdminPanel();
+  });
+} else {
+  document.getElementById('configBanner').style.display = 'block';
+  document.getElementById('setupGuide').style.display   = 'block';
+  document.getElementById('mainWrap').style.marginTop   = '40px';
+}
+
+document.getElementById('showSetupLink').addEventListener('click', () => {
+  document.getElementById('setupGuide').scrollIntoView({behavior:'smooth'});
+});
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
 function toast(msg, dur) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -360,6 +517,7 @@ function fmtDate(iso) {
        + ' – ' + d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
 }
 
+// ── Tabs ────────────────────────────────────────────────────────────────────
 document.getElementById('tabRegBtn').addEventListener('click', () => {
   document.getElementById('tabReg').style.display   = '';
   document.getElementById('tabAdmin').style.display = 'none';
@@ -373,66 +531,91 @@ document.getElementById('tabAdminBtn').addEventListener('click', () => {
   document.getElementById('tabAdminBtn').classList.add('active');
 });
 
+// ── Geolocation ─────────────────────────────────────────────────────────────
 document.getElementById('locBtn').addEventListener('click', () => {
-  const btn=document.getElementById('locBtn'),box=document.getElementById('locBox'),
-        stat=document.getElementById('locStatus'),crds=document.getElementById('locCoords');
-  if (!navigator.geolocation){box.className='loc-box err';stat.textContent='المتصفح لا يدعم الموقع';return;}
-  btn.disabled=true;btn.textContent='جارٍ التحديد...';
-  stat.textContent='يتم الحصول على الإذن...';
+  const btn  = document.getElementById('locBtn');
+  const box  = document.getElementById('locBox');
+  const stat = document.getElementById('locStatus');
+  const crds = document.getElementById('locCoords');
+  if (!navigator.geolocation) { box.className='loc-box err'; stat.textContent='المتصفح لا يدعم الموقع'; return; }
+  btn.disabled = true; btn.textContent = 'جارٍ التحديد...';
+  stat.textContent = 'يتم الحصول على الإذن...';
   navigator.geolocation.getCurrentPosition(
     pos => {
-      locationData={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6),accuracy:Math.round(pos.coords.accuracy)};
-      box.className='loc-box got';
-      stat.textContent='تم تحديد موقعك بنجاح ✓';
-      crds.textContent='خط العرض: '+locationData.lat+' | خط الطول: '+locationData.lng+' | الدقة: ±'+locationData.accuracy+'م';
-      btn.textContent='تحديث';btn.disabled=false;
+      locationData = { lat:pos.coords.latitude.toFixed(6), lng:pos.coords.longitude.toFixed(6), accuracy:Math.round(pos.coords.accuracy) };
+      box.className = 'loc-box got';
+      stat.textContent = 'تم تحديد موقعك بنجاح ✓';
+      crds.textContent = 'خط العرض: '+locationData.lat+' | خط الطول: '+locationData.lng+' | الدقة: ±'+locationData.accuracy+'م';
+      btn.textContent = 'تحديث'; btn.disabled = false;
     },
     err => {
-      box.className='loc-box err';
-      const m={1:'رفضت الإذن — اسمح من إعدادات المتصفح',2:'تعذّر تحديد الموقع',3:'انتهت المهلة'};
-      stat.textContent=m[err.code]||'خطأ غير معروف';
-      btn.textContent='إعادة المحاولة';btn.disabled=false;
+      box.className = 'loc-box err';
+      const m = {1:'رفضت الإذن — اسمح من إعدادات المتصفح',2:'تعذّر الحصول على الموقع',3:'انتهت المهلة'};
+      stat.textContent = m[err.code] || 'خطأ غير معروف';
+      btn.textContent = 'إعادة المحاولة'; btn.disabled = false;
     },
     {enableHighAccuracy:true,timeout:15000,maximumAge:0}
   );
 });
 
+// ── Register ────────────────────────────────────────────────────────────────
 document.getElementById('submitBtn').addEventListener('click', submitAttendance);
 document.addEventListener('keydown', e => {
-  if (e.key==='Enter'&&document.getElementById('tabReg').style.display!=='none') submitAttendance();
+  if (e.key==='Enter' && document.getElementById('tabReg').style.display!=='none') submitAttendance();
 });
 
 async function submitAttendance() {
-  const nameEl=document.getElementById('fullName'),idEl=document.getElementById('idNumber');
-  nameEl.classList.remove('error');idEl.classList.remove('error');
-  const name=nameEl.value.trim(),id=idEl.value.trim();
+  if (!CONFIGURED) { toast('⚙️ أعدّ قاعدة البيانات أولاً'); return; }
+  const nameEl=document.getElementById('fullName'), idEl=document.getElementById('idNumber');
+  nameEl.classList.remove('error'); idEl.classList.remove('error');
+  const name=nameEl.value.trim(), id=idEl.value.trim();
   let ok=true;
-  if(!name||name.length<4){nameEl.classList.add('error');toast('يرجى إدخال الاسم الكامل (٤ أحرف على الأقل)');ok=false;}
-  if(!id||!/^\d{10}$/.test(id)){idEl.classList.add('error');toast('رقم الهوية يجب أن يكون 10 أرقام');ok=false;}
-  if(!locationData){toast('يرجى تحديد موقعك الجغرافي أولاً');ok=false;}
-  if(!ok)return;
+  if (!name||name.length<4) { nameEl.classList.add('error'); toast('يرجى إدخال الاسم الكامل (٤ أحرف على الأقل)'); ok=false; }
+  if (!id||!/^\d{10}$/.test(id)) { idEl.classList.add('error'); toast('رقم الهوية يجب أن يكون 10 أرقام'); ok=false; }
+  if (!locationData) { toast('يرجى تحديد موقعك الجغرافي أولاً'); ok=false; }
+  if (!ok) return;
+
   const btn=document.getElementById('submitBtn');
-  btn.disabled=true;btn.textContent='جارٍ الحفظ...';
-  try{
-    const today=new Date().toISOString().slice(0,10);
-    const dup=await getDocs(query(collection(db,COL),where('id','==',id),where('date','==',today)));
-    if(!dup.empty){toast('تم تسجيل هذه الهوية مسبقاً اليوم');btn.disabled=false;btn.textContent='✓ تسجيل الحضور';return;}
-    const rec={name,id,date:today,time:new Date().toISOString(),lat:locationData.lat,lng:locationData.lng,accuracy:locationData.accuracy};
-    await addDoc(collection(db,COL),rec);
+  btn.disabled=true; btn.textContent='جارٍ الحفظ...';
+
+  try {
+    const today = new Date().toISOString().slice(0,10);
+
+    // Duplicate check — wrapped separately so a missing index or permission error
+    // doesn't block registration entirely (timeout after 4 s)
+    try {
+      const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4000));
+      const dup = await Promise.race([
+        getDocs(query(collection(db,COL), where('id','==',id), where('date','==',today))),
+        timeout
+      ]);
+      if (!dup.empty) {
+        toast('تم تسجيل هذه الهوية مسبقاً اليوم');
+        btn.disabled=false; btn.textContent='✓ تسجيل الحضور';
+        return;
+      }
+    } catch(_) { /* proceed even if duplicate check fails */ }
+
+    const rec = { name, id, date:today, time:new Date().toISOString(), lat:locationData.lat, lng:locationData.lng, accuracy:locationData.accuracy };
+    await addDoc(collection(db,COL), rec);
+
     document.getElementById('formCard').style.display='none';
     document.getElementById('successCard').classList.add('show');
-    const si=document.getElementById('successInfo');si.textContent='';
+    const si=document.getElementById('successInfo'); si.textContent='';
     [['الاسم',name],['رقم الهوية',id],['الوقت',fmtDate(rec.time)],['الإحداثيات',rec.lat+', '+rec.lng]].forEach(([lbl,val])=>{
-      const row=document.createElement('div');row.className='s-row';
-      const l=document.createElement('span');l.className='s-lbl';l.textContent=lbl;
-      const v=document.createElement('span');v.className='s-val';
+      const row=document.createElement('div'); row.className='s-row';
+      const l=document.createElement('span'); l.className='s-lbl'; l.textContent=lbl;
+      const v=document.createElement('span'); v.className='s-val';
       if(lbl==='الإحداثيات'){v.style.direction='ltr';v.style.fontSize='.8rem';}
-      v.textContent=val;row.appendChild(l);row.appendChild(v);si.appendChild(row);
+      v.textContent=val; row.appendChild(l); row.appendChild(v); si.appendChild(row);
     });
-  }catch(e){toast('خطأ: '+e.message);btn.disabled=false;btn.textContent='✓ تسجيل الحضور';}
+  } catch(e) {
+    toast('خطأ في الحفظ: '+e.message);
+    btn.disabled=false; btn.textContent='✓ تسجيل الحضور';
+  }
 }
 
-document.getElementById('newRegBtn').addEventListener('click',()=>{
+document.getElementById('newRegBtn').addEventListener('click', () => {
   document.getElementById('formCard').style.display='';
   document.getElementById('successCard').classList.remove('show');
   ['fullName','idNumber'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('error');});
@@ -440,45 +623,52 @@ document.getElementById('newRegBtn').addEventListener('click',()=>{
   document.getElementById('locBox').className='loc-box';
   document.getElementById('locStatus').textContent='لم يتم تحديد الموقع بعد';
   document.getElementById('locCoords').textContent='';
-  document.getElementById('locBtn').textContent='تحديد موقعي';document.getElementById('locBtn').disabled=false;
-  document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='✓ تسجيل الحضور';
+  document.getElementById('locBtn').textContent='تحديد موقعي'; document.getElementById('locBtn').disabled=false;
+  document.getElementById('submitBtn').disabled=false; document.getElementById('submitBtn').textContent='✓ تسجيل الحضور';
 });
 
-document.getElementById('loginBtn').addEventListener('click',tryLogin);
-document.getElementById('adminPass').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+// ── Admin Login ──────────────────────────────────────────────────────────────
+document.getElementById('loginBtn').addEventListener('click', tryLogin);
+document.getElementById('adminPass').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
 
-let _lockUntil=0,_fails=0;
-async function tryLogin(){
-  if(Date.now()<_lockUntil){toast('🔒 محظور — انتظر '+Math.ceil((_lockUntil-Date.now())/1000)+' ثانية');return;}
+let _lockUntil=0, _fails=0;
+async function tryLogin() {
+  if (Date.now()<_lockUntil) { toast('🔒 محظور — انتظر '+Math.ceil((_lockUntil-Date.now())/1000)+' ثانية'); return; }
+  if (!CONFIGURED) { toast('⚙️ أعدّ قاعدة البيانات أولاً'); return; }
+
   const email=document.getElementById('adminEmail').value.trim();
-  const pass=document.getElementById('adminPass').value;
-  const btn=document.getElementById('loginBtn'),err=document.getElementById('loginErr');
-  err.textContent='';btn.disabled=true;btn.textContent='جارٍ التحقق...';
-  try{
-    await signInWithEmailAndPassword(auth,email,pass);
+  const pass =document.getElementById('adminPass').value;
+  const btn  =document.getElementById('loginBtn');
+  const err  =document.getElementById('loginErr');
+  err.textContent=''; btn.disabled=true; btn.textContent='جارٍ التحقق...';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
     _fails=0;
     showAdminPanel();
-  }catch(e){
+  } catch(e) {
     _fails++;
-    if(_fails>=5){_lockUntil=Date.now()+60000;_fails=0;}
-    const msg=e.code==='auth/invalid-credential'||e.code==='auth/wrong-password'||e.code==='auth/user-not-found'
-      ?'البريد الإلكتروني أو كلمة المرور غير صحيحة'
-      :e.code==='auth/too-many-requests'?'محاولات كثيرة — حاول لاحقاً':e.message;
-    err.textContent=msg+(_fails>=3?' ('+(5-_fails)+' محاولات متبقية)':'');
-    btn.disabled=false;btn.textContent='🔓 تسجيل الدخول';
+    if (_fails>=5) { _lockUntil=Date.now()+60000; _fails=0; }
+    const arabicErr = e.code==='auth/invalid-credential'||e.code==='auth/wrong-password'||e.code==='auth/user-not-found'
+      ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
+      : e.code==='auth/too-many-requests'
+      ? 'محاولات كثيرة — حاول لاحقاً'
+      : e.message;
+    err.textContent = arabicErr + (_fails>=3 ? ' ('+(5-_fails)+' محاولات متبقية)':'');
+    btn.disabled=false; btn.textContent='🔓 تسجيل الدخول';
   }
 }
 
-function showAdminPanel(){
+function showAdminPanel() {
   document.getElementById('adminLock').style.display='none';
   document.getElementById('adminPanel').classList.add('show');
-  document.getElementById('loginBtn').disabled=false;
-  document.getElementById('loginBtn').textContent='🔓 تسجيل الدخول';
+  document.getElementById('loginBtn').disabled=false; document.getElementById('loginBtn').textContent='🔓 تسجيل الدخول';
   startRealtimeListener();
 }
 
-document.getElementById('signoutBtn').addEventListener('click',async()=>{
-  if(unsubListener){unsubListener();unsubListener=null;}
+// ── Sign out ─────────────────────────────────────────────────────────────────
+document.getElementById('signoutBtn').addEventListener('click', async () => {
+  if (unsubListener) { unsubListener(); unsubListener=null; }
   await signOut(auth);
   document.getElementById('adminLock').style.display='';
   document.getElementById('adminPanel').classList.remove('show');
@@ -488,16 +678,18 @@ document.getElementById('signoutBtn').addEventListener('click',async()=>{
   allDocs=[];
 });
 
-function startRealtimeListener(){
-  if(unsubListener)unsubListener();
-  const q=query(collection(db,COL),orderBy('time','desc'));
-  unsubListener=onSnapshot(q,snap=>{
-    allDocs=snap.docs.map(d=>({docId:d.id,...d.data()}));
-    renderTable();renderStats();
-  },e=>toast('خطأ: '+e.message));
+// ── Real-time listener ───────────────────────────────────────────────────────
+function startRealtimeListener() {
+  if (unsubListener) unsubListener();
+  const q = query(collection(db,COL), orderBy('time','desc'));
+  unsubListener = onSnapshot(q, snap => {
+    allDocs = snap.docs.map(d=>({docId:d.id,...d.data()}));
+    renderTable(); renderStats();
+  }, e => toast('خطأ: '+e.message));
 }
 
-function renderStats(){
+// ── Stats ────────────────────────────────────────────────────────────────────
+function renderStats() {
   const today=new Date().toISOString().slice(0,10);
   document.getElementById('statsRow').innerHTML=
     '<div class="stat-mini"><span class="stat-mini-num">'+allDocs.length+'</span><div class="stat-mini-lbl">إجمالي الحضور</div></div>'+
@@ -505,11 +697,12 @@ function renderStats(){
     '<div class="stat-mini"><span class="stat-mini-num">'+allDocs.filter(r=>r.lat).length+'</span><div class="stat-mini-lbl">بموقع جغرافي</div></div>';
 }
 
-function renderTable(){
+// ── Table ────────────────────────────────────────────────────────────────────
+function renderTable() {
   const q=(document.getElementById('searchBox').value||'').trim().toLowerCase();
-  const rows=q?allDocs.filter(r=>r.name.toLowerCase().includes(q)||r.id.includes(q)):allDocs;
+  let rows=q ? allDocs.filter(r=>r.name.toLowerCase().includes(q)||r.id.includes(q)) : allDocs;
   const tbody=document.getElementById('tableBody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><span class="empty-icon">📋</span>لا توجد سجلات</div></td></tr>';return;}
+  if (!rows.length) { tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><span class="empty-icon">📋</span>لا توجد سجلات</div></td></tr>'; return; }
   tbody.innerHTML=rows.map((r,i)=>
     '<tr>'+
     '<td><small style="color:var(--grey)">'+(i+1)+'</small></td>'+
@@ -522,24 +715,26 @@ function renderTable(){
   ).join('');
   tbody.querySelectorAll('.del-row').forEach(b=>b.addEventListener('click',()=>deleteRecord(b.dataset.id)));
 }
-document.getElementById('searchBox').addEventListener('input',renderTable);
+document.getElementById('searchBox').addEventListener('input', renderTable);
 
-async function deleteRecord(id){
-  if(!confirm('هل تريد حذف هذا السجل؟'))return;
-  try{await deleteDoc(doc(db,COL,id));toast('تم الحذف');}
-  catch(e){toast('خطأ: '+e.message);}
+// ── Delete ───────────────────────────────────────────────────────────────────
+async function deleteRecord(id) {
+  if (!confirm('هل تريد حذف هذا السجل؟')) return;
+  try { await deleteDoc(doc(db,COL,id)); toast('تم الحذف'); }
+  catch(e) { toast('خطأ: '+e.message); }
 }
-document.getElementById('clearBtn').addEventListener('click',async()=>{
-  if(!confirm('مسح جميع السجلات؟ لا يمكن التراجع.'))return;
-  try{
+document.getElementById('clearBtn').addEventListener('click', async () => {
+  if (!confirm('مسح جميع السجلات؟ لا يمكن التراجع.')) return;
+  try {
     const snap=await getDocs(collection(db,COL));
     await Promise.all(snap.docs.map(d=>deleteDoc(d.ref)));
     toast('تم مسح جميع السجلات');
-  }catch(e){toast('خطأ: '+e.message);}
+  } catch(e) { toast('خطأ: '+e.message); }
 });
 
-document.getElementById('exportBtn').addEventListener('click',()=>{
-  if(!allDocs.length){toast('لا توجد بيانات للتصدير');return;}
+// ── Export CSV ───────────────────────────────────────────────────────────────
+document.getElementById('exportBtn').addEventListener('click', () => {
+  if (!allDocs.length) { toast('لا توجد بيانات للتصدير'); return; }
   const BOM='﻿';
   const hdr=['#','الاسم الكامل','رقم الهوية','التاريخ والوقت','خط العرض','خط الطول','الدقة (م)','رابط الخريطة'];
   const rows=allDocs.map((r,i)=>[
@@ -551,7 +746,7 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
   a.download='حضور_معسكر_المعيصم_'+new Date().toISOString().slice(0,10)+'.csv';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   toast('تم تصدير الملف');
 });
 </script>
