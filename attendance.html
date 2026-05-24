@@ -9,27 +9,22 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Tajawal',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh}
 
-/* NAV */
 nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid #c9a227}
 .nav-title{font-size:1rem;font-weight:700}
 .nav-sub{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:2px}
 .nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:20px}
 
-/* STATUS */
-#fbStatus{text-align:center;padding:8px;font-size:.85rem;background:#fff8e1;border-bottom:1px solid #ffe082;color:#f57f17}
-#fbStatus.ok{background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32}
-#fbStatus.err{background:#ffebee;border-color:#ef9a9a;color:#c62828}
+#fbStatus{text-align:center;padding:8px;font-size:.85rem;background:#e8f5e9;border-bottom:1px solid #a5d6a7;color:#2e7d32}
+#fbStatus.warn{background:#fff8e1;border-bottom-color:#ffe082;color:#f57f17}
+#fbStatus.err{background:#ffebee;border-bottom-color:#ef9a9a;color:#c62828}
 
-/* TABS */
 .tabs{display:flex;gap:8px;padding:16px 16px 0;max-width:600px;margin:0 auto}
 .tab-btn{flex:1;padding:10px;border:none;border-radius:10px 10px 0 0;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;font-weight:700;background:#ddd;color:#555;transition:.2s}
 .tab-btn.active{background:#0a2e18;color:#c9a227}
 
-/* CARD */
 .card{background:#fff;border-radius:0 0 16px 16px;padding:24px;max-width:600px;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,.08)}
 .section-title{font-size:1.05rem;font-weight:800;color:#0a2e18;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
 
-/* FORM */
 .field{margin-bottom:16px}
 .field label{display:block;font-size:.88rem;font-weight:700;color:#333;margin-bottom:6px}
 .field label .req{color:#e53935;margin-right:3px}
@@ -38,7 +33,6 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .field input.err-input{border-color:#e53935}
 .hint{font-size:.76rem;color:#888;margin-top:4px}
 
-/* GPS BOX */
 .gps-box{border:2px solid #e0e0e0;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;transition:.2s}
 .gps-box.ok{border-color:#2e7d32;background:#f1f8f1}
 .gps-box.err{border-color:#e53935;background:#fff5f5}
@@ -47,12 +41,10 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .gps-btn{padding:8px 14px;border-radius:8px;border:none;background:#1a6b3c;color:#fff;font-family:'Tajawal',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;flex-shrink:0;transition:.2s}
 .gps-btn:disabled{background:#aaa;cursor:not-allowed}
 
-/* SUBMIT */
 .submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#1a6b3c,#2e8b57);color:#fff;font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;transition:.2s;margin-top:8px}
 .submit-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,107,60,.35)}
 .submit-btn:disabled{background:#aaa;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* SUCCESS */
 .success{text-align:center;padding:30px 20px}
 .success-icon{font-size:3.5rem;margin-bottom:12px;display:block}
 .success-title{font-size:1.4rem;font-weight:900;color:#1a6b3c;margin-bottom:8px}
@@ -64,7 +56,6 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .s-val{font-weight:700;color:#1a6b3c}
 .new-btn{background:#c9a227;color:#0a2e18;font-weight:800;padding:10px 28px;border-radius:30px;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.95rem}
 
-/* ADMIN - LOGIN */
 .admin-login{text-align:center;padding:20px}
 .lock-icon{font-size:2.5rem;margin-bottom:10px;display:block}
 .login-title{font-size:1rem;font-weight:800;color:#0a2e18;margin-bottom:4px}
@@ -72,8 +63,7 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .login-err{color:#e53935;font-size:.85rem;margin-top:8px;min-height:20px}
 .login-btn{width:100%;max-width:260px;padding:12px;border:none;border-radius:12px;background:#0a2e18;color:#c9a227;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:800;cursor:pointer}
 
-/* ADMIN - PANEL */
-.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:gap}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .stat-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .stat{background:#0a2e18;color:#fff;border-radius:12px;padding:12px 16px;flex:1;min-width:80px;text-align:center}
 .stat-num{font-size:1.6rem;font-weight:900;color:#c9a227;display:block}
@@ -86,7 +76,6 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .btn-del{background:#ffebee;color:#c62828;border:1px solid #ffcdd2}
 .btn-out{background:#f5f5f5;color:#555;border:1px solid #ddd}
 
-/* TABLE */
 .tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid #f0f0f0}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
 thead tr{background:#0a2e18;color:#fff}
@@ -99,7 +88,6 @@ tr:hover td{background:#fafafa}
 .map-link{color:#1a6b3c;text-decoration:none;font-size:.78rem}
 .empty{text-align:center;padding:30px;color:#aaa}
 
-/* TOAST */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0a2e18;color:#fff;padding:11px 22px;border-radius:30px;font-size:.88rem;font-weight:600;z-index:999;transition:.3s cubic-bezier(.34,1.56,.64,1);border:1px solid #c9a227;white-space:nowrap;pointer-events:none}
 #toast.show{transform:translateX(-50%) translateY(0)}
 </style>
@@ -114,7 +102,7 @@ tr:hover td{background:#fafafa}
   <a href="index.html" class="nav-back">← الرئيسية</a>
 </nav>
 
-<div id="fbStatus">⏳ جارٍ الاتصال بقاعدة البيانات...</div>
+<div id="fbStatus">🟢 جاهز للتسجيل</div>
 
 <div class="tabs">
   <button class="tab-btn active" id="tabRegBtn">✏️ تسجيل الحضور</button>
@@ -202,27 +190,30 @@ tr:hover td{background:#fafafa}
 <div id="toast"></div>
 
 <script type="module">
-import { initializeApp }     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot }
-                              from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getFirestore, collection, deleteDoc, doc, onSnapshot }
+  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
-                              from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 // ─── CONFIG ────────────────────────────────────────────────────────────────
-const firebaseConfig = {
-  apiKey:            "AIzaSyA1SQpkID81eMOIhYBmYBVzATJ4ySqOaa8",
-  authDomain:        "hajj-maisam.firebaseapp.com",
-  projectId:         "hajj-maisam",
-  storageBucket:     "hajj-maisam.firebasestorage.app",
-  messagingSenderId: "621089100882",
-  appId:             "1:621089100882:web:85dcdaca9d4bb049d57b8b",
-};
-const COL = 'hajj_attendance_1447';
+const PROJECT = 'hajj-maisam';
+const API_KEY = 'AIzaSyA1SQpkID81eMOIhYBmYBVzATJ4ySqOaa8';
+const COL     = 'hajj_attendance_1447';
 
-// ─── INIT ───────────────────────────────────────────────────────────────────
-const app  = initializeApp(firebaseConfig);
-const db   = getFirestore(app);
-const auth = getAuth(app);
+const firebaseConfig = {
+  apiKey:            API_KEY,
+  authDomain:        'hajj-maisam.firebaseapp.com',
+  projectId:         PROJECT,
+  storageBucket:     'hajj-maisam.firebasestorage.app',
+  messagingSenderId: '621089100882',
+  appId:             '1:621089100882:web:85dcdaca9d4bb049d57b8b',
+};
+
+// ─── INIT (db only — auth initialized lazily when admin tab opens) ─────────
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+let auth  = null;
 
 let locationData = null;
 let allDocs      = [];
@@ -233,33 +224,17 @@ function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 3000);
+  t._t = setTimeout(() => t.classList.remove('show'), 3500);
 }
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 function fmt(iso) {
-  return new Date(iso).toLocaleString('ar-SA', {weekday:'short',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  return new Date(iso).toLocaleString('ar-SA', {
+    weekday:'short', year:'numeric', month:'short',
+    day:'numeric', hour:'2-digit', minute:'2-digit'
+  });
 }
-function setStatus(msg, type) {
-  const el = document.getElementById('fbStatus');
-  el.textContent = msg;
-  el.className = type || '';
-}
-
-// ─── STATUS ──────────────────────────────────────────────────────────────────
-setStatus('🟢 متصل بقاعدة البيانات', 'ok');
-
-// ─── AUTH STATE ──────────────────────────────────────────────────────────────
-onAuthStateChanged(auth, user => {
-  const isAdmin = user && user.email;
-  document.getElementById('adminLoginCard').style.display  = isAdmin ? 'none' : 'block';
-  document.getElementById('adminPanelCard').style.display  = isAdmin ? 'block' : 'none';
-  if (isAdmin) {
-    startListener();
-  } else {
-    if (unsub) { unsub(); unsub = null; }
-    allDocs = [];
-  }
-});
 
 // ─── TABS ────────────────────────────────────────────────────────────────────
 document.getElementById('tabRegBtn').addEventListener('click', () => {
@@ -273,6 +248,7 @@ document.getElementById('tabAdminBtn').addEventListener('click', () => {
   document.getElementById('tabAdmin').style.display = 'block';
   document.getElementById('tabRegBtn').classList.remove('active');
   document.getElementById('tabAdminBtn').classList.add('active');
+  initAdmin();
 });
 
 // ─── GPS ─────────────────────────────────────────────────────────────────────
@@ -280,12 +256,19 @@ document.getElementById('gpsBtn').addEventListener('click', () => {
   const btn  = document.getElementById('gpsBtn');
   const box  = document.getElementById('gpsBox');
   const text = document.getElementById('gpsText');
-  if (!navigator.geolocation) { text.textContent = 'المتصفح لا يدعم GPS'; box.className='gps-box err'; return; }
+  if (!navigator.geolocation) {
+    text.textContent = 'المتصفح لا يدعم GPS';
+    box.className = 'gps-box err'; return;
+  }
   btn.disabled = true; btn.textContent = 'جارٍ...';
   text.textContent = 'يتم الحصول على الموقع...';
   navigator.geolocation.getCurrentPosition(
     p => {
-      locationData = { lat: p.coords.latitude.toFixed(6), lng: p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy) };
+      locationData = {
+        lat: p.coords.latitude.toFixed(6),
+        lng: p.coords.longitude.toFixed(6),
+        acc: Math.round(p.coords.accuracy),
+      };
       box.className = 'gps-box ok';
       text.textContent = `✓ خط العرض: ${locationData.lat} | خط الطول: ${locationData.lng} | دقة: ±${locationData.acc}م`;
       btn.textContent = 'تحديث'; btn.disabled = false;
@@ -300,6 +283,41 @@ document.getElementById('gpsBtn').addEventListener('click', () => {
   );
 });
 
+// ─── SAVE via REST API (no Firebase Auth dependency) ─────────────────────────
+async function saveRecord(rec) {
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents/${COL}?key=${API_KEY}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: {
+          name:     { stringValue: rec.name },
+          id:       { stringValue: rec.id },
+          date:     { stringValue: rec.date },
+          time:     { stringValue: rec.time },
+          lat:      { stringValue: rec.lat },
+          lng:      { stringValue: rec.lng },
+          accuracy: { integerValue: String(rec.accuracy) },
+        }
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error?.message || `خطأ HTTP ${res.status}`);
+    }
+    return await res.json();
+  } catch(e) {
+    clearTimeout(timer);
+    if (e.name === 'AbortError') throw new Error('انتهت المهلة – تحقق من الإنترنت وأعد المحاولة');
+    throw e;
+  }
+}
+
 // ─── REGISTER ────────────────────────────────────────────────────────────────
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const nameEl = document.getElementById('fullName');
@@ -310,39 +328,40 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   nameEl.classList.remove('err-input');
   idEl.classList.remove('err-input');
 
-  if (!name || name.length < 4) { nameEl.classList.add('err-input'); toast('يرجى إدخال الاسم الكامل (٤ أحرف+)'); return; }
-  if (!id   || !/^\d{10}$/.test(id)) { idEl.classList.add('err-input'); toast('رقم الهوية يجب أن يكون ١٠ أرقام'); return; }
+  if (!name || name.length < 4) {
+    nameEl.classList.add('err-input'); toast('يرجى إدخال الاسم الكامل (٤ أحرف+)'); return;
+  }
+  if (!id || !/^\d{10}$/.test(id)) {
+    idEl.classList.add('err-input'); toast('رقم الهوية يجب أن يكون ١٠ أرقام'); return;
+  }
   if (!locationData) { toast('يرجى تحديد موقعك الجغرافي أولاً'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'جارٍ الحفظ...';
 
   try {
-    const rec = {
-      name,
-      id,
-      date:     new Date().toISOString().slice(0, 10),
-      time:     new Date().toISOString(),
-      lat:      locationData.lat,
-      lng:      locationData.lng,
+    const now = new Date();
+    await saveRecord({
+      name, id,
+      date: now.toISOString().slice(0, 10),
+      time: now.toISOString(),
+      lat:  locationData.lat,
+      lng:  locationData.lng,
       accuracy: locationData.acc,
-    };
-    await addDoc(collection(db, COL), rec);
+    });
 
-    // Success
     document.getElementById('formCard').style.display    = 'none';
     document.getElementById('successCard').style.display = 'block';
     const det = document.getElementById('successDetails');
     det.innerHTML = '';
-    [['الاسم', name], ['الهوية', id], ['الوقت', fmt(rec.time)], ['الإحداثيات', rec.lat + ', ' + rec.lng]].forEach(([l, v]) => {
-      const row = document.createElement('div');
-      row.className = 'success-row';
+    [['الاسم', name], ['الهوية', id], ['الوقت', fmt(now.toISOString())], ['الإحداثيات', locationData.lat + ', ' + locationData.lng]].forEach(([l, v]) => {
+      const row = document.createElement('div'); row.className = 'success-row';
       const lbl = document.createElement('span'); lbl.className = 's-lbl'; lbl.textContent = l;
       const val = document.createElement('span'); val.className = 's-val'; val.textContent = v;
       row.appendChild(lbl); row.appendChild(val); det.appendChild(row);
     });
-  } catch (e) {
-    toast('خطأ: ' + e.message);
+  } catch(e) {
+    toast('خطأ في الحفظ: ' + e.message);
     btn.disabled = false; btn.textContent = '✓ تسجيل الحضور';
   }
 });
@@ -363,7 +382,19 @@ document.getElementById('newRegBtn').addEventListener('click', () => {
   document.getElementById('submitBtn').textContent = '✓ تسجيل الحضور';
 });
 
-// ─── ADMIN LOGIN ──────────────────────────────────────────────────────────────
+// ─── ADMIN — lazy init ────────────────────────────────────────────────────────
+function initAdmin() {
+  if (auth) return;
+  auth = getAuth(app);
+  onAuthStateChanged(auth, user => {
+    const isAdmin = user && user.email;
+    document.getElementById('adminLoginCard').style.display  = isAdmin ? 'none'  : 'block';
+    document.getElementById('adminPanelCard').style.display  = isAdmin ? 'block' : 'none';
+    if (isAdmin) { startListener(); }
+    else { if (unsub) { unsub(); unsub = null; } allDocs = []; }
+  });
+}
+
 document.getElementById('loginBtn').addEventListener('click', tryLogin);
 document.getElementById('adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
@@ -389,8 +420,7 @@ function startListener() {
   unsub = onSnapshot(collection(db, COL), snap => {
     allDocs = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
     allDocs.sort((a, b) => new Date(b.time) - new Date(a.time));
-    renderStats();
-    renderTable();
+    renderStats(); renderTable();
   }, e => toast('خطأ قراءة: ' + e.message));
 }
 
@@ -406,9 +436,11 @@ function renderStats() {
 // ─── TABLE ────────────────────────────────────────────────────────────────────
 function renderTable() {
   const q    = (document.getElementById('searchBox').value || '').toLowerCase();
-  const rows = q ? allDocs.filter(r => r.name.toLowerCase().includes(q) || (r.id||'').includes(q)) : allDocs;
+  const rows = q ? allDocs.filter(r => (r.name||'').toLowerCase().includes(q) || (r.id||'').includes(q)) : allDocs;
   const body = document.getElementById('tblBody');
-  if (!rows.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty">📋 لا توجد سجلات</div></td></tr>'; return; }
+  if (!rows.length) {
+    body.innerHTML = '<tr><td colspan="6"><div class="empty">📋 لا توجد سجلات</div></td></tr>'; return;
+  }
   body.innerHTML = rows.map((r, i) =>
     `<tr>
       <td><small style="color:#aaa">${i+1}</small></td>
@@ -429,7 +461,7 @@ document.getElementById('searchBox').addEventListener('input', renderTable);
 async function deleteRec(id) {
   if (!confirm('حذف هذا السجل؟')) return;
   try { await deleteDoc(doc(db, COL, id)); toast('تم الحذف'); }
-  catch (e) { toast('خطأ: ' + e.message); }
+  catch(e) { toast('خطأ: ' + e.message); }
 }
 
 document.getElementById('clearBtn').addEventListener('click', async () => {
@@ -438,7 +470,7 @@ document.getElementById('clearBtn').addEventListener('click', async () => {
   try {
     await Promise.all(allDocs.map(r => deleteDoc(doc(db, COL, r._id))));
     toast('تم مسح جميع السجلات');
-  } catch (e) { toast('خطأ: ' + e.message); }
+  } catch(e) { toast('خطأ: ' + e.message); }
 });
 
 // ─── EXPORT CSV ───────────────────────────────────────────────────────────────
@@ -449,12 +481,9 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   const body = allDocs.map((r, i) => [
     i+1,
     `"${(r.name||'').replace(/"/g,'""')}"`,
-    r.id||'',
-    r.date||'',
+    r.id||'', r.date||'',
     `"${fmt(r.time)}"`,
-    r.lat||'',
-    r.lng||'',
-    r.accuracy||'',
+    r.lat||'', r.lng||'', r.accuracy||'',
     r.lat ? `"https://maps.google.com/?q=${r.lat},${r.lng}"` : '',
   ].join(','));
   const blob = new Blob([BOM + [head, ...body].join('\n')], { type: 'text/csv;charset=utf-8;' });
