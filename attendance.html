@@ -473,7 +473,7 @@ const firebaseConfig = {
 // ────────────────────────────────────────────────────────────────────────────
 
 import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { initializeFirestore, memoryLocalCache, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot }
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
@@ -486,8 +486,7 @@ let db, auth, locationData = null, unsubListener = null, allDocs = [];
 
 if (CONFIGURED) {
   const app = initializeApp(firebaseConfig);
-  // Memory cache = no offline persistence → writes go directly to server, fail fast if denied
-  db   = initializeFirestore(app, { localCache: memoryLocalCache() });
+  db   = getFirestore(app);
   auth = getAuth(app);
   document.getElementById('liveDot').style.display = 'inline-block';
 
