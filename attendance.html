@@ -191,7 +191,7 @@ tr:hover td{background:#fafafa}
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getFirestore, collection, deleteDoc, doc, onSnapshot }
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot }
   from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
@@ -283,39 +283,13 @@ document.getElementById('gpsBtn').addEventListener('click', () => {
   );
 });
 
-// ─── SAVE via REST API (no Firebase Auth dependency) ─────────────────────────
+// ─── SAVE via Firebase SDK (auth is lazy so Firestore won't wait for auth) ───
 async function saveRecord(rec) {
-  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents/${COL}?key=${API_KEY}`;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 20000);
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fields: {
-          name:     { stringValue: rec.name },
-          id:       { stringValue: rec.id },
-          date:     { stringValue: rec.date },
-          time:     { stringValue: rec.time },
-          lat:      { stringValue: rec.lat },
-          lng:      { stringValue: rec.lng },
-          accuracy: { integerValue: String(rec.accuracy) },
-        }
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timer);
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.error?.message || `خطأ HTTP ${res.status}`);
-    }
-    return await res.json();
-  } catch(e) {
-    clearTimeout(timer);
-    if (e.name === 'AbortError') throw new Error('انتهت المهلة – تحقق من الإنترنت وأعد المحاولة');
-    throw e;
-  }
+  const writePromise = addDoc(collection(db, COL), rec);
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('انتهت المهلة – أعد المحاولة')), 15000)
+  );
+  return Promise.race([writePromise, timeoutPromise]);
 }
 
 // ─── REGISTER ────────────────────────────────────────────────────────────────
