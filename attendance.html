@@ -14,10 +14,6 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .nav-sub{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:2px}
 .nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:20px}
 
-#fbStatus{text-align:center;padding:8px;font-size:.85rem;background:#e8f5e9;border-bottom:1px solid #a5d6a7;color:#2e7d32}
-#fbStatus.warn{background:#fff8e1;border-bottom-color:#ffe082;color:#f57f17}
-#fbStatus.err{background:#ffebee;border-bottom-color:#ef9a9a;color:#c62828}
-
 .tabs{display:flex;gap:8px;padding:16px 16px 0;max-width:600px;margin:0 auto}
 .tab-btn{flex:1;padding:10px;border:none;border-radius:10px 10px 0 0;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;font-weight:700;background:#ddd;color:#555;transition:.2s}
 .tab-btn.active{background:#0a2e18;color:#c9a227}
@@ -38,12 +34,11 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .gps-box.err{border-color:#e53935;background:#fff5f5}
 .gps-icon{font-size:1.5rem;flex-shrink:0}
 .gps-text{flex:1;font-size:.85rem}
-.gps-btn{padding:8px 14px;border-radius:8px;border:none;background:#1a6b3c;color:#fff;font-family:'Tajawal',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;flex-shrink:0;transition:.2s}
+.gps-btn{padding:8px 14px;border-radius:8px;border:none;background:#1a6b3c;color:#fff;font-family:'Tajawal',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;flex-shrink:0}
 .gps-btn:disabled{background:#aaa;cursor:not-allowed}
 
-.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#1a6b3c,#2e8b57);color:#fff;font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;transition:.2s;margin-top:8px}
-.submit-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,107,60,.35)}
-.submit-btn:disabled{background:#aaa;cursor:not-allowed;transform:none;box-shadow:none}
+.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#1a6b3c,#2e8b57);color:#fff;font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;margin-top:8px}
+.submit-btn:disabled{background:#aaa;cursor:not-allowed}
 
 .success{text-align:center;padding:30px 20px}
 .success-icon{font-size:3.5rem;margin-bottom:12px;display:block}
@@ -63,18 +58,18 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .login-err{color:#e53935;font-size:.85rem;margin-top:8px;min-height:20px}
 .login-btn{width:100%;max-width:260px;padding:12px;border:none;border-radius:12px;background:#0a2e18;color:#c9a227;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:800;cursor:pointer}
 
-.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
 .stat-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .stat{background:#0a2e18;color:#fff;border-radius:12px;padding:12px 16px;flex:1;min-width:80px;text-align:center}
 .stat-num{font-size:1.6rem;font-weight:900;color:#c9a227;display:block}
 .stat-lbl{font-size:.75rem;color:rgba(255,255,255,.7)}
 .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .search-in{flex:1;min-width:140px;padding:9px 12px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.9rem;outline:none}
-.search-in:focus{border-color:#1a6b3c}
 .tool-btn{padding:8px 14px;border-radius:10px;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.82rem;font-weight:700}
 .btn-csv{background:#c9a227;color:#0a2e18}
 .btn-del{background:#ffebee;color:#c62828;border:1px solid #ffcdd2}
 .btn-out{background:#f5f5f5;color:#555;border:1px solid #ddd}
+.btn-ref{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
 
 .tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid #f0f0f0}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
@@ -87,6 +82,7 @@ tr:hover td{background:#fafafa}
 .del-btn:hover{color:#e53935;background:#ffebee}
 .map-link{color:#1a6b3c;text-decoration:none;font-size:.78rem}
 .empty{text-align:center;padding:30px;color:#aaa}
+.refresh-bar{font-size:.75rem;color:#aaa;text-align:center;margin-bottom:10px}
 
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0a2e18;color:#fff;padding:11px 22px;border-radius:30px;font-size:.88rem;font-weight:600;z-index:999;transition:.3s cubic-bezier(.34,1.56,.64,1);border:1px solid #c9a227;white-space:nowrap;pointer-events:none}
 #toast.show{transform:translateX(-50%) translateY(0)}
@@ -101,8 +97,6 @@ tr:hover td{background:#fafafa}
   </div>
   <a href="index.html" class="nav-back">← الرئيسية</a>
 </nav>
-
-<div id="fbStatus">🟢 جاهز للتسجيل</div>
 
 <div class="tabs">
   <button class="tab-btn active" id="tabRegBtn">✏️ تسجيل الحضور</button>
@@ -155,14 +149,11 @@ tr:hover td{background:#fafafa}
     <div class="admin-login">
       <span class="lock-icon">🔒</span>
       <div class="login-title">دخول المشرف</div>
-      <div class="login-sub">البيانات محمية – يلزم تسجيل الدخول</div>
-      <div class="field" style="max-width:300px;margin:0 auto 10px">
-        <input type="email" id="adminEmail" placeholder="البريد الإلكتروني" autocomplete="email">
-      </div>
+      <div class="login-sub">أدخل كلمة المرور للوصول إلى البيانات</div>
       <div class="field" style="max-width:300px;margin:0 auto 14px">
         <input type="password" id="adminPass" placeholder="كلمة المرور" autocomplete="current-password">
       </div>
-      <button class="login-btn" id="loginBtn">🔓 تسجيل الدخول</button>
+      <button class="login-btn" id="loginBtn">🔓 دخول</button>
       <div class="login-err" id="loginErr"></div>
     </div>
   </div>
@@ -173,8 +164,10 @@ tr:hover td{background:#fafafa}
       <button class="tool-btn btn-out" id="signoutBtn">خروج</button>
     </div>
     <div class="stat-bar" id="statBar"></div>
+    <div class="refresh-bar" id="refreshBar"></div>
     <div class="toolbar">
       <input class="search-in" type="text" id="searchBox" placeholder="🔍 بحث...">
+      <button class="tool-btn btn-ref" id="refreshBtn">🔄 تحديث</button>
       <button class="tool-btn btn-csv" id="exportBtn">💾 CSV</button>
       <button class="tool-btn btn-del" id="clearBtn">🗑️ مسح الكل</button>
     </div>
@@ -189,37 +182,15 @@ tr:hover td{background:#fafafa}
 
 <div id="toast"></div>
 
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { initializeFirestore, collection, addDoc, deleteDoc, doc, onSnapshot }
-  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
-  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-
-// ─── CONFIG ────────────────────────────────────────────────────────────────
-const PROJECT = 'hajj-maisam';
-const API_KEY = 'AIzaSyA1SQpkID81eMOIhYBmYBVzATJ4ySqOaa8';
-const COL     = 'hajj_attendance_1447';
-
-const firebaseConfig = {
-  apiKey:            API_KEY,
-  authDomain:        'hajj-maisam.firebaseapp.com',
-  projectId:         PROJECT,
-  storageBucket:     'hajj-maisam.firebasestorage.app',
-  messagingSenderId: '621089100882',
-  appId:             '1:621089100882:web:85dcdaca9d4bb049d57b8b',
-};
-
-// ─── INIT (db only — auth initialized lazily when admin tab opens) ─────────
-const app = initializeApp(firebaseConfig);
-const db  = initializeFirestore(app, { experimentalForceLongPolling: true });
-let auth  = null;
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyVFMHJeCSMR3_hNTcpEbqn2FVRj1Edzhnz3wySQM9J_R0z1L9YokvA-1tZZ_KSlaep/exec';
 
 let locationData = null;
 let allDocs      = [];
-let unsub        = null;
+let adminPass    = '';
+let refreshTimer = null;
 
-// ─── HELPERS ────────────────────────────────────────────────────────────────
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -230,13 +201,12 @@ function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 function fmt(iso) {
-  return new Date(iso).toLocaleString('ar-SA', {
-    weekday:'short', year:'numeric', month:'short',
-    day:'numeric', hour:'2-digit', minute:'2-digit'
-  });
+  try {
+    return new Date(iso).toLocaleString('ar-SA',{weekday:'short',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  } catch(e) { return iso; }
 }
 
-// ─── TABS ────────────────────────────────────────────────────────────────────
+// ─── TABS ─────────────────────────────────────────────────────────────────────
 document.getElementById('tabRegBtn').addEventListener('click', () => {
   document.getElementById('tabReg').style.display   = 'block';
   document.getElementById('tabAdmin').style.display = 'none';
@@ -248,7 +218,6 @@ document.getElementById('tabAdminBtn').addEventListener('click', () => {
   document.getElementById('tabAdmin').style.display = 'block';
   document.getElementById('tabRegBtn').classList.remove('active');
   document.getElementById('tabAdminBtn').classList.add('active');
-  initAdmin();
 });
 
 // ─── GPS ─────────────────────────────────────────────────────────────────────
@@ -256,87 +225,75 @@ document.getElementById('gpsBtn').addEventListener('click', () => {
   const btn  = document.getElementById('gpsBtn');
   const box  = document.getElementById('gpsBox');
   const text = document.getElementById('gpsText');
-  if (!navigator.geolocation) {
-    text.textContent = 'المتصفح لا يدعم GPS';
-    box.className = 'gps-box err'; return;
-  }
+  if (!navigator.geolocation) { text.textContent = 'المتصفح لا يدعم GPS'; box.className='gps-box err'; return; }
   btn.disabled = true; btn.textContent = 'جارٍ...';
   text.textContent = 'يتم الحصول على الموقع...';
   navigator.geolocation.getCurrentPosition(
     p => {
-      locationData = {
-        lat: p.coords.latitude.toFixed(6),
-        lng: p.coords.longitude.toFixed(6),
-        acc: Math.round(p.coords.accuracy),
-      };
+      locationData = { lat: p.coords.latitude.toFixed(6), lng: p.coords.longitude.toFixed(6), acc: Math.round(p.coords.accuracy) };
       box.className = 'gps-box ok';
-      text.textContent = `✓ خط العرض: ${locationData.lat} | خط الطول: ${locationData.lng} | دقة: ±${locationData.acc}م`;
+      text.textContent = 'خط العرض: ' + locationData.lat + ' | خط الطول: ' + locationData.lng + ' | دقة: ' + locationData.acc + 'م';
       btn.textContent = 'تحديث'; btn.disabled = false;
     },
     err => {
       box.className = 'gps-box err';
-      const msgs = { 1:'رفض الإذن – اسمح من إعدادات المتصفح', 2:'تعذّر الحصول على الموقع', 3:'انتهت المهلة' };
-      text.textContent = msgs[err.code] || 'خطأ غير معروف';
+      var msgs = {1:'رفض الإذن', 2:'تعذّر الحصول على الموقع', 3:'انتهت المهلة'};
+      text.textContent = msgs[err.code] || 'خطأ';
       btn.textContent = 'إعادة المحاولة'; btn.disabled = false;
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 });
 
-// ─── SAVE via Firebase SDK (auth is lazy so Firestore won't wait for auth) ───
-async function saveRecord(rec) {
-  const writePromise = addDoc(collection(db, COL), rec);
-  const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('انتهت المهلة – أعد المحاولة')), 15000)
-  );
-  return Promise.race([writePromise, timeoutPromise]);
-}
-
 // ─── REGISTER ────────────────────────────────────────────────────────────────
 document.getElementById('submitBtn').addEventListener('click', async () => {
   const nameEl = document.getElementById('fullName');
   const idEl   = document.getElementById('idNumber');
   const name   = nameEl.value.trim();
-  const id     = idEl.value.trim();
+  const idVal  = idEl.value.trim();
 
   nameEl.classList.remove('err-input');
   idEl.classList.remove('err-input');
 
-  if (!name || name.length < 4) {
-    nameEl.classList.add('err-input'); toast('يرجى إدخال الاسم الكامل (٤ أحرف+)'); return;
-  }
-  if (!id || !/^\d{10}$/.test(id)) {
-    idEl.classList.add('err-input'); toast('رقم الهوية يجب أن يكون ١٠ أرقام'); return;
-  }
+  if (!name || name.length < 4) { nameEl.classList.add('err-input'); toast('يرجى إدخال الاسم الكامل'); return; }
+  if (!idVal || !/^\d{10}$/.test(idVal)) { idEl.classList.add('err-input'); toast('رقم الهوية يجب أن يكون ١٠ أرقام'); return; }
   if (!locationData) { toast('يرجى تحديد موقعك الجغرافي أولاً'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'جارٍ الحفظ...';
 
+  const now = new Date();
+  const rec = {
+    name:     name,
+    id:       idVal,
+    date:     now.toISOString().slice(0,10),
+    time:     now.toISOString(),
+    lat:      locationData.lat,
+    lng:      locationData.lng,
+    accuracy: locationData.acc,
+  };
+
   try {
-    const now = new Date();
-    await saveRecord({
-      name, id,
-      date: now.toISOString().slice(0, 10),
-      time: now.toISOString(),
-      lat:  locationData.lat,
-      lng:  locationData.lng,
-      accuracy: locationData.acc,
+    await fetch(SCRIPT_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    JSON.stringify(rec),
     });
 
     document.getElementById('formCard').style.display    = 'none';
     document.getElementById('successCard').style.display = 'block';
     const det = document.getElementById('successDetails');
     det.innerHTML = '';
-    [['الاسم', name], ['الهوية', id], ['الوقت', fmt(now.toISOString())], ['الإحداثيات', locationData.lat + ', ' + locationData.lng]].forEach(([l, v]) => {
+    [['الاسم', name], ['الهوية', idVal], ['الوقت', fmt(rec.time)], ['الإحداثيات', rec.lat + ', ' + rec.lng]].forEach(function(pair) {
       const row = document.createElement('div'); row.className = 'success-row';
-      const lbl = document.createElement('span'); lbl.className = 's-lbl'; lbl.textContent = l;
-      const val = document.createElement('span'); val.className = 's-val'; val.textContent = v;
+      const lbl = document.createElement('span'); lbl.className = 's-lbl'; lbl.textContent = pair[0];
+      const val = document.createElement('span'); val.className = 's-val'; val.textContent = pair[1];
       row.appendChild(lbl); row.appendChild(val); det.appendChild(row);
     });
   } catch(e) {
     toast('خطأ في الحفظ: ' + e.message);
-    btn.disabled = false; btn.textContent = '✓ تسجيل الحضور';
+    btn.disabled = false; btn.textContent = 'تسجيل الحضور';
   }
 });
 
@@ -345,128 +302,142 @@ document.getElementById('newRegBtn').addEventListener('click', () => {
   document.getElementById('successCard').style.display = 'none';
   document.getElementById('fullName').value = '';
   document.getElementById('idNumber').value = '';
-  document.getElementById('fullName').classList.remove('err-input');
-  document.getElementById('idNumber').classList.remove('err-input');
   locationData = null;
   document.getElementById('gpsBox').className = 'gps-box';
   document.getElementById('gpsText').textContent = 'لم يتم تحديد الموقع بعد';
   document.getElementById('gpsBtn').textContent = 'تحديد موقعي';
   document.getElementById('gpsBtn').disabled = false;
   document.getElementById('submitBtn').disabled = false;
-  document.getElementById('submitBtn').textContent = '✓ تسجيل الحضور';
+  document.getElementById('submitBtn').textContent = 'تسجيل الحضور';
 });
 
-// ─── ADMIN — lazy init ────────────────────────────────────────────────────────
-function initAdmin() {
-  if (auth) return;
-  auth = getAuth(app);
-  onAuthStateChanged(auth, user => {
-    const isAdmin = user && user.email;
-    document.getElementById('adminLoginCard').style.display  = isAdmin ? 'none'  : 'block';
-    document.getElementById('adminPanelCard').style.display  = isAdmin ? 'block' : 'none';
-    if (isAdmin) { startListener(); }
-    else { if (unsub) { unsub(); unsub = null; } allDocs = []; }
-  });
-}
-
+// ─── ADMIN LOGIN ──────────────────────────────────────────────────────────────
 document.getElementById('loginBtn').addEventListener('click', tryLogin);
-document.getElementById('adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+document.getElementById('adminPass').addEventListener('keydown', function(e) { if (e.key === 'Enter') tryLogin(); });
 
 async function tryLogin() {
-  const email = document.getElementById('adminEmail').value.trim();
-  const pass  = document.getElementById('adminPass').value;
-  const btn   = document.getElementById('loginBtn');
-  const err   = document.getElementById('loginErr');
+  const pass = document.getElementById('adminPass').value.trim();
+  const btn  = document.getElementById('loginBtn');
+  const err  = document.getElementById('loginErr');
+  if (!pass) { err.textContent = 'أدخل كلمة المرور'; return; }
   err.textContent = ''; btn.disabled = true; btn.textContent = 'جارٍ التحقق...';
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
-  } catch {
-    err.textContent = 'البريد أو كلمة المرور غير صحيحة';
-    btn.disabled = false; btn.textContent = '🔓 تسجيل الدخول';
+    const res  = await fetch(SCRIPT_URL + '?action=list&pass=' + encodeURIComponent(pass));
+    const data = await res.json();
+    if (data.error) {
+      err.textContent = 'كلمة المرور غير صحيحة';
+      btn.disabled = false; btn.textContent = 'دخول';
+      return;
+    }
+    adminPass = pass;
+    allDocs   = data;
+    document.getElementById('adminLoginCard').style.display = 'none';
+    document.getElementById('adminPanelCard').style.display = 'block';
+    renderStats(); renderTable();
+    startAutoRefresh();
+  } catch(e) {
+    err.textContent = 'خطأ في الاتصال: ' + e.message;
+    btn.disabled = false; btn.textContent = 'دخول';
   }
 }
 
-document.getElementById('signoutBtn').addEventListener('click', () => signOut(auth));
+document.getElementById('signoutBtn').addEventListener('click', () => {
+  adminPass = ''; allDocs = [];
+  clearInterval(refreshTimer);
+  document.getElementById('adminLoginCard').style.display = 'block';
+  document.getElementById('adminPanelCard').style.display = 'none';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('loginErr').textContent = '';
+  document.getElementById('loginBtn').disabled = false;
+  document.getElementById('loginBtn').textContent = 'دخول';
+});
 
-// ─── REALTIME LISTENER ────────────────────────────────────────────────────────
-function startListener() {
-  if (unsub) unsub();
-  unsub = onSnapshot(collection(db, COL), snap => {
-    allDocs = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
-    allDocs.sort((a, b) => new Date(b.time) - new Date(a.time));
+// ─── LOAD RECORDS ─────────────────────────────────────────────────────────────
+async function loadRecords() {
+  try {
+    const res  = await fetch(SCRIPT_URL + '?action=list&pass=' + encodeURIComponent(adminPass));
+    const data = await res.json();
+    if (data.error) { toast('انتهت الجلسة'); return; }
+    allDocs = data;
     renderStats(); renderTable();
-  }, e => toast('خطأ قراءة: ' + e.message));
+    document.getElementById('refreshBar').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+  } catch(e) {
+    toast('خطأ في التحديث');
+  }
 }
+
+function startAutoRefresh() {
+  clearInterval(refreshTimer);
+  refreshTimer = setInterval(loadRecords, 60000);
+}
+
+document.getElementById('refreshBtn').addEventListener('click', loadRecords);
 
 // ─── STATS ────────────────────────────────────────────────────────────────────
 function renderStats() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toISOString().slice(0,10);
   document.getElementById('statBar').innerHTML =
-    `<div class="stat"><span class="stat-num">${allDocs.length}</span><div class="stat-lbl">إجمالي الحضور</div></div>` +
-    `<div class="stat"><span class="stat-num">${allDocs.filter(r => r.date === today).length}</span><div class="stat-lbl">حضور اليوم</div></div>` +
-    `<div class="stat"><span class="stat-num">${allDocs.filter(r => r.lat).length}</span><div class="stat-lbl">بموقع GPS</div></div>`;
+    '<div class="stat"><span class="stat-num">' + allDocs.length + '</span><div class="stat-lbl">إجمالي الحضور</div></div>' +
+    '<div class="stat"><span class="stat-num">' + allDocs.filter(function(r){return r.date===today;}).length + '</span><div class="stat-lbl">حضور اليوم</div></div>' +
+    '<div class="stat"><span class="stat-num">' + allDocs.filter(function(r){return r.lat;}).length + '</span><div class="stat-lbl">بموقع GPS</div></div>';
 }
 
 // ─── TABLE ────────────────────────────────────────────────────────────────────
 function renderTable() {
   const q    = (document.getElementById('searchBox').value || '').toLowerCase();
-  const rows = q ? allDocs.filter(r => (r.name||'').toLowerCase().includes(q) || (r.id||'').includes(q)) : allDocs;
+  const rows = q ? allDocs.filter(function(r){ return (r.name||'').toLowerCase().includes(q) || (r.id||'').includes(q); }) : allDocs;
   const body = document.getElementById('tblBody');
-  if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="6"><div class="empty">📋 لا توجد سجلات</div></td></tr>'; return;
-  }
-  body.innerHTML = rows.map((r, i) =>
-    `<tr>
-      <td><small style="color:#aaa">${i+1}</small></td>
-      <td><strong>${esc(r.name||'')}</strong></td>
-      <td><span style="direction:ltr;display:inline-block">${esc(r.id||'')}</span></td>
-      <td><small style="color:#888">${fmt(r.time)}</small></td>
-      <td>${r.lat ? `<a class="map-link" href="https://maps.google.com/?q=${r.lat},${r.lng}" target="_blank" rel="noopener">📍 ${r.lat},${r.lng}</a>` : '<span style="color:#ccc">-</span>'}</td>
-      <td><button class="del-btn" data-id="${esc(r._id)}">🗑️</button></td>
-    </tr>`
-  ).join('');
-  body.querySelectorAll('.del-btn').forEach(b =>
-    b.addEventListener('click', () => deleteRec(b.dataset.id))
-  );
+  if (!rows.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty">📋 لا توجد سجلات</div></td></tr>'; return; }
+  body.innerHTML = rows.map(function(r, i) {
+    var mapHref = r.lat ? 'https://maps.google.com/?q=' + r.lat + ',' + r.lng : '';
+    var mapCell = r.lat ? '<a class="map-link" href="' + mapHref + '" target="_blank" rel="noopener">📍 ' + esc(r.lat) + ',' + esc(r.lng) + '</a>' : '<span style="color:#ccc">-</span>';
+    return '<tr><td><small style="color:#aaa">' + (i+1) + '</small></td>' +
+      '<td><strong>' + esc(r.name||'') + '</strong></td>' +
+      '<td><span style="direction:ltr;display:inline-block">' + esc(r.id||'') + '</span></td>' +
+      '<td><small style="color:#888">' + fmt(r.time) + '</small></td>' +
+      '<td>' + mapCell + '</td>' +
+      '<td><button class="del-btn" data-id="' + esc(String(r._id)) + '">🗑️</button></td></tr>';
+  }).join('');
+  body.querySelectorAll('.del-btn').forEach(function(b) {
+    b.addEventListener('click', function() { deleteRec(b.dataset.id); });
+  });
 }
 document.getElementById('searchBox').addEventListener('input', renderTable);
 
 // ─── DELETE ───────────────────────────────────────────────────────────────────
 async function deleteRec(id) {
   if (!confirm('حذف هذا السجل؟')) return;
-  try { await deleteDoc(doc(db, COL, id)); toast('تم الحذف'); }
-  catch(e) { toast('خطأ: ' + e.message); }
+  try {
+    await fetch(SCRIPT_URL + '?action=delete&id=' + encodeURIComponent(id) + '&pass=' + encodeURIComponent(adminPass));
+    toast('تم الحذف');
+    await loadRecords();
+  } catch(e) { toast('خطأ: ' + e.message); }
 }
 
 document.getElementById('clearBtn').addEventListener('click', async () => {
   if (!allDocs.length) { toast('لا توجد سجلات'); return; }
-  if (!confirm(`مسح جميع السجلات (${allDocs.length})؟ لا يمكن التراجع.`)) return;
+  if (!confirm('مسح جميع السجلات (' + allDocs.length + ')؟ لا يمكن التراجع.')) return;
   try {
-    await Promise.all(allDocs.map(r => deleteDoc(doc(db, COL, r._id))));
+    await fetch(SCRIPT_URL + '?action=clear&pass=' + encodeURIComponent(adminPass));
     toast('تم مسح جميع السجلات');
+    await loadRecords();
   } catch(e) { toast('خطأ: ' + e.message); }
 });
 
 // ─── EXPORT CSV ───────────────────────────────────────────────────────────────
 document.getElementById('exportBtn').addEventListener('click', () => {
-  if (!allDocs.length) { toast('لا توجد بيانات للتصدير'); return; }
+  if (!allDocs.length) { toast('لا توجد بيانات'); return; }
   const BOM  = '﻿';
-  const head = '#,الاسم,الهوية,التاريخ,الوقت,خط العرض,خط الطول,الدقة,رابط الخريطة';
-  const body = allDocs.map((r, i) => [
-    i+1,
-    `"${(r.name||'').replace(/"/g,'""')}"`,
-    r.id||'', r.date||'',
-    `"${fmt(r.time)}"`,
-    r.lat||'', r.lng||'', r.accuracy||'',
-    r.lat ? `"https://maps.google.com/?q=${r.lat},${r.lng}"` : '',
-  ].join(','));
-  const blob = new Blob([BOM + [head, ...body].join('\n')], { type: 'text/csv;charset=utf-8;' });
-  const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(blob),
-    download: `حضور_معسكر_المعيصم_${new Date().toISOString().slice(0,10)}.csv`,
+  const head = '#,الاسم,الهوية,التاريخ,الوقت,خط العرض,خط الطول,الدقة';
+  const body = allDocs.map(function(r, i) {
+    return [i+1, '"'+(r.name||'').replace(/"/g,'""')+'"', r.id||'', r.date||'', '"'+fmt(r.time)+'"', r.lat||'', r.lng||'', r.accuracy||''].join(',');
   });
+  const blob = new Blob([BOM + [head].concat(body).join('\n')], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'حضور_معسكر_المعيصم_' + new Date().toISOString().slice(0,10) + '.csv';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast('تم تصدير الملف');
+  toast('تم التصدير');
 });
 </script>
 </body>
