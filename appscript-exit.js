@@ -25,13 +25,13 @@ function getSheets() {
 
 function verifyLeader(sheets, leaderId, leaderKey) {
   var rows = sheets.leaders.getDataRange().getValues();
-  for (var i = 1; i < rows.length; i++) {
-    if (String(rows[i][0]) === String(leaderId) &&
-        String(rows[i][1]) === String(leaderKey)) {
-      return true;
+  var found = false;
+  rows.slice(1).forEach(function(r) {
+    if (String(r[0]) === String(leaderId) && String(r[1]) === String(leaderKey)) {
+      found = true;
     }
-  }
-  return false;
+  });
+  return found;
 }
 
 function doPost(e) {
@@ -65,14 +65,15 @@ function doGet(e) {
   if (action === 'getStatus') {
     var rid = e.parameter.id;
     var rows = sheets.requests.getDataRange().getValues();
-    for (var i = 1; i < rows.length; i++) {
-      if (String(rows[i][0]) === String(rid)) {
-        return out({name:rows[i][1], leaderName:rows[i][3], reason:rows[i][4],
-                    returnDate:rows[i][5], returnTime:rows[i][6],
-                    status:rows[i][7], note:rows[i][9]});
+    var result = {error:'not found'};
+    rows.slice(1).forEach(function(r) {
+      if (String(r[0]) === String(rid)) {
+        result = {name:r[1], leaderName:r[3], reason:r[4],
+                  returnDate:r[5], returnTime:r[6],
+                  status:r[7], note:r[9]};
       }
-    }
-    return out({error:'not found'});
+    });
+    return out(result);
   }
 
   if (action === 'getRequests') {
@@ -98,14 +99,15 @@ function doGet(e) {
     if (!verifyLeader(sheets, lid, lkey)) return out({error:'unauthorized'});
     var rid = e.parameter.requestId;
     var rows = sheets.requests.getDataRange().getValues();
-    for (var j = 1; j < rows.length; j++) {
-      if (String(rows[j][0]) === String(rid) && String(rows[j][2]) === String(lid)) {
-        sheets.requests.getRange(j+1, 8).setValue(e.parameter.status);
-        sheets.requests.getRange(j+1, 10).setValue(e.parameter.note || '');
-        return out({status:'ok'});
+    var updated = false;
+    rows.slice(1).forEach(function(r, idx) {
+      if (String(r[0]) === String(rid) && String(r[2]) === String(lid)) {
+        sheets.requests.getRange(idx + 2, 8).setValue(e.parameter.status);
+        sheets.requests.getRange(idx + 2, 10).setValue(e.parameter.note || '');
+        updated = true;
       }
-    }
-    return out({error:'not found'});
+    });
+    return updated ? out({status:'ok'}) : out({error:'not found'});
   }
 
   var pass = e.parameter.pass || '';
@@ -129,13 +131,14 @@ function doGet(e) {
   if (action === 'deleteLeader') {
     var lid  = e.parameter.id;
     var rows = sheets.leaders.getDataRange().getValues();
-    for (var i = 1; i < rows.length; i++) {
-      if (String(rows[i][0]) === String(lid)) {
-        sheets.leaders.deleteRow(i + 1);
-        return out({status:'ok'});
+    var deleted = false;
+    rows.slice(1).forEach(function(r, idx) {
+      if (String(r[0]) === String(lid) && !deleted) {
+        sheets.leaders.deleteRow(idx + 2);
+        deleted = true;
       }
-    }
-    return out({error:'not found'});
+    });
+    return deleted ? out({status:'ok'}) : out({error:'not found'});
   }
 
   if (action === 'getAllRequests') {
