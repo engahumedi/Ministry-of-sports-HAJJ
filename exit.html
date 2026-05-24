@@ -156,13 +156,7 @@ async function viewMember() {
     <div class="section-title">📋 طلب استئذان خروج</div>
     <div class="field"><label>الاسم الكامل</label><input id="r-name" type="text" placeholder="أدخل اسمك الكامل"></div>
     <div class="field"><label>القائد المسؤول</label><select id="r-leader"><option value="">جارٍ التحميل...</option></select></div>
-    <div class="field"><label>سبب الخروج</label>
-      <select id="r-reason">
-        <option value="">اختر السبب</option>
-        <option>مراجعة طبية</option><option>ظرف عائلي</option>
-        <option>معاملة رسمية</option><option>شراء مستلزمات</option><option>أخرى</option>
-      </select>
-    </div>
+    <div class="field"><label>سبب الخروج</label><input id="r-reason" type="text" placeholder="اكتب سبب الخروج"></div>
     <div class="field"><label>تاريخ العودة</label><input id="r-date" type="date"></div>
     <div class="field"><label>وقت العودة</label><input id="r-time" type="time"></div>
     <button class="submit-btn" id="r-submit">إرسال الطلب</button>
