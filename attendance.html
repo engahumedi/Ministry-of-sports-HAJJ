@@ -385,10 +385,12 @@ tr:hover td { background:var(--cream); }
 
 <script>
 // ─── State ───────────────────────────────────────────────
-const STORAGE_KEY = 'hajj_attendance_1447';
-const ADMIN_PASS  = 'admin1447';
-let locationData  = null;
-let adminUnlocked = false;
+const STORAGE_KEY  = 'hajj_attendance_1447';
+const ADMIN_HASH   = '1ad986d7d3e580222d76ec8a285a3a718d019752f7241197de1b5968352439b6';
+let locationData   = null;
+let adminUnlocked  = false;
+let _failCount     = 0;
+let _lockUntil     = 0;
 
 // ─── Utils ───────────────────────────────────────────────
 function getRecords() {
@@ -519,12 +521,21 @@ function submitAttendance() {
   document.getElementById('formCard').style.display = 'none';
   const sc = document.getElementById('successCard');
   sc.classList.add('show');
-  document.getElementById('successInfo').innerHTML = `
-    <div class="success-info-row"><span class="success-info-label">الاسم</span><span class="success-info-val">${name}</span></div>
-    <div class="success-info-row"><span class="success-info-label">رقم الهوية</span><span class="success-info-val">${id}</span></div>
-    <div class="success-info-row"><span class="success-info-label">الوقت</span><span class="success-info-val">${fmtDate(record.time)}</span></div>
-    <div class="success-info-row"><span class="success-info-label">الإحداثيات</span><span class="success-info-val" style="direction:ltr;font-size:.8rem">${record.lat}, ${record.lng}</span></div>
-  `;
+  const si = document.getElementById('successInfo');
+  si.textContent = '';
+  [
+    ['الاسم', escHtml(name)],
+    ['رقم الهوية', escHtml(id)],
+    ['الوقت', fmtDate(record.time)],
+    ['الإحداثيات', record.lat + ', ' + record.lng],
+  ].forEach(([lbl, val]) => {
+    const row  = document.createElement('div'); row.className = 'success-info-row';
+    const l    = document.createElement('span'); l.className = 'success-info-label'; l.textContent = lbl;
+    const v    = document.createElement('span'); v.className = 'success-info-val';
+    if (lbl === 'الإحداثيات') { v.style.direction = 'ltr'; v.style.fontSize = '.8rem'; }
+    v.textContent = val;
+    row.appendChild(l); row.appendChild(v); si.appendChild(row);
+  });
 }
 
 function resetForm() {
@@ -546,16 +557,31 @@ function resetForm() {
 }
 
 // ─── ADMIN ────────────────────────────────────────────────
-function checkPass() {
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPass() {
+  const now = Date.now();
+  if (now < _lockUntil) {
+    const secs = Math.ceil((_lockUntil - now) / 1000);
+    toast('🔒 المحاولات كثيرة. انتظر ' + secs + ' ثانية');
+    return;
+  }
   const val = document.getElementById('adminPass').value;
-  if (val === ADMIN_PASS) {
+  const hash = await sha256(val);
+  if (hash === ADMIN_HASH) {
+    _failCount = 0;
     adminUnlocked = true;
     document.getElementById('adminLock').style.display = 'none';
     document.getElementById('adminPanel').classList.add('show');
     renderTable();
     renderStats();
   } else {
-    toast('❌ كلمة المرور غير صحيحة');
+    _failCount++;
+    if (_failCount >= 5) { _lockUntil = Date.now() + 60000; _failCount = 0; }
+    toast('كلمة المرور غير صحيحة' + (_failCount >= 3 ? ' (' + (5 - _failCount) + ' محاولات متبقية)' : ''));
     document.getElementById('adminPass').classList.add('error');
     setTimeout(() => document.getElementById('adminPass').classList.remove('error'), 1500);
   }
