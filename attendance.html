@@ -597,7 +597,8 @@ async function submitAttendance() {
     } catch(_) { /* proceed even if duplicate check fails */ }
 
     const rec = { name, id, date:today, time:new Date().toISOString(), lat:locationData.lat, lng:locationData.lng, accuracy:locationData.accuracy };
-    await addDoc(collection(db,COL), rec);
+    const writeTimeout = new Promise((_,rej)=>setTimeout(()=>rej(new Error('انتهت مهلة الاتصال — تحقق من قواعد Firestore')),12000));
+    await Promise.race([addDoc(collection(db,COL), rec), writeTimeout]);
 
     document.getElementById('formCard').style.display='none';
     document.getElementById('successCard').classList.add('show');
@@ -681,11 +682,12 @@ document.getElementById('signoutBtn').addEventListener('click', async () => {
 // ── Real-time listener ───────────────────────────────────────────────────────
 function startRealtimeListener() {
   if (unsubListener) unsubListener();
-  const q = query(collection(db,COL), orderBy('time','desc'));
-  unsubListener = onSnapshot(q, snap => {
+  // No orderBy — avoids composite index requirement; sort client-side instead
+  unsubListener = onSnapshot(collection(db,COL), snap => {
     allDocs = snap.docs.map(d=>({docId:d.id,...d.data()}));
+    allDocs.sort((a,b)=>new Date(b.time)-new Date(a.time));
     renderTable(); renderStats();
-  }, e => toast('خطأ: '+e.message));
+  }, e => toast('خطأ في المستمع: '+e.message));
 }
 
 // ── Stats ────────────────────────────────────────────────────────────────────
@@ -724,10 +726,10 @@ async function deleteRecord(id) {
   catch(e) { toast('خطأ: '+e.message); }
 }
 document.getElementById('clearBtn').addEventListener('click', async () => {
+  if (!allDocs.length) { toast('لا توجد سجلات للمسح'); return; }
   if (!confirm('مسح جميع السجلات؟ لا يمكن التراجع.')) return;
   try {
-    const snap=await getDocs(collection(db,COL));
-    await Promise.all(snap.docs.map(d=>deleteDoc(d.ref)));
+    await Promise.all(allDocs.map(r=>deleteDoc(doc(db,COL,r.docId))));
     toast('تم مسح جميع السجلات');
   } catch(e) { toast('خطأ: '+e.message); }
 });
