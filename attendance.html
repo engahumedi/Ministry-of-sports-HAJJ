@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تسجيل الحضور – معسكر المعيصم 1447هـ</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -470,7 +473,7 @@ const firebaseConfig = {
 // ────────────────────────────────────────────────────────────────────────────
 
 import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, query, orderBy, where }
+import { initializeFirestore, memoryLocalCache, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
@@ -483,7 +486,8 @@ let db, auth, locationData = null, unsubListener = null, allDocs = [];
 
 if (CONFIGURED) {
   const app = initializeApp(firebaseConfig);
-  db   = getFirestore(app);
+  // Memory cache = no offline persistence → writes go directly to server, fail fast if denied
+  db   = initializeFirestore(app, { localCache: memoryLocalCache() });
   auth = getAuth(app);
   document.getElementById('liveDot').style.display = 'inline-block';
 
@@ -580,25 +584,8 @@ async function submitAttendance() {
 
   try {
     const today = new Date().toISOString().slice(0,10);
-
-    // Duplicate check — wrapped separately so a missing index or permission error
-    // doesn't block registration entirely (timeout after 4 s)
-    try {
-      const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4000));
-      const dup = await Promise.race([
-        getDocs(query(collection(db,COL), where('id','==',id), where('date','==',today))),
-        timeout
-      ]);
-      if (!dup.empty) {
-        toast('تم تسجيل هذه الهوية مسبقاً اليوم');
-        btn.disabled=false; btn.textContent='✓ تسجيل الحضور';
-        return;
-      }
-    } catch(_) { /* proceed even if duplicate check fails */ }
-
     const rec = { name, id, date:today, time:new Date().toISOString(), lat:locationData.lat, lng:locationData.lng, accuracy:locationData.accuracy };
-    const writeTimeout = new Promise((_,rej)=>setTimeout(()=>rej(new Error('انتهت مهلة الاتصال — تحقق من قواعد Firestore')),12000));
-    await Promise.race([addDoc(collection(db,COL), rec), writeTimeout]);
+    await addDoc(collection(db,COL), rec);
 
     document.getElementById('formCard').style.display='none';
     document.getElementById('successCard').classList.add('show');
