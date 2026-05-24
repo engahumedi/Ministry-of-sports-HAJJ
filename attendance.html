@@ -201,28 +201,6 @@ tr:hover td{background:var(--cream)}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--grey)}
 .empty-icon{font-size:2.5rem;display:block;margin-bottom:.5rem}
 
-.setup-guide{max-width:680px;margin:0 auto;padding:0 1.5rem 5rem;display:none}
-.setup-head{text-align:center;margin-bottom:2rem}
-.setup-step{
-  background:var(--white);border-radius:20px;padding:1.5rem;margin-bottom:1rem;
-  box-shadow:var(--shadow);border-right:4px solid var(--g3);
-}
-.step-title{font-size:1rem;font-weight:800;color:var(--g1);display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
-.step-num{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:28px;height:28px;border-radius:50%;background:var(--g2);color:white;
-  font-size:.85rem;font-weight:800;flex-shrink:0;
-}
-.step-body{font-size:.9rem;color:var(--grey);line-height:1.9}
-.step-body strong{color:var(--g1)}
-.step-body a{color:var(--g2);font-weight:700}
-code{background:var(--cream2);padding:2px 8px;border-radius:6px;font-size:.82rem;color:var(--g1);font-family:monospace}
-.rules-box{
-  background:#0d1b0e;color:#7ec89e;font-family:monospace;font-size:.77rem;
-  padding:1.1rem;border-radius:12px;margin-top:.9rem;line-height:1.9;
-  overflow-x:auto;white-space:pre;
-}
-
 #toast{
   position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
   background:var(--g1);color:white;padding:12px 24px;border-radius:30px;
@@ -246,11 +224,6 @@ code{background:var(--cream2);padding:2px 8px;border-radius:6px;font-size:.82rem
 </head>
 <body>
 
-<div id="configBanner">
-  ⚙️ لم يتم ربط قاعدة البيانات بعد —
-  <a id="showSetupLink">اتبع خطوات الإعداد أدناه</a>
-</div>
-
 <nav>
   <a href="index.html" class="nav-brand">
     <div class="nav-brand-text">معسكر المعيصم (١)<span>الهيئة العامة للرياضة – حج ١٤٤٧هـ</span></div>
@@ -268,7 +241,7 @@ code{background:var(--cream2);padding:2px 8px;border-radius:6px;font-size:.82rem
   <div class="tabs">
     <button class="tab-btn active" id="tabRegBtn">&#9997; تسجيل الحضور</button>
     <button class="tab-btn" id="tabAdminBtn">
-      <span class="live-dot" id="liveDot" style="display:none"></span>&#128203; لوحة المشرف
+      <span class="live-dot" id="liveDot"></span>&#128203; لوحة المشرف
     </button>
   </div>
 
@@ -346,65 +319,16 @@ code{background:var(--cream2);padding:2px 8px;border-radius:6px;font-size:.82rem
   </div>
 </div>
 
-<div class="setup-guide" id="setupGuide">
-  <div class="setup-head">
-    <div style="font-size:2rem;margin-bottom:.4rem">&#9881;&#65039;</div>
-    <div style="font-size:1.3rem;font-weight:900;color:var(--g1)">خطوات ربط قاعدة البيانات</div>
-    <div style="font-size:.88rem;color:var(--grey);margin-top:.4rem">مجانية — تكفي لآلاف السجلات — آمنة بالكامل</div>
-  </div>
-  <div class="setup-step">
-    <div class="step-title"><span class="step-num">١</span> أنشئ مشروعاً في Firebase</div>
-    <div class="step-body">افتح <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> ← <strong>Add project</strong> ← اختر اسماً مثل <code>hajj-maisam-1447</code> ← أكمل الإعداد.</div>
-  </div>
-  <div class="setup-step">
-    <div class="step-title"><span class="step-num">٢</span> فعّل Firestore Database</div>
-    <div class="step-body">من القائمة ← <strong>Firestore Database</strong> ← <strong>Create database</strong> ← <strong>Start in production mode</strong> ← اختر region ← <strong>Enable</strong>.</div>
-  </div>
-  <div class="setup-step">
-    <div class="step-title"><span class="step-num">٣</span> فعّل Authentication وأنشئ حساب المشرف</div>
-    <div class="step-body">من القائمة ← <strong>Authentication</strong> ← <strong>Get started</strong> ← اختر <strong>Email/Password</strong> ← فعّله ← <strong>Save</strong>.<br><br>ثم من تبويب <strong>Users</strong> ← <strong>Add user</strong> ← أدخل إيميلك وكلمة مرور قوية. <strong>هذا هو حساب المشرف الوحيد الذي يقدر يرى البيانات.</strong></div>
-  </div>
-  <div class="setup-step">
-    <div class="step-title"><span class="step-num">٤</span> اضبط قواعد الأمان</div>
-    <div class="step-body">من Firestore ← <strong>Rules</strong> ← استبدل النص بما يلي ← <strong>Publish</strong>:
-      <div class="rules-box">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /hajj_attendance_1447/{doc} {
-
-      // أي شخص يقدر يسجّل حضوره — مع التحقق من صحة البيانات
-      allow create: if request.resource.data.keys()
-                         .hasAll(['name','id','time','date'])
-                      &amp;&amp; request.resource.data.name is string
-                      &amp;&amp; request.resource.data.name.size() >= 4
-                      &amp;&amp; request.resource.data.id.matches('[12][0-9]{9}');
-
-      // القراءة والحذف للمشرف المسجّل دخوله فقط
-      allow read, delete: if request.auth != null;
-
-      // لا أحد يقدر يعدّل سجلاً بعد إنشائه
-      allow update: if false;
-    }
-  }
-}</div>
-    </div>
-  </div>
-  <div class="setup-step">
-    <div class="step-title"><span class="step-num">٥</span> احصل على إعدادات التطبيق والصقها في الملف</div>
-    <div class="step-body">من Project Overview ← ⚙️ Project settings ← أسفل الصفحة اضغط <strong>&lt;/&gt; Web</strong> ← اكتب اسماً ← <strong>Register app</strong>.<br><br>انسخ كائن <code>firebaseConfig</code> الظاهر، افتح <code>attendance.html</code> وابحث عن <code>const firebaseConfig = {</code> والصق قيمك بدلاً من <code>PASTE_…</code>.</div>
-  </div>
-</div>
-
 <div id="toast"></div>
 
 <script type="module">
 const firebaseConfig = {
-  apiKey:            "PASTE_YOUR_API_KEY",
-  authDomain:        "PASTE_YOUR_AUTH_DOMAIN",
-  projectId:         "PASTE_YOUR_PROJECT_ID",
-  storageBucket:     "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId:             "PASTE_YOUR_APP_ID",
+  apiKey:            "AIzaSyA1SQpkID81eMOIhYBmYBVzATJ4ySqOaa8",
+  authDomain:        "hajj-maisam.firebaseapp.com",
+  projectId:         "hajj-maisam",
+  storageBucket:     "hajj-maisam.firebasestorage.app",
+  messagingSenderId: "621089100882",
+  appId:             "1:621089100882:web:85dcdaca9d4bb049d57b8b",
 };
 
 import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
@@ -413,26 +337,13 @@ import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, 
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
-const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).startsWith('PASTE_'));
-const COL        = 'hajj_attendance_1447';
-
+const COL = 'hajj_attendance_1447';
 let db, auth, locationData = null, unsubListener = null, allDocs = [];
 
-if (CONFIGURED) {
-  const app = initializeApp(firebaseConfig);
-  db   = getFirestore(app);
-  auth = getAuth(app);
-  document.getElementById('liveDot').style.display = 'inline-block';
-  onAuthStateChanged(auth, user => { if (user) showAdminPanel(); });
-} else {
-  document.getElementById('configBanner').style.display = 'block';
-  document.getElementById('setupGuide').style.display   = 'block';
-  document.getElementById('mainWrap').style.marginTop   = '40px';
-}
-
-document.getElementById('showSetupLink').addEventListener('click', () => {
-  document.getElementById('setupGuide').scrollIntoView({behavior:'smooth'});
-});
+const app = initializeApp(firebaseConfig);
+db   = getFirestore(app);
+auth = getAuth(app);
+onAuthStateChanged(auth, user => { if (user) showAdminPanel(); });
 
 function toast(msg, dur) {
   const t = document.getElementById('toast');
@@ -492,7 +403,6 @@ document.addEventListener('keydown', e => {
 });
 
 async function submitAttendance() {
-  if (!CONFIGURED){toast('⚙️ أعدّ قاعدة البيانات أولاً');return;}
   const nameEl=document.getElementById('fullName'),idEl=document.getElementById('idNumber');
   nameEl.classList.remove('error');idEl.classList.remove('error');
   const name=nameEl.value.trim(),id=idEl.value.trim();
@@ -519,7 +429,7 @@ async function submitAttendance() {
       if(lbl==='الإحداثيات'){v.style.direction='ltr';v.style.fontSize='.8rem';}
       v.textContent=val;row.appendChild(l);row.appendChild(v);si.appendChild(row);
     });
-  }catch(e){toast('خطأ في الحفظ: '+e.message);btn.disabled=false;btn.textContent='✓ تسجيل الحضور';}
+  }catch(e){toast('خطأ: '+e.message);btn.disabled=false;btn.textContent='✓ تسجيل الحضور';}
 }
 
 document.getElementById('newRegBtn').addEventListener('click',()=>{
@@ -540,7 +450,6 @@ document.getElementById('adminPass').addEventListener('keydown',e=>{if(e.key==='
 let _lockUntil=0,_fails=0;
 async function tryLogin(){
   if(Date.now()<_lockUntil){toast('🔒 محظور — انتظر '+Math.ceil((_lockUntil-Date.now())/1000)+' ثانية');return;}
-  if(!CONFIGURED){toast('⚙️ أعدّ قاعدة البيانات أولاً');return;}
   const email=document.getElementById('adminEmail').value.trim();
   const pass=document.getElementById('adminPass').value;
   const btn=document.getElementById('loginBtn'),err=document.getElementById('loginErr');
