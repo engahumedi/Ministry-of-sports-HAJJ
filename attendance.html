@@ -429,15 +429,11 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /hajj_attendance_1447/{doc} {
 
-      // أي شخص يقدر يسجل حضوره — مع التحقق من صحة البيانات
-      allow create: if request.resource.data.keys()
-                         .hasAll(['name','id','time','date'])
-                      && request.resource.data.name is string
-                      && request.resource.data.name.size() >= 4
-                      && request.resource.data.id.matches('[12][0-9]{9}');
+      // أي مستخدم موثّق (حتى مجهول) يقدر يسجل حضوره
+      allow create: if request.auth != null;
 
-      // القراءة والحذف للمشرف المسجّل دخوله فقط
-      allow read, delete: if request.auth != null;
+      // القراءة والحذف للمشرف المسجّل بإيميل فقط
+      allow read, delete: if request.auth != null && request.auth.token.email != null;
 
       // لا أحد يقدر يعدّل سجلاً بعد إنشائه
       allow update: if false;
@@ -475,9 +471,9 @@ const firebaseConfig = {
 // ────────────────────────────────────────────────────────────────────────────
 
 import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getFirestore, collection, deleteDoc, doc, onSnapshot }
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+import { getAuth, signInWithEmailAndPassword, signInAnonymously, signOut, onAuthStateChanged }
                                 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 // ── Bootstrap ───────────────────────────────────────────────────────────────
@@ -493,8 +489,12 @@ if (CONFIGURED) {
   document.getElementById('liveDot').style.display = 'inline-block';
 
   // Restore session if admin already logged in
+  // Anonymous sign-in for registration users — gives a proper Firebase token
+  signInAnonymously(auth).catch(() => {});
+
   onAuthStateChanged(auth, user => {
-    if (user) showAdminPanel();
+    // Only show admin panel for email-authenticated users (not anonymous)
+    if (user && user.email) showAdminPanel();
   });
 } else {
   document.getElementById('configBanner').style.display = 'block';
@@ -587,22 +587,9 @@ async function submitAttendance() {
     const today = new Date().toISOString().slice(0,10);
     const rec = { name, id, date:today, time:new Date().toISOString(), lat:locationData.lat, lng:locationData.lng, accuracy:locationData.accuracy };
 
-    // Use Firestore REST API directly (avoids WebSocket issues on mobile networks)
-    const ctrl = new AbortController();
-    const tid  = setTimeout(() => ctrl.abort(), 15000);
-    const url  = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/${COL}?key=${firebaseConfig.apiKey}`;
-    const body = { fields: {
-      name:     { stringValue: rec.name },
-      id:       { stringValue: rec.id },
-      date:     { stringValue: rec.date },
-      time:     { stringValue: rec.time },
-      lat:      { stringValue: String(rec.lat) },
-      lng:      { stringValue: String(rec.lng) },
-      accuracy: { integerValue: String(rec.accuracy) }
-    }};
-    const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body), signal:ctrl.signal });
-    clearTimeout(tid);
-    if (!res.ok) { const e=await res.json(); throw new Error(e.error?.message||'HTTP '+res.status); }
+    // Ensure anonymous auth token is ready before writing
+    if (!auth.currentUser) await signInAnonymously(auth);
+    await addDoc(collection(db, COL), rec);
 
     document.getElementById('formCard').style.display='none';
     document.getElementById('successCard').classList.add('show');
