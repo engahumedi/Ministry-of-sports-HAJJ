@@ -70,6 +70,12 @@ nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:
 .btn-del{background:#ffebee;color:#c62828;border:1px solid #ffcdd2}
 .btn-out{background:#f5f5f5;color:#555;border:1px solid #ddd}
 .btn-ref{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.btn-toggle-open{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.btn-toggle-close{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
+.closed-banner{background:#fff3e0;border:2px solid #ffcc80;border-radius:16px;padding:40px 24px;text-align:center;max-width:600px;margin:0 auto}
+.closed-icon{font-size:3rem;display:block;margin-bottom:12px}
+.closed-title{font-size:1.3rem;font-weight:900;color:#e65100;margin-bottom:8px}
+.closed-sub{color:#888;font-size:.9rem}
 
 .tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid #f0f0f0}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
@@ -101,6 +107,15 @@ tr:hover td{background:#fafafa}
 <div class="tabs">
   <button class="tab-btn active" id="tabRegBtn">✏️ تسجيل الحضور</button>
   <button class="tab-btn" id="tabAdminBtn">📋 لوحة المشرف</button>
+</div>
+
+<!-- CLOSED BANNER -->
+<div id="closedBanner" style="display:none;padding:16px 16px 0">
+  <div class="closed-banner">
+    <span class="closed-icon">🔒</span>
+    <div class="closed-title">التسجيل مغلق حالياً</div>
+    <div class="closed-sub">سيتم إعلامكم عند فتح التسجيل من قِبَل المشرف</div>
+  </div>
 </div>
 
 <!-- REGISTRATION -->
@@ -168,6 +183,7 @@ tr:hover td{background:#fafafa}
     <div class="toolbar">
       <input class="search-in" type="text" id="searchBox" placeholder="🔍 بحث...">
       <button class="tool-btn btn-ref" id="refreshBtn">🔄 تحديث</button>
+      <button class="tool-btn btn-toggle-open" id="toggleRegBtn">⏳ جارٍ...</button>
       <button class="tool-btn btn-csv" id="exportBtn">💾 CSV</button>
       <button class="tool-btn btn-del" id="clearBtn">🗑️ مسح الكل</button>
     </div>
@@ -189,6 +205,31 @@ let locationData = null;
 let allDocs      = [];
 let adminPass    = '';
 let refreshTimer = null;
+let regOpen      = true;
+
+// ─── CHECK REGISTRATION STATUS ON LOAD ───────────────────────────────────────
+(async function() {
+  try {
+    const res  = await fetch(SCRIPT_URL + '?action=status');
+    const data = await res.json();
+    regOpen = data.open !== false;
+  } catch(e) {
+    regOpen = true;
+  }
+  updateRegUI();
+})();
+
+function updateRegUI() {
+  const banner  = document.getElementById('closedBanner');
+  const tabReg  = document.getElementById('tabReg');
+  if (regOpen) {
+    banner.style.display = 'none';
+    tabReg.style.display = 'block';
+  } else {
+    banner.style.display = 'block';
+    tabReg.style.display = 'none';
+  }
+}
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function toast(msg) {
@@ -208,7 +249,7 @@ function fmt(iso) {
 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 document.getElementById('tabRegBtn').addEventListener('click', () => {
-  document.getElementById('tabReg').style.display   = 'block';
+  updateRegUI();
   document.getElementById('tabAdmin').style.display = 'none';
   document.getElementById('tabRegBtn').classList.add('active');
   document.getElementById('tabAdminBtn').classList.remove('active');
@@ -335,6 +376,7 @@ async function tryLogin() {
     document.getElementById('adminPanelCard').style.display = 'block';
     renderStats(); renderTable();
     startAutoRefresh();
+    loadRegStatus();
   } catch(e) {
     err.textContent = 'خطأ في الاتصال: ' + e.message;
     btn.disabled = false; btn.textContent = 'دخول';
@@ -372,6 +414,44 @@ function startAutoRefresh() {
 }
 
 document.getElementById('refreshBtn').addEventListener('click', loadRecords);
+
+// ─── TOGGLE REGISTRATION ──────────────────────────────────────────────────────
+function updateToggleBtn(isOpen) {
+  const btn = document.getElementById('toggleRegBtn');
+  if (isOpen) {
+    btn.textContent = '🟢 التسجيل مفتوح – اضغط للإغلاق';
+    btn.className = 'tool-btn btn-toggle-open';
+  } else {
+    btn.textContent = '🔴 التسجيل مغلق – اضغط للفتح';
+    btn.className = 'tool-btn btn-toggle-close';
+  }
+}
+
+async function loadRegStatus() {
+  try {
+    const res  = await fetch(SCRIPT_URL + '?action=status');
+    const data = await res.json();
+    regOpen = data.open !== false;
+    updateToggleBtn(regOpen);
+  } catch(e) {}
+}
+
+document.getElementById('toggleRegBtn').addEventListener('click', async () => {
+  const btn    = document.getElementById('toggleRegBtn');
+  const newVal = regOpen ? 'closed' : 'open';
+  btn.disabled = true; btn.textContent = 'جارٍ...';
+  try {
+    const res  = await fetch(SCRIPT_URL + '?action=setStatus&value=' + newVal + '&pass=' + encodeURIComponent(adminPass));
+    const data = await res.json();
+    if (data.error) { toast('خطأ: ' + data.error); btn.disabled = false; return; }
+    regOpen = newVal === 'open';
+    updateToggleBtn(regOpen);
+    toast(regOpen ? 'تم فتح التسجيل' : 'تم إغلاق التسجيل');
+  } catch(e) {
+    toast('خطأ: ' + e.message);
+  }
+  btn.disabled = false;
+});
 
 // ─── STATS ────────────────────────────────────────────────────────────────────
 function renderStats() {

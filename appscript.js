@@ -16,6 +16,10 @@ function getSheet() {
 
 function doPost(e) {
   try {
+    var props = PropertiesService.getScriptProperties();
+    if (props.getProperty('REG_OPEN') === 'false') {
+      return ContentService.createTextOutput('closed');
+    }
     var sheet = getSheet();
     var rec = JSON.parse(e.postData.contents);
     var row = [
@@ -36,12 +40,20 @@ function doPost(e) {
 }
 
 function doGet(e) {
+  var action = e.parameter.action || 'list';
+  var props  = PropertiesService.getScriptProperties();
+
+  if (action === 'status') {
+    var isOpen = props.getProperty('REG_OPEN') !== 'false';
+    return out({open: isOpen});
+  }
+
   var pass = e.parameter.pass || '';
   if (pass !== ADMIN_PASS) {
     return out({error: 'unauthorized'});
   }
+
   var sheet = getSheet();
-  var action = e.parameter.action || 'list';
 
   if (action === 'list') {
     var rows = sheet.getDataRange().getValues();
@@ -54,6 +66,12 @@ function doGet(e) {
       });
     });
     return out(recs);
+  }
+
+  if (action === 'setStatus') {
+    var val = e.parameter.value;
+    props.setProperty('REG_OPEN', val === 'open' ? 'true' : 'false');
+    return out({status: 'ok', open: val === 'open'});
   }
 
   if (action === 'delete') {
