@@ -3,547 +3,494 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>استئذان الخروج - معسكر المعيصم 1447</title>
+<title>استئذان الخروج – معسكر المعيصم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: #f0f4f8;
-    min-height: 100vh;
-    color: #1a202c;
-  }
-  header {
-    background: linear-gradient(135deg, #1a5276, #2e86c1);
-    color: #fff;
-    padding: 18px 20px;
-    text-align: center;
-  }
-  header h1 { font-size: 1.3rem; }
-  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh}
 
-  .container { max-width: 600px; margin: 24px auto; padding: 0 16px 40px; }
+nav{background:#0a2e18;color:#c9a227;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid #c9a227}
+.nav-title{font-size:1rem;font-weight:700;color:#c9a227}
+.nav-sub{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:2px}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:20px}
 
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-  .card h2 { font-size: 1.1rem; color: #1a5276; margin-bottom: 16px; border-bottom: 2px solid #eaf0fb; padding-bottom: 10px; }
+.tabs-bar{display:flex;gap:0;max-width:620px;margin:16px auto 0;padding:0 16px}
+.tab-btn{flex:1;padding:10px 6px;border:none;border-radius:10px 10px 0 0;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;background:#ddd;color:#555;transition:.2s}
+.tab-btn.active{background:#0a2e18;color:#c9a227}
 
-  label { display: block; font-size: 0.9rem; color: #4a5568; margin-bottom: 4px; font-weight: 600; }
-  input, select, textarea {
-    width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e0;
-    border-radius: 8px; font-size: 0.95rem; font-family: inherit;
-    margin-bottom: 14px; background: #f7fafc; color: #1a202c;
-    transition: border-color .2s;
-  }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: #2e86c1; background: #fff; }
-  textarea { resize: vertical; min-height: 70px; }
+.card{background:#fff;border-radius:0 0 16px 16px;padding:24px;max-width:620px;margin:0 auto 24px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.section-title{font-size:1.05rem;font-weight:800;color:#0a2e18;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
 
-  .btn {
-    display: inline-block; padding: 11px 24px; border-radius: 8px;
-    font-size: 0.95rem; font-weight: 700; cursor: pointer; border: none;
-    transition: opacity .2s, transform .1s; width: 100%; text-align: center;
-  }
-  .btn:active { transform: scale(0.98); }
-  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-  .btn-primary  { background: #2e86c1; color: #fff; }
-  .btn-success  { background: #27ae60; color: #fff; }
-  .btn-danger   { background: #e74c3c; color: #fff; }
-  .btn-warning  { background: #f39c12; color: #fff; }
-  .btn-secondary{ background: #718096; color: #fff; }
-  .btn-sm { width: auto; padding: 7px 14px; font-size: 0.82rem; }
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.88rem;font-weight:700;color:#333;margin-bottom:6px}
+.field input,.field select{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:1rem;outline:none;transition:.2s;background:#fff}
+.field input:focus,.field select:focus{border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,.1)}
 
-  .toast {
-    position: fixed; bottom: 20px; right: 20px; left: 20px;
-    max-width: 400px; margin: auto;
-    background: #2d3748; color: #fff;
-    padding: 12px 18px; border-radius: 10px;
-    font-size: 0.9rem; text-align: center;
-    opacity: 0; transition: opacity .3s; z-index: 999;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; }
-  .toast.error { background: #c0392b; }
-  .toast.success { background: #27ae60; }
+.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#1a6b3c,#2e8b57);color:#fff;font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;margin-top:4px;transition:.2s}
+.submit-btn:disabled{background:#aaa;cursor:not-allowed}
+.gold-btn{background:#c9a227;color:#0a2e18;font-weight:800;padding:10px 28px;border-radius:30px;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.95rem}
+.outline-btn{background:transparent;color:#0a2e18;font-weight:700;padding:10px 24px;border-radius:30px;border:2px solid #0a2e18;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem}
 
-  .badge {
-    display: inline-block; padding: 3px 10px; border-radius: 20px;
-    font-size: 0.78rem; font-weight: 700;
-  }
-  .badge-pending  { background: #fef9c3; color: #92400e; }
-  .badge-approved { background: #dcfce7; color: #166534; }
-  .badge-rejected { background: #fee2e2; color: #991b1b; }
+.req-card{border:1.5px solid #e8f5e9;border-radius:12px;padding:14px;margin-bottom:12px;background:#fafffe}
+.req-card h3{font-size:.95rem;font-weight:800;color:#0a2e18;margin-bottom:6px}
+.req-card p{font-size:.85rem;color:#555;margin:3px 0}
+.req-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.approve-btn{padding:8px 18px;border-radius:8px;border:none;background:#1a6b3c;color:#fff;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer}
+.reject-btn{padding:8px 18px;border-radius:8px;background:#ffebee;color:#c62828;border:1px solid #ffcdd2;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer}
+.note-box{margin-top:8px;display:none}
+.note-box input{width:100%;padding:9px 12px;border:2px solid #e0e0e0;border-radius:8px;font-family:'Tajawal',sans-serif;font-size:.9rem;outline:none;margin-bottom:6px}
+.note-box button{padding:7px 16px;border-radius:8px;border:none;background:#c62828;color:#fff;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer}
 
-  .req-card {
-    border: 1.5px solid #e2e8f0; border-radius: 10px;
-    padding: 14px; margin-bottom: 12px; background: #f7fafc;
-  }
-  .req-card h3 { font-size: 0.95rem; color: #1a5276; margin-bottom: 6px; }
-  .req-card p  { font-size: 0.85rem; color: #4a5568; margin: 3px 0; }
-  .req-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.78rem;font-weight:700}
+.badge-pending{background:#fff8e1;color:#e65100}
+.badge-approved{background:#e8f5e9;color:#2e7d32}
+.badge-rejected{background:#ffebee;color:#c62828}
 
-  .status-box {
-    text-align: center; padding: 30px 20px;
-  }
-  .status-icon { font-size: 3.5rem; margin-bottom: 10px; }
-  .status-box h2 { font-size: 1.2rem; color: #1a5276; }
-  .status-box p  { font-size: 0.9rem; color: #4a5568; margin-top: 6px; }
-  .status-detail { margin-top: 18px; text-align: right; }
-  .status-detail div { padding: 8px 0; border-bottom: 1px solid #edf2f7; font-size: 0.9rem; }
-  .status-detail span { font-weight: 700; color: #2d3748; }
+.status-box{text-align:center;padding:30px 20px}
+.status-icon{font-size:3.5rem;margin-bottom:10px;display:block}
+.status-title{font-size:1.3rem;font-weight:900;color:#0a2e18;margin-bottom:8px}
+.status-detail{margin-top:18px;text-align:right}
+.status-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem}
+.status-row:last-child{border:none}
+.s-lbl{color:#666}
+.s-val{font-weight:700;color:#0a2e18}
 
-  .admin-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0; border-bottom: 1px solid #edf2f7; font-size: 0.9rem;
-  }
-  .admin-row:last-child { border-bottom: none; }
+.req-id-box{background:#f0f8f3;border:2px solid #c9a227;border-radius:12px;padding:16px;text-align:center;margin:16px 0}
+.req-id-label{font-size:.8rem;color:#666;margin-bottom:4px}
+.req-id-num{font-size:1.5rem;font-weight:900;color:#0a2e18;letter-spacing:1px}
 
-  .tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
-  .tab {
-    padding: 8px 16px; border-radius: 8px; font-size: 0.85rem;
-    font-weight: 700; cursor: pointer; background: #e2e8f0; color: #4a5568; border: none;
-  }
-  .tab.active { background: #2e86c1; color: #fff; }
+.lock-box{text-align:center;padding:10px 10px 20px}
+.lock-icon{font-size:2.5rem;display:block;margin-bottom:8px}
+.lock-title{font-size:1rem;font-weight:800;color:#0a2e18;margin-bottom:4px}
+.lock-sub{font-size:.82rem;color:#888;margin-bottom:16px}
 
-  #view-admin-login input { margin-bottom: 12px; }
+.stat-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:#0a2e18;color:#fff;border-radius:12px;padding:12px 16px;flex:1;min-width:80px;text-align:center}
+.stat-num{font-size:1.6rem;font-weight:900;color:#c9a227;display:block}
+.stat-lbl{font-size:.75rem;color:rgba(255,255,255,.7)}
 
-  .req-note-input {
-    margin-top: 8px; display: none;
-  }
-  .link-box {
-    background: #eaf0fb; border-radius: 8px; padding: 12px;
-    font-size: 0.82rem; word-break: break-all; color: #1a5276;
-    margin-top: 8px; font-family: monospace;
-  }
+.admin-row{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;gap:8px}
+.admin-row:last-child{border:none}
+.leader-name{font-weight:800;color:#0a2e18;font-size:.95rem}
+.leader-creds{font-size:.78rem;color:#555;margin-top:3px;background:#f0f8f3;border-radius:6px;padding:4px 8px;display:block;font-family:monospace}
+.del-btn{padding:6px 12px;border-radius:8px;border:none;background:#ffebee;color:#c62828;font-family:'Tajawal',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;flex-shrink:0}
 
-  .empty { text-align: center; color: #a0aec0; padding: 30px; font-size: 0.9rem; }
+.toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.search-in{flex:1;min-width:140px;padding:9px 12px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.9rem;outline:none}
+.filter-sel{padding:9px 10px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.85rem;outline:none}
+.ref-btn{padding:8px 14px;border-radius:10px;border:1px solid #a5d6a7;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.85rem;font-weight:700;background:#e8f5e9;color:#2e7d32}
 
-  @media (max-width: 400px) {
-    header h1 { font-size: 1.1rem; }
-    .card { padding: 16px; }
-  }
+.subtabs{display:flex;gap:8px;margin-bottom:18px}
+.subtab{flex:1;padding:9px;border-radius:10px;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;font-size:.9rem;transition:.2s}
+.subtab.on{background:#0a2e18;color:#c9a227}
+.subtab.off{background:#eee;color:#555}
+
+.empty{text-align:center;color:#aaa;padding:30px;font-size:.9rem}
+.loading{text-align:center;color:#888;padding:30px;font-size:.9rem}
+
+.toast{position:fixed;bottom:20px;right:16px;left:16px;max-width:400px;margin:auto;background:#0a2e18;color:#fff;padding:12px 18px;border-radius:10px;font-size:.9rem;text-align:center;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1}
+.toast.err{background:#c62828}
+.toast.ok{background:#1a6b3c}
+
+@media(max-width:400px){.tab-btn{font-size:.78rem;padding:9px 3px}}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🏕️ نظام الاستئذان - معسكر المعيصم 1447</h1>
-  <p>وزارة الرياضة</p>
-</header>
+<nav>
+  <div>
+    <div class="nav-title">🚪 استئذان الخروج</div>
+    <div class="nav-sub">معسكر المعيصم 1447</div>
+  </div>
+  <a href="index.html" class="nav-back">← الرئيسية</a>
+</nav>
 
-<div class="container" id="app"></div>
-
+<div id="app"></div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── CONFIGURATION ───────────────────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgzGxHTSRmIWwr_dusoi3wJzUrWUi9PrH9xXg2W4F7mEHIPJx3XocC3m7DAhjj2G94/exec';
 const ADMIN_PASS = 'admin1447';
-// ─────────────────────────────────────────────────────────────────────────────
-
-const app    = document.getElementById('app');
+const app = document.getElementById('app');
 const params = new URLSearchParams(location.search);
 
-function showToast(msg, type = '') {
+function toast(msg, type) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = 'toast show' + (type ? ' ' + type : '');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.className = 'toast', 3200);
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = 'toast', 3200);
 }
 
-function statusBadge(s) {
-  const map = { pending: ['pending','قيد الانتظار'], approved: ['approved','موافق'], rejected: ['rejected','مرفوض'] };
-  const [cls, label] = map[s] || ['pending', s];
-  return `<span class="badge badge-${cls}">${label}</span>`;
+function badge(s) {
+  const m = { pending:['pending','قيد الانتظار'], approved:['approved','موافق'], rejected:['rejected','مرفوض'] };
+  const [c,l] = m[s] || ['pending',s];
+  return `<span class="badge badge-${c}">${l}</span>`;
 }
 
-function get(action, extra = {}) {
-  const p = new URLSearchParams({ action, ...extra });
+function get(action, extra) {
+  const p = new URLSearchParams(Object.assign({ action }, extra || {}));
   return fetch(SCRIPT_URL + '?' + p).then(r => r.json());
 }
 
 function post(body) {
-  return fetch(SCRIPT_URL, {
-    method: 'POST', mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(body)
-  });
+  return fetch(SCRIPT_URL, { method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'text/plain'}, body:JSON.stringify(body) });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  VIEW: INDIVIDUAL REQUEST FORM
-// ─────────────────────────────────────────────────────────────────────────────
-async function viewRequest() {
-  app.innerHTML = `
-    <div class="card">
-      <h2>📋 طلب استئذان خروج</h2>
-      <label>الاسم الكامل</label>
-      <input id="r-name" type="text" placeholder="أدخل اسمك الكامل">
-      <label>القائد المسؤول</label>
-      <select id="r-leader"><option value="">جارٍ التحميل...</option></select>
-      <label>سبب الخروج</label>
+function tabs(active) {
+  return `<div class="tabs-bar">
+    <button class="tab-btn ${active==='member'?'active':''}" onclick="goTab('member')">📋 طلب خروج</button>
+    <button class="tab-btn ${active==='track'?'active':''}"  onclick="goTab('track')">🔍 متابعة</button>
+    <button class="tab-btn ${active==='leader'?'active':''}" onclick="goTab('leader')">👤 القائد</button>
+    <button class="tab-btn ${active==='admin'?'active':''}"  onclick="goTab('admin')">⚙️ المشرف</button>
+  </div>`;
+}
+
+window.goTab = t => ({ member:viewMember, track:viewTrack, leader:viewLeaderLogin, admin:viewAdminLogin })[t]?.();
+
+// ─── MEMBER ──────────────────────────────────────────────────────────────────
+async function viewMember() {
+  app.innerHTML = tabs('member') + `<div class="card">
+    <div class="section-title">📋 طلب استئذان خروج</div>
+    <div class="field"><label>الاسم الكامل</label><input id="r-name" type="text" placeholder="أدخل اسمك الكامل"></div>
+    <div class="field"><label>القائد المسؤول</label><select id="r-leader"><option value="">جارٍ التحميل...</option></select></div>
+    <div class="field"><label>سبب الخروج</label>
       <select id="r-reason">
         <option value="">اختر السبب</option>
-        <option>مراجعة طبية</option>
-        <option>ظرف عائلي</option>
-        <option>معاملة رسمية</option>
-        <option>شراء مستلزمات</option>
-        <option>أخرى</option>
+        <option>مراجعة طبية</option><option>ظرف عائلي</option>
+        <option>معاملة رسمية</option><option>شراء مستلزمات</option><option>أخرى</option>
       </select>
-      <label>تاريخ العودة</label>
-      <input id="r-date" type="date">
-      <label>وقت العودة</label>
-      <input id="r-time" type="time">
-      <button class="btn btn-primary" id="r-submit">إرسال الطلب</button>
     </div>
-    <div class="card">
-      <h2>🔍 متابعة طلب سابق</h2>
-      <label>رقم الطلب</label>
-      <input id="r-trackid" type="text" placeholder="أدخل رقم الطلب">
-      <button class="btn btn-secondary" id="r-track">متابعة الطلب</button>
-    </div>
-  `;
+    <div class="field"><label>تاريخ العودة</label><input id="r-date" type="date"></div>
+    <div class="field"><label>وقت العودة</label><input id="r-time" type="time"></div>
+    <button class="submit-btn" id="r-submit">إرسال الطلب</button>
+  </div>`;
 
-  // Load leaders
   try {
-    const leaders = await get('getLeaders');
+    const ls = await get('getLeaders');
     const sel = document.getElementById('r-leader');
-    if (Array.isArray(leaders) && leaders.length > 0) {
-      sel.innerHTML = '<option value="">اختر القائد</option>' +
-        leaders.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
-    } else {
-      sel.innerHTML = '<option value="">لا يوجد قادة مضافون</option>';
-    }
-  } catch {
-    document.getElementById('r-leader').innerHTML = '<option value="">تعذّر تحميل القادة</option>';
-  }
+    sel.innerHTML = Array.isArray(ls) && ls.length
+      ? '<option value="">اختر القائد</option>' + ls.map(l=>`<option value="${l.id}">${l.name}</option>`).join('')
+      : '<option value="">لا يوجد قادة مضافون</option>';
+  } catch { document.getElementById('r-leader').innerHTML = '<option value="">تعذّر التحميل</option>'; }
 
   document.getElementById('r-submit').addEventListener('click', async () => {
-    const name      = document.getElementById('r-name').value.trim();
-    const leaderSel = document.getElementById('r-leader');
-    const leaderId  = leaderSel.value;
-    const leaderName = leaderSel.options[leaderSel.selectedIndex]?.text || '';
-    const reason    = document.getElementById('r-reason').value;
-    const returnDate= document.getElementById('r-date').value;
-    const returnTime= document.getElementById('r-time').value;
-
-    if (!name)        return showToast('أدخل اسمك الكامل', 'error');
-    if (!leaderId)    return showToast('اختر القائد المسؤول', 'error');
-    if (!reason)      return showToast('اختر سبب الخروج', 'error');
-    if (!returnDate)  return showToast('حدد تاريخ العودة', 'error');
-    if (!returnTime)  return showToast('حدد وقت العودة', 'error');
-
+    const name = document.getElementById('r-name').value.trim();
+    const sel  = document.getElementById('r-leader');
+    const leaderId = sel.value;
+    const leaderName = sel.options[sel.selectedIndex]?.text || '';
+    const reason = document.getElementById('r-reason').value;
+    const returnDate = document.getElementById('r-date').value;
+    const returnTime = document.getElementById('r-time').value;
+    if (!name)       return toast('أدخل اسمك الكامل','err');
+    if (!leaderId)   return toast('اختر القائد المسؤول','err');
+    if (!reason)     return toast('اختر سبب الخروج','err');
+    if (!returnDate) return toast('حدد تاريخ العودة','err');
+    if (!returnTime) return toast('حدد وقت العودة','err');
     const btn = document.getElementById('r-submit');
-    btn.disabled = true;
-    btn.textContent = 'جارٍ الإرسال...';
-
+    btn.disabled = true; btn.textContent = 'جارٍ الإرسال...';
     const reqId = String(Date.now());
-    await post({ action: 'addRequest', id: reqId, name, leaderId, leaderName, reason, returnDate, returnTime });
-
-    // Show confirmation
-    app.innerHTML = `
-      <div class="card status-box">
-        <div class="status-icon">✅</div>
-        <h2>تم إرسال طلبك بنجاح</h2>
-        <p>احتفظ برقم طلبك لمتابعة حالته</p>
-        <div style="margin:18px 0;background:#eaf0fb;border-radius:8px;padding:14px;text-align:center">
-          <div style="font-size:0.8rem;color:#4a5568;margin-bottom:4px">رقم الطلب</div>
-          <div style="font-size:1.4rem;font-weight:800;color:#1a5276;letter-spacing:1px">${reqId}</div>
-        </div>
-        <button class="btn btn-primary" onclick="location.href='?check=${reqId}'">متابعة حالة الطلب</button>
-        <br><br>
-        <button class="btn btn-secondary" onclick="location.href=location.pathname">طلب جديد</button>
+    await post({ action:'addRequest', id:reqId, name, leaderId, leaderName, reason, returnDate, returnTime });
+    app.innerHTML = tabs('member') + `<div class="card"><div class="status-box">
+      <span class="status-icon">✅</span>
+      <div class="status-title">تم إرسال طلبك بنجاح</div>
+      <p style="color:#666;font-size:.9rem">احتفظ برقم طلبك لمتابعة حالته</p>
+      <div class="req-id-box"><div class="req-id-label">رقم الطلب</div><div class="req-id-num">${reqId}</div></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="gold-btn" onclick="viewTrackById('${reqId}')">متابعة الحالة</button>
+        <button class="outline-btn" onclick="viewMember()">طلب جديد</button>
       </div>
-    `;
-  });
-
-  document.getElementById('r-track').addEventListener('click', () => {
-    const id = document.getElementById('r-trackid').value.trim();
-    if (!id) return showToast('أدخل رقم الطلب', 'error');
-    location.href = '?check=' + encodeURIComponent(id);
+    </div></div>`;
   });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  VIEW: STATUS CHECK
-// ─────────────────────────────────────────────────────────────────────────────
-async function viewStatus(reqId) {
-  app.innerHTML = `<div class="card status-box"><div class="status-icon">⏳</div><p>جارٍ التحقق...</p></div>`;
+// ─── TRACK ────────────────────────────────────────────────────────────────────
+function viewTrack() {
+  app.innerHTML = tabs('track') + `<div class="card">
+    <div class="section-title">🔍 متابعة حالة الطلب</div>
+    <div class="field"><label>رقم الطلب</label><input id="t-id" type="text" placeholder="أدخل رقم الطلب"></div>
+    <button class="submit-btn" id="t-go">تحقق من الحالة</button>
+  </div>`;
+  document.getElementById('t-go').addEventListener('click', () => {
+    const id = document.getElementById('t-id').value.trim();
+    if (!id) return toast('أدخل رقم الطلب','err');
+    viewTrackById(id);
+  });
+}
+
+window.viewTrackById = async function(reqId) {
+  app.innerHTML = tabs('track') + `<div class="card"><div class="loading">جارٍ التحقق...</div></div>`;
   try {
-    const data = await get('getStatus', { id: reqId });
-    if (data.error) {
-      app.innerHTML = `
-        <div class="card status-box">
-          <div class="status-icon">❌</div>
-          <h2>الطلب غير موجود</h2>
-          <p>تأكد من رقم الطلب</p>
-          <br>
-          <button class="btn btn-primary" onclick="location.href=location.pathname">العودة</button>
-        </div>`;
+    const d = await get('getStatus', { id: reqId });
+    if (d.error) {
+      app.innerHTML = tabs('track') + `<div class="card"><div class="status-box">
+        <span class="status-icon">❌</span><div class="status-title">الطلب غير موجود</div>
+        <p style="color:#888;margin-top:6px">تأكد من رقم الطلب</p>
+        <button class="outline-btn" onclick="viewTrack()" style="margin-top:16px">بحث آخر</button>
+      </div></div>`;
       return;
     }
-    const icons = { pending: '⏳', approved: '✅', rejected: '❌' };
-    const icon = icons[data.status] || '⏳';
-    app.innerHTML = `
-      <div class="card">
-        <div class="status-box">
-          <div class="status-icon">${icon}</div>
-          <h2>حالة الطلب: ${statusBadge(data.status)}</h2>
-        </div>
-        <div class="status-detail">
-          <div>الاسم: <span>${data.name}</span></div>
-          <div>القائد: <span>${data.leaderName}</span></div>
-          <div>السبب: <span>${data.reason}</span></div>
-          <div>تاريخ العودة: <span>${data.returnDate}</span></div>
-          <div>وقت العودة: <span>${data.returnTime}</span></div>
-          ${data.note ? `<div>ملاحظة القائد: <span>${data.note}</span></div>` : ''}
-        </div>
-        <br>
-        <button class="btn btn-secondary" onclick="location.reload()">تحديث</button>
-        <br><br>
-        <button class="btn btn-primary" onclick="location.href=location.pathname">طلب جديد</button>
-      </div>`;
+    const ico = { pending:'⏳', approved:'✅', rejected:'❌' };
+    app.innerHTML = tabs('track') + `<div class="card">
+      <div class="status-box">
+        <span class="status-icon">${ico[d.status]||'⏳'}</span>
+        <div class="status-title">حالة الطلب: ${badge(d.status)}</div>
+      </div>
+      <div class="status-detail">
+        <div class="status-row"><span class="s-lbl">الاسم</span><span class="s-val">${d.name}</span></div>
+        <div class="status-row"><span class="s-lbl">القائد</span><span class="s-val">${d.leaderName}</span></div>
+        <div class="status-row"><span class="s-lbl">السبب</span><span class="s-val">${d.reason}</span></div>
+        <div class="status-row"><span class="s-lbl">تاريخ العودة</span><span class="s-val">${d.returnDate}</span></div>
+        <div class="status-row"><span class="s-lbl">وقت العودة</span><span class="s-val">${d.returnTime}</span></div>
+        ${d.note ? `<div class="status-row"><span class="s-lbl">ملاحظة القائد</span><span class="s-val">${d.note}</span></div>` : ''}
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+        <button class="gold-btn" onclick="viewTrackById('${reqId}')">🔄 تحديث</button>
+        <button class="outline-btn" onclick="viewTrack()">بحث آخر</button>
+      </div>
+    </div>`;
   } catch {
-    app.innerHTML = `
-      <div class="card status-box">
-        <div class="status-icon">⚠️</div>
-        <h2>خطأ في الاتصال</h2>
-        <button class="btn btn-primary" onclick="location.reload()" style="margin-top:16px">إعادة المحاولة</button>
-      </div>`;
+    app.innerHTML = tabs('track') + `<div class="card"><div class="status-box">
+      <span class="status-icon">⚠️</span><div class="status-title">خطأ في الاتصال</div>
+      <button class="gold-btn" onclick="viewTrackById('${reqId}')" style="margin-top:16px">إعادة المحاولة</button>
+    </div></div>`;
   }
+};
+
+// ─── LEADER ───────────────────────────────────────────────────────────────────
+function viewLeaderLogin() {
+  const urlId  = params.get('id');
+  const urlKey = params.get('key');
+  if (params.get('v') === 'leader' && urlId && urlKey) { viewLeaderPanel(urlId, urlKey); return; }
+
+  app.innerHTML = tabs('leader') + `<div class="card">
+    <div class="lock-box">
+      <span class="lock-icon">👤</span>
+      <div class="lock-title">دخول القادة</div>
+      <div class="lock-sub">أدخل بيانات دخولك التي أعطاها لك المشرف</div>
+    </div>
+    <div class="field"><label>رقم المعرّف</label><input id="l-id" type="text" placeholder="رقم المعرف"></div>
+    <div class="field"><label>المفتاح السري</label><input id="l-key" type="text" placeholder="المفتاح السري"></div>
+    <button class="submit-btn" id="l-in">دخول</button>
+  </div>`;
+
+  document.getElementById('l-in').addEventListener('click', async () => {
+    const id  = document.getElementById('l-id').value.trim();
+    const key = document.getElementById('l-key').value.trim();
+    if (!id || !key) return toast('أدخل المعرّف والمفتاح','err');
+    const btn = document.getElementById('l-in');
+    btn.disabled = true; btn.textContent = 'جارٍ التحقق...';
+    try {
+      const res = await get('getRequests', { leaderId:id, key });
+      if (res.error) { toast('بيانات الدخول غير صحيحة','err'); btn.disabled=false; btn.textContent='دخول'; return; }
+      viewLeaderPanel(id, key);
+    } catch { toast('خطأ في الاتصال','err'); btn.disabled=false; btn.textContent='دخول'; }
+  });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  VIEW: LEADER PANEL
-// ─────────────────────────────────────────────────────────────────────────────
-async function viewLeader(leaderId, leaderKey) {
-  app.innerHTML = `<div class="card"><p style="text-align:center;color:#718096">جارٍ تحميل الطلبات...</p></div>`;
+async function viewLeaderPanel(lid, lkey) {
+  app.innerHTML = tabs('leader') + `<div class="card"><div class="loading">جارٍ تحميل الطلبات...</div></div>`;
 
-  async function loadRequests() {
+  async function load() {
     try {
-      const data = await get('getRequests', { leaderId, key: leaderKey });
-      if (data.error) {
-        app.innerHTML = `
-          <div class="card status-box">
-            <div class="status-icon">🔒</div>
-            <h2>غير مصرح</h2>
-            <p>تحقق من رابط القائد</p>
-          </div>`;
-        return;
-      }
+      const data = await get('getRequests', { leaderId:lid, key:lkey });
+      if (data.error) { viewLeaderLogin(); return; }
+      const counts = [data.length, data.filter(r=>r.status==='pending').length,
+                      data.filter(r=>r.status==='approved').length, data.filter(r=>r.status==='rejected').length];
+      let html = tabs('leader') + `<div class="card">
+        <div class="section-title">📥 طلبات الاستئذان</div>
+        <div class="stat-bar">
+          <div class="stat"><span class="stat-num">${counts[0]}</span><span class="stat-lbl">الكل</span></div>
+          <div class="stat"><span class="stat-num">${counts[1]}</span><span class="stat-lbl">بانتظار</span></div>
+          <div class="stat"><span class="stat-num">${counts[2]}</span><span class="stat-lbl">موافق</span></div>
+          <div class="stat"><span class="stat-num">${counts[3]}</span><span class="stat-lbl">مرفوض</span></div>
+        </div>`;
       if (!data.length) {
-        app.innerHTML = `
-          <div class="card">
-            <h2>📥 طلبات الاستئذان</h2>
-            <div class="empty">لا توجد طلبات حتى الآن</div>
-          </div>`;
-        return;
-      }
-
-      let html = `<div class="card"><h2>📥 طلبات الاستئذان (${data.length})</h2>`;
-      data.forEach(r => {
-        html += `
-          <div class="req-card" id="rc-${r.id}">
-            <h3>${r.name} ${statusBadge(r.status)}</h3>
-            <p>📋 السبب: ${r.reason}</p>
-            <p>📅 العودة: ${r.returnDate} الساعة ${r.returnTime}</p>
-            <p style="font-size:0.78rem;color:#a0aec0">رقم الطلب: ${r.id}</p>
-            ${r.note ? `<p>💬 ملاحظة: ${r.note}</p>` : ''}
-            ${r.status === 'pending' ? `
+        html += `<div class="empty">لا توجد طلبات حتى الآن</div>`;
+      } else {
+        data.forEach(r => {
+          const noteHtml = r.note ? `<p>💬 ${r.note}</p>` : '';
+          const actions = r.status === 'pending' ? `
             <div class="req-actions">
-              <button class="btn btn-success btn-sm" onclick="updateReq('${r.id}','approved',this)">✅ موافقة</button>
-              <button class="btn btn-danger btn-sm" onclick="toggleNote('${r.id}')">❌ رفض</button>
+              <button class="approve-btn" onclick="doUpdate('${r.id}','${lid}','${lkey}','approved')">✅ موافقة</button>
+              <button class="reject-btn"  onclick="toggleNote('${r.id}')">❌ رفض</button>
             </div>
-            <div class="req-note-input" id="note-${r.id}">
-              <input type="text" id="noteval-${r.id}" placeholder="سبب الرفض (اختياري)">
-              <button class="btn btn-danger btn-sm" onclick="updateReq('${r.id}','rejected',this)">تأكيد الرفض</button>
-            </div>
-            ` : ''}
+            <div class="note-box" id="nb-${r.id}">
+              <input type="text" id="nv-${r.id}" placeholder="سبب الرفض (اختياري)">
+              <button onclick="doUpdate('${r.id}','${lid}','${lkey}','rejected')">تأكيد الرفض</button>
+            </div>` : '';
+          html += `<div class="req-card">
+            <h3>${r.name} ${badge(r.status)}</h3>
+            <p>📋 ${r.reason}</p>
+            <p>📅 العودة: ${r.returnDate} الساعة ${r.returnTime}</p>
+            ${noteHtml}${actions}
           </div>`;
-      });
-      html += `<button class="btn btn-secondary" onclick="loadRequests()" style="margin-top:8px">🔄 تحديث</button></div>`;
+        });
+      }
+      html += `<button class="ref-btn" onclick="leaderLoad()" style="margin-top:4px">🔄 تحديث</button></div>`;
       app.innerHTML = html;
     } catch {
-      app.innerHTML = `<div class="card status-box"><div class="status-icon">⚠️</div><h2>خطأ في الاتصال</h2><button class="btn btn-primary" onclick="loadRequests()" style="margin-top:16px">إعادة المحاولة</button></div>`;
+      app.innerHTML = tabs('leader') + `<div class="card"><div class="status-box">
+        <span class="status-icon">⚠️</span><div class="status-title">خطأ في الاتصال</div>
+        <button class="gold-btn" onclick="leaderLoad()" style="margin-top:16px">إعادة المحاولة</button>
+      </div></div>`;
     }
   }
 
-  window.loadRequests = loadRequests;
-
-  window.toggleNote = function(id) {
-    const n = document.getElementById('note-' + id);
-    n.style.display = n.style.display === 'block' ? 'none' : 'block';
-  };
-
-  window.updateReq = async function(requestId, status, btn) {
-    btn.disabled = true;
-    btn.textContent = 'جارٍ...';
-    const note = document.getElementById('noteval-' + requestId)?.value || '';
+  window.leaderLoad = load;
+  window.toggleNote = id => { const n=document.getElementById('nb-'+id); if(n) n.style.display=n.style.display==='block'?'none':'block'; };
+  window.doUpdate   = async (requestId,leaderId,leaderKey,status) => {
+    const noteEl = document.getElementById('nv-'+requestId);
+    const note = noteEl ? noteEl.value : '';
     try {
-      const res = await get('updateStatus', { leaderId, key: leaderKey, requestId, status, note });
-      if (res.status === 'ok') {
-        showToast(status === 'approved' ? 'تمت الموافقة' : 'تم الرفض', 'success');
-        await loadRequests();
-      } else {
-        showToast('خطأ: ' + (res.error || 'unknown'), 'error');
-        btn.disabled = false;
-      }
-    } catch {
-      showToast('خطأ في الاتصال', 'error');
-      btn.disabled = false;
-    }
+      const res = await get('updateStatus',{leaderId,key:leaderKey,requestId,status,note});
+      if (res.status==='ok') { toast(status==='approved'?'تمت الموافقة ✅':'تم الرفض','ok'); await load(); }
+      else toast('خطأ: '+(res.error||''),'err');
+    } catch { toast('خطأ في الاتصال','err'); }
   };
 
-  await loadRequests();
+  await load();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  VIEW: ADMIN PANEL
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── ADMIN ────────────────────────────────────────────────────────────────────
 function viewAdminLogin() {
-  app.innerHTML = `
-    <div class="card" id="view-admin-login">
-      <h2>🔐 دخول المشرف</h2>
-      <label>كلمة المرور</label>
-      <input id="a-pass" type="password" placeholder="كلمة مرور المشرف">
-      <button class="btn btn-primary" id="a-login">دخول</button>
-    </div>`;
-  document.getElementById('a-login').addEventListener('click', () => {
+  app.innerHTML = tabs('admin') + `<div class="card">
+    <div class="lock-box">
+      <span class="lock-icon">🔐</span>
+      <div class="lock-title">دخول المشرف</div>
+      <div class="lock-sub">هذه الصفحة للمشرف فقط</div>
+    </div>
+    <div class="field"><label>كلمة المرور</label><input id="a-pass" type="password" placeholder="كلمة مرور المشرف"></div>
+    <button class="submit-btn" id="a-in">دخول</button>
+  </div>`;
+  document.getElementById('a-in').addEventListener('click', () => {
     const pass = document.getElementById('a-pass').value;
-    if (pass !== ADMIN_PASS) return showToast('كلمة المرور غلط', 'error');
+    if (pass !== ADMIN_PASS) return toast('كلمة المرور غلط','err');
     viewAdminPanel(pass);
   });
 }
 
 async function viewAdminPanel(pass) {
-  let activeTab = 'leaders';
+  let sub = 'leaders';
 
-  function renderTabs() {
-    return `
-      <div class="tabs">
-        <button class="tab ${activeTab==='leaders'?'active':''}" onclick="switchTab('leaders')">👥 القادة</button>
-        <button class="tab ${activeTab==='requests'?'active':''}" onclick="switchTab('requests')">📋 الطلبات</button>
-      </div>`;
+  function subTabs() {
+    return `<div class="subtabs">
+      <button class="subtab ${sub==='leaders'?'on':'off'}" onclick="adminSub('leaders')">👥 القادة</button>
+      <button class="subtab ${sub==='requests'?'on':'off'}" onclick="adminSub('requests')">📋 الطلبات</button>
+    </div>`;
   }
 
-  window.switchTab = async function(tab) {
-    activeTab = tab;
-    if (tab === 'leaders') await renderLeaders();
-    else await renderRequests();
-  };
+  window.adminSub = async t => { sub=t; t==='leaders' ? await renderLeaders() : await renderRequests(); };
 
   async function renderLeaders() {
-    app.innerHTML = `<div class="card"><h2>⚙️ لوحة المشرف</h2>${renderTabs()}<p style="text-align:center;color:#718096">جارٍ التحميل...</p></div>`;
+    app.innerHTML = tabs('admin') + `<div class="card"><div class="section-title">⚙️ لوحة المشرف</div>${subTabs()}<div class="loading">جارٍ التحميل...</div></div>`;
     try {
-      const leaders = await get('getAllLeaders', { pass });
-      let html = `<div class="card"><h2>⚙️ لوحة المشرف</h2>${renderTabs()}`;
-      html += `<h2 style="font-size:1rem;margin-bottom:12px">إضافة قائد</h2>
-        <input id="add-name" type="text" placeholder="اسم القائد">
-        <button class="btn btn-success" id="add-leader-btn">إضافة</button>
-        <h2 style="font-size:1rem;margin:18px 0 12px">القادة الحاليون (${leaders.length})</h2>`;
-
-      if (!leaders.length) {
+      const ls = await get('getAllLeaders', { pass });
+      let html = tabs('admin') + `<div class="card"><div class="section-title">⚙️ لوحة المشرف</div>${subTabs()}
+        <div class="field"><label>اسم القائد الجديد</label><input id="add-n" type="text" placeholder="اسم القائد"></div>
+        <button class="submit-btn" id="add-btn" style="margin-bottom:20px">إضافة قائد</button>
+        <div class="section-title" style="font-size:.9rem;margin-top:4px">القادة الحاليون (${ls.length})</div>`;
+      if (!ls.length) {
         html += `<div class="empty">لا يوجد قادة مضافون</div>`;
       } else {
-        leaders.forEach(l => {
-          const leaderUrl = `${location.origin}${location.pathname}?v=leader&id=${l.id}&key=${l.key}`;
-          html += `
-            <div class="admin-row">
-              <div>
-                <div style="font-weight:700">${l.name}</div>
-                <div class="link-box">${leaderUrl}</div>
-              </div>
-              <button class="btn btn-danger btn-sm" onclick="deleteLeader('${l.id}')" style="margin-right:8px;margin-top:8px;flex-shrink:0">حذف</button>
-            </div>`;
+        ls.forEach(l => {
+          html += `<div class="admin-row">
+            <div style="flex:1;min-width:0">
+              <div class="leader-name">${l.name}</div>
+              <span class="leader-creds">ID: ${l.id}  |  Key: ${l.key}</span>
+            </div>
+            <button class="del-btn" onclick="delLeader('${l.id}')">حذف</button>
+          </div>`;
         });
       }
       html += `</div>`;
       app.innerHTML = html;
-
-      document.getElementById('add-leader-btn').addEventListener('click', async () => {
-        const name = document.getElementById('add-name').value.trim();
-        if (!name) return showToast('أدخل اسم القائد', 'error');
-        const btn = document.getElementById('add-leader-btn');
-        btn.disabled = true; btn.textContent = 'جارٍ...';
+      document.getElementById('add-btn').addEventListener('click', async () => {
+        const name = document.getElementById('add-n').value.trim();
+        if (!name) return toast('أدخل اسم القائد','err');
+        const btn = document.getElementById('add-btn');
+        btn.disabled=true; btn.textContent='جارٍ...';
         try {
-          const res = await get('addLeader', { pass, name });
-          if (res.status === 'ok') {
-            showToast('تمت إضافة القائد', 'success');
-            await renderLeaders();
-          } else {
-            showToast('خطأ: ' + res.error, 'error');
-          }
-        } catch { showToast('خطأ في الاتصال', 'error'); }
-        btn.disabled = false; btn.textContent = 'إضافة';
+          const res = await get('addLeader',{pass,name});
+          if (res.status==='ok') { toast('تمت الإضافة ✅','ok'); await renderLeaders(); }
+          else { toast('خطأ: '+res.error,'err'); btn.disabled=false; btn.textContent='إضافة قائد'; }
+        } catch { toast('خطأ في الاتصال','err'); btn.disabled=false; btn.textContent='إضافة قائد'; }
       });
-
     } catch {
-      app.innerHTML = `<div class="card status-box"><div class="status-icon">⚠️</div><h2>خطأ في الاتصال</h2></div>`;
+      app.innerHTML = tabs('admin') + `<div class="card"><div class="status-box"><span class="status-icon">⚠️</span><div class="status-title">خطأ في الاتصال</div></div></div>`;
     }
   }
 
-  window.deleteLeader = async function(id) {
-    if (!confirm('هل أنت متأكد من حذف هذا القائد؟')) return;
+  window.delLeader = async id => {
+    if (!confirm('حذف هذا القائد؟')) return;
     try {
-      const res = await get('deleteLeader', { pass, id });
-      if (res.status === 'ok') { showToast('تم الحذف', 'success'); await renderLeaders(); }
-      else showToast('خطأ: ' + res.error, 'error');
-    } catch { showToast('خطأ في الاتصال', 'error'); }
+      const res = await get('deleteLeader',{pass,id});
+      if (res.status==='ok') { toast('تم الحذف','ok'); await renderLeaders(); }
+      else toast('خطأ: '+res.error,'err');
+    } catch { toast('خطأ في الاتصال','err'); }
   };
 
   async function renderRequests() {
-    app.innerHTML = `<div class="card"><h2>⚙️ لوحة المشرف</h2>${renderTabs()}<p style="text-align:center;color:#718096">جارٍ التحميل...</p></div>`;
+    app.innerHTML = tabs('admin') + `<div class="card"><div class="section-title">⚙️ لوحة المشرف</div>${subTabs()}<div class="loading">جارٍ التحميل...</div></div>`;
     try {
-      const reqs = await get('getAllRequests', { pass });
-      let html = `<div class="card"><h2>⚙️ لوحة المشرف</h2>${renderTabs()}
-        <h2 style="font-size:1rem;margin-bottom:12px">جميع الطلبات (${reqs.length})</h2>`;
-      if (!reqs.length) {
+      const all = await get('getAllRequests',{pass});
+      const counts = [all.length, all.filter(r=>r.status==='pending').length,
+                      all.filter(r=>r.status==='approved').length, all.filter(r=>r.status==='rejected').length];
+      let html = tabs('admin') + `<div class="card"><div class="section-title">⚙️ لوحة المشرف</div>${subTabs()}
+        <div class="stat-bar">
+          <div class="stat"><span class="stat-num">${counts[0]}</span><span class="stat-lbl">الكل</span></div>
+          <div class="stat"><span class="stat-num">${counts[1]}</span><span class="stat-lbl">بانتظار</span></div>
+          <div class="stat"><span class="stat-num">${counts[2]}</span><span class="stat-lbl">موافق</span></div>
+          <div class="stat"><span class="stat-num">${counts[3]}</span><span class="stat-lbl">مرفوض</span></div>
+        </div>
+        <div class="toolbar">
+          <input class="search-in" id="srch" placeholder="بحث باسم...">
+          <select class="filter-sel" id="flt"><option value="">الكل</option><option value="pending">بانتظار</option><option value="approved">موافق</option><option value="rejected">مرفوض</option></select>
+          <button class="ref-btn" onclick="adminSub('requests')">🔄</button>
+        </div>`;
+      if (!all.length) {
         html += `<div class="empty">لا توجد طلبات</div>`;
       } else {
-        reqs.forEach(r => {
-          html += `
-            <div class="req-card">
-              <h3>${r.name} ${statusBadge(r.status)}</h3>
-              <p>👤 القائد: ${r.leaderName}</p>
-              <p>📋 السبب: ${r.reason}</p>
-              <p>📅 العودة: ${r.returnDate} الساعة ${r.returnTime}</p>
-              ${r.note ? `<p>💬 ملاحظة: ${r.note}</p>` : ''}
-              <p style="font-size:0.78rem;color:#a0aec0">${new Date(r.timestamp).toLocaleString('ar-SA')}</p>
-            </div>`;
+        all.forEach(r => {
+          const noteHtml = r.note ? `<p>💬 ${r.note}</p>` : '';
+          const ts = r.timestamp ? new Date(r.timestamp).toLocaleString('ar-SA') : '';
+          html += `<div class="req-card" data-name="${r.name}" data-status="${r.status}">
+            <h3>${r.name} ${badge(r.status)}</h3>
+            <p>👤 ${r.leaderName} &nbsp;|&nbsp; 📋 ${r.reason}</p>
+            <p>📅 العودة: ${r.returnDate} الساعة ${r.returnTime}</p>
+            ${noteHtml}
+            <p style="font-size:.75rem;color:#aaa;margin-top:4px">${ts}</p>
+          </div>`;
         });
       }
-      html += `<button class="btn btn-secondary" onclick="switchTab('requests')" style="margin-top:8px">🔄 تحديث</button></div>`;
+      html += `</div>`;
       app.innerHTML = html;
+      const filter = () => {
+        const q = (document.getElementById('srch')?.value||'').toLowerCase();
+        const f = document.getElementById('flt')?.value||'';
+        document.querySelectorAll('.req-card').forEach(el => {
+          el.style.display = (!q||el.dataset.name.toLowerCase().includes(q)) && (!f||el.dataset.status===f) ? '' : 'none';
+        });
+      };
+      document.getElementById('srch')?.addEventListener('input', filter);
+      document.getElementById('flt')?.addEventListener('change', filter);
     } catch {
-      app.innerHTML = `<div class="card status-box"><div class="status-icon">⚠️</div><h2>خطأ في الاتصال</h2></div>`;
+      app.innerHTML = tabs('admin') + `<div class="card"><div class="status-box"><span class="status-icon">⚠️</span><div class="status-title">خطأ في الاتصال</div></div></div>`;
     }
   }
 
   await renderLeaders();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  ROUTER
-// ─────────────────────────────────────────────────────────────────────────────
-const view     = params.get('v');
-const checkId  = params.get('check');
-
-if (checkId) {
-  viewStatus(checkId);
-} else if (view === 'leader') {
-  const lid  = params.get('id');
-  const lkey = params.get('key');
-  if (lid && lkey) viewLeader(lid, lkey);
-  else app.innerHTML = `<div class="card status-box"><div class="status-icon">⚠️</div><h2>رابط غير صالح</h2></div>`;
-} else if (view === 'admin') {
-  viewAdminLogin();
-} else {
-  viewRequest();
-}
+// ─── ROUTER ───────────────────────────────────────────────────────────────────
+const view    = params.get('v');
+const checkId = params.get('check');
+if      (checkId)            viewTrackById(checkId);
+else if (view === 'leader')  viewLeaderLogin();
+else if (view === 'admin')   viewAdminLogin();
+else                         viewMember();
 </script>
 </body>
 </html>
