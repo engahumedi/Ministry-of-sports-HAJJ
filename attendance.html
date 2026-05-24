@@ -205,7 +205,7 @@ tr:hover td{background:#fafafa}
 import { initializeApp }     from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot }
                               from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                               from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 // ─── CONFIG ────────────────────────────────────────────────────────────────
@@ -245,11 +245,8 @@ function setStatus(msg, type) {
   el.className = type || '';
 }
 
-// ─── ANONYMOUS AUTH ─────────────────────────────────────────────────────────
-setStatus('⏳ جارٍ الاتصال...');
-signInAnonymously(auth)
-  .then(() => setStatus('🟢 متصل بقاعدة البيانات', 'ok'))
-  .catch(e  => setStatus('🟡 اتصال محدود – ' + e.code, ''));
+// ─── STATUS ──────────────────────────────────────────────────────────────────
+setStatus('🟢 متصل بقاعدة البيانات', 'ok');
 
 // ─── AUTH STATE ──────────────────────────────────────────────────────────────
 onAuthStateChanged(auth, user => {
