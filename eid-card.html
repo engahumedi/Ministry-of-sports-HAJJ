@@ -533,7 +533,7 @@ function openImageInNewTab(canvas) {
 function drawCardToCanvas(callback) {
   var card = document.getElementById('the-card');
   var cardRect = card.getBoundingClientRect();
-  var W = cardRect.width, H = cardRect.height, S = 2;
+  var W = cardRect.width, H = cardRect.height;
 
   function rel(el) {
     var r = el.getBoundingClientRect();
@@ -549,6 +549,7 @@ function drawCardToCanvas(callback) {
   var greetR  = rel(card.querySelector('.eid-greeting'));
   var nameBoxR = rel(card.querySelector('.eid-name-box'));
 
+  var S = Math.max(3, Math.round(window.devicePixelRatio || 3));
   var canvas = document.createElement('canvas');
   canvas.width  = Math.round(W * S);
   canvas.height = Math.round(H * S);
