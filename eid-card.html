@@ -96,18 +96,13 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
 /* Body */
 .eid-body{display:flex;align-items:stretch}
 
-/* Decorative arabesque columns – interlocking diamond argyle */
+/* Decorative arabesque columns – 8-pointed Islamic star (SVG tile) */
 .eid-col{
   width:46px;flex-shrink:0;
   background-color:#061a0e;
-  background-image:
-    linear-gradient(135deg, rgba(201,162,39,.55) 25%, transparent 25%),
-    linear-gradient(225deg, rgba(201,162,39,.55) 25%, transparent 25%),
-    linear-gradient(315deg, rgba(201,162,39,.55) 25%, transparent 25%),
-    linear-gradient(45deg,  rgba(201,162,39,.55) 25%, transparent 25%),
-    radial-gradient(circle, rgba(201,162,39,.95) 0 2px, transparent 2px);
-  background-size: 16px 16px;
-  background-position: -8px 0, -8px 0, 0 0, 0 0, 8px 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' fill='%23061a0e'/%3E%3Cpolygon points='29,16 21.1,18.1 25.2,25.2 18.1,21.1 16,29 13.9,21.1 6.8,25.2 10.9,18.1 3,16 10.9,13.9 6.8,6.8 13.9,10.9 16,3 18.1,10.9 25.2,6.8 21.1,13.9' fill='rgba(201%2C162%2C39%2C.14)' stroke='rgba(201%2C162%2C39%2C.78)' stroke-width='.9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='rgba(201%2C162%2C39%2C.9)'/%3E%3Ccircle cx='0' cy='0' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='32' cy='0' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='0' cy='32' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='32' cy='32' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+  background-repeat: repeat;
 }
 .eid-col-r{border-left:1.5px solid rgba(201,162,39,.4)}
 .eid-col-l{border-right:1.5px solid rgba(201,162,39,.4)}
@@ -229,7 +224,6 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
     <div class="eid-header">
       <div class="eid-header-sub">موسم الحج 1447هـ</div>
       <div class="eid-header-sub" style="color:rgba(201,162,39,.65)">وزارة الرياضة السعودية</div>
-      <div class="eid-header-title">معسكر المعيصم ( ١ )</div>
     </div>
 
     <div class="eid-body">
