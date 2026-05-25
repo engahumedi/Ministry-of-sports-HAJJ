@@ -79,7 +79,7 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
 
 .eid-card{
   width:100%;max-width:380px;margin:0 auto;
-  border:2px solid #c9a227;border-radius:14px;overflow:hidden;
+  border-radius:14px;overflow:hidden;
   box-shadow:0 10px 40px rgba(0,0,0,.4);
   font-family:'Tajawal',sans-serif;
 }
@@ -428,7 +428,7 @@ function confirmCrop() {
     parseFloat(img.style.width)  * S,
     parseFloat(img.style.height) * S
   );
-  photoDataUrl = canvas.toDataURL('image/jpeg', 0.93);
+  photoDataUrl = canvas.toDataURL('image/jpeg', 0.95);
   var circle = document.getElementById('photo-circle');
   circle.style.backgroundImage = 'url(' + photoDataUrl + ')';
   circle.classList.add('chosen');
@@ -519,7 +519,7 @@ function drawOrnamentLine(ctx, x1, x2, y) {
 }
 
 function openImageInNewTab(canvas) {
-  var dataUrl = canvas.toDataURL('image/jpeg', 0.93);
+  var dataUrl = canvas.toDataURL('image/jpeg', 0.95);
   var w = window.open('', '_blank');
   if (w) {
     w.document.write('<html dir="rtl"><head><meta name="viewport" content="width=device-width"><title>بطاقة المعايدة</title><style>body{margin:0;background:#0a2e18;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:16px;gap:14px}img{max-width:100%;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.5)}p{color:#c9a227;font-family:sans-serif;text-align:center;font-size:1rem;margin:0}</style></head><body><img src="'+dataUrl+'"><p>اضغط مطولاً على الصورة ← حفظ الصورة</p></body></html>');
@@ -612,7 +612,7 @@ function drawCardToCanvas(callback) {
 
     ctx.font = '700 8px Tajawal, Arial';
     ctx.fillStyle = 'rgba(201,162,39,.45)';
-    ctx.fillText('EID AL-ADHA MUBARAK', cx, hndgR.y + hndgR.h + 9);
+    ctx.fillText('EID AL-ADHA MUBARAK', cx, hndgR.y + lh * 1.95 + fs * 0.55 + 6);
 
     drawOrnamentLine(ctx, divdR.x, divdR.x + divdR.w, divdR.y + divdR.h/2);
 
@@ -633,11 +633,6 @@ function drawCardToCanvas(callback) {
     ctx.fillText(nm, cx, by + bh * 0.68);
 
     ctx.restore(); // remove card clip
-
-    // Card border on top
-    rrect(ctx, 1, 1, W-2, H-2, 13);
-    ctx.strokeStyle = '#c9a227'; ctx.lineWidth = 2; ctx.stroke();
-
     callback(canvas);
   }
 
@@ -701,7 +696,7 @@ function saveCard() {
           setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
           showToast('تم حفظ البطاقة بنجاح', 'ok');
         }
-      }, 'image/jpeg', 0.93);
+      }, 'image/jpeg', 0.95);
     });
   });
 }
