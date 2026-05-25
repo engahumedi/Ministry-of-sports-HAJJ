@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقة المعايدة – معسكر المعيصم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh}
+
+nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid #c9a227}
+.nav-title{font-size:1rem;font-weight:700;color:#c9a227}
+.nav-sub{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:2px}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:20px}
+
+.tabs-bar{display:flex;max-width:480px;margin:16px auto 0;padding:0 16px;gap:0}
+.tab-btn{flex:1;padding:11px;border:none;border-radius:10px 10px 0 0;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.95rem;font-weight:700;background:#ddd;color:#555;transition:.2s}
+.tab-btn.active{background:#0a2e18;color:#c9a227}
+
+.form-card{background:#fff;border-radius:0 0 16px 16px;padding:24px;max-width:480px;margin:0 auto 24px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.section-title{font-size:1.05rem;font-weight:800;color:#0a2e18;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.88rem;font-weight:700;color:#333;margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:1rem;outline:none;transition:.2s;background:#fff}
+.field input:focus{border-color:#1a6b3c;box-shadow:0 0 0 3px rgba(26,107,60,.1)}
+
+.photo-upload-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:20px;cursor:pointer}
+.photo-circle{
+  width:130px;height:130px;border-radius:50%;
+  border:2px dashed #1a6b3c;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#f9f9f9;transition:.2s;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  overflow:hidden;
+}
+.photo-circle:hover{border-color:#c9a227}
+.photo-circle.chosen{border:3px solid #1a6b3c;border-style:solid}
+.upload-plus{font-size:2.2rem;color:#1a6b3c;line-height:1;margin-bottom:4px}
+.upload-hint{font-size:.72rem;color:#999;text-align:center;padding:0 10px}
+.photo-status{font-size:.78rem;color:#1a6b3c;font-weight:700;margin-top:8px;min-height:20px}
+
+.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#1a6b3c,#2e8b57);color:#fff;font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;transition:.2s;margin-top:4px}
+.submit-btn:hover{opacity:.92}
+
+.gold-btn{background:#c9a227;color:#0a2e18;font-weight:800;padding:12px 28px;border-radius:30px;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:1rem}
+.outline-btn{background:transparent;color:#0a2e18;font-weight:700;padding:12px 24px;border-radius:30px;border:2px solid #0a2e18;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+
+/* ── بطاقة المعايدة ─────────────────────────── */
+#card-preview{display:none;margin:0 auto 32px;max-width:480px;padding:0 16px}
+
+.eid-card{
+  width:100%;max-width:380px;margin:0 auto;
+  border:2px solid #c9a227;border-radius:14px;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.4);
+  font-family:'Tajawal',sans-serif;
+}
+
+.eid-header{
+  background:linear-gradient(180deg,#051510 0%,#0a2e18 100%);
+  border-bottom:2px solid #c9a227;
+  padding:13px 16px;text-align:center;
+}
+.eid-header-title{font-size:1.05rem;font-weight:900;color:#c9a227;letter-spacing:.3px}
+.eid-header-sub{font-size:.68rem;color:rgba(201,162,39,.5);letter-spacing:.6px;margin-top:1px}
+
+.eid-body{display:flex;align-items:stretch}
+
+.eid-col{
+  width:42px;flex-shrink:0;
+  background:
+    repeating-linear-gradient(0deg,  rgba(201,162,39,.6) 0,rgba(201,162,39,.6) 1px,transparent 1px,transparent 8px),
+    repeating-linear-gradient(90deg, rgba(201,162,39,.6) 0,rgba(201,162,39,.6) 1px,transparent 1px,transparent 8px),
+    #051510;
+}
+.eid-col-r{border-left:1px solid rgba(201,162,39,.35)}
+.eid-col-l{border-right:1px solid rgba(201,162,39,.35)}
+
+.eid-center{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px 14px 18px;
+  background:radial-gradient(ellipse at 50% 20%,#0e3d20 0%,#0a2e18 65%);
+}
+
+.eid-photo-wrap{margin-bottom:14px}
+.eid-photo{
+  width:120px;height:120px;border-radius:50%;
+  border:3px solid #c9a227;
+  box-shadow:0 0 0 4px #0a2e18,0 0 0 8px rgba(201,162,39,.4);
+  background:#0d3820;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+
+.eid-ornament{display:flex;align-items:center;gap:6px;width:92%;margin-bottom:10px}
+.eid-orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.8),transparent)}
+.eid-orn-dot{width:6px;height:6px;background:#c9a227;border-radius:50%;flex-shrink:0}
+
+.eid-heading{
+  font-size:1.5rem;font-weight:900;color:#c9a227;
+  text-align:center;letter-spacing:.5px;line-height:1.2;
+  text-shadow:0 2px 12px rgba(0,0,0,.7);margin-bottom:3px;
+}
+.eid-heading-lg{font-size:1.95rem}
+
+.eid-eng{
+  font-size:.6rem;color:rgba(201,162,39,.45);
+  letter-spacing:3px;text-align:center;margin-bottom:10px;font-weight:700;
+}
+
+.eid-divider{display:flex;align-items:center;gap:6px;width:80%;margin:4px auto 12px}
+
+.eid-greeting{
+  font-size:.8rem;color:rgba(255,255,255,.7);
+  text-align:center;line-height:2;
+  margin-bottom:16px;
+}
+
+.eid-name-box{
+  border:1.5px solid rgba(201,162,39,.75);border-radius:8px;
+  padding:8px 24px;min-width:170px;text-align:center;
+  background:rgba(201,162,39,.07);
+}
+.eid-name-lbl{font-size:.62rem;color:rgba(201,162,39,.5);letter-spacing:.5px;margin-bottom:2px}
+.eid-name{font-size:1.05rem;font-weight:900;color:#c9a227}
+
+.eid-footer{
+  background:linear-gradient(180deg,#0a2e18 0%,#051510 100%);
+  border-top:2px solid #c9a227;
+  padding:9px 16px;text-align:center;
+  font-size:.68rem;color:rgba(201,162,39,.55);font-weight:700;letter-spacing:.5px;
+}
+
+.toast{position:fixed;bottom:20px;right:16px;left:16px;max-width:400px;margin:auto;background:#0a2e18;color:#fff;padding:12px 18px;border-radius:10px;font-size:.9rem;text-align:center;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1}
+.toast.err{background:#c62828}
+.toast.ok{background:#1a6b3c}
+</style>
+</head>
+<body>
+
+<nav>
+  <div>
+    <div class="nav-title">بطاقة المعايدة</div>
+    <div class="nav-sub">عيد الأضحى المبارك 1447هـ</div>
+  </div>
+  <a href="index.html" class="nav-back">← الرئيسية</a>
+</nav>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" id="tb-photo" onclick="switchTab('photo')">مع الصورة</button>
+  <button class="tab-btn"        id="tb-text"  onclick="switchTab('text')">بدون صورة</button>
+</div>
+
+<!-- ── تبويب مع الصورة ── -->
+<div id="tab-photo">
+  <div class="form-card">
+    <div class="section-title">بطاقة معايدة مع صورتك الشخصية</div>
+
+    <div class="photo-upload-wrap" onclick="document.getElementById('photo-file').click()">
+      <div class="photo-circle" id="photo-circle">
+        <div class="upload-plus">+</div>
+        <div class="upload-hint">اضغط لاختيار صورتك</div>
+      </div>
+      <div class="photo-status" id="photo-status"></div>
+    </div>
+    <input type="file" id="photo-file" accept="image/*" style="display:none">
+
+    <div class="field">
+      <label>اسمك الكريم</label>
+      <input id="f-name-photo" type="text" placeholder="اكتب اسمك هنا">
+    </div>
+    <button class="submit-btn" onclick="generateCard('photo')">توليد البطاقة</button>
+  </div>
+</div>
+
+<!-- ── تبويب بدون صورة ── -->
+<div id="tab-text" style="display:none">
+  <div class="form-card">
+    <div class="section-title">بطاقة معايدة بالاسم فقط</div>
+    <div class="field">
+      <label>اسمك الكريم</label>
+      <input id="f-name-text" type="text" placeholder="اكتب اسمك هنا">
+    </div>
+    <button class="submit-btn" onclick="generateCard('text')">توليد البطاقة</button>
+  </div>
+</div>
+
+<!-- ── معاينة البطاقة ── -->
+<div id="card-preview">
+
+  <div class="eid-card" id="the-card">
+
+    <div class="eid-header">
+      <div class="eid-header-sub">وزارة الرياضة السعودية</div>
+      <div class="eid-header-title">معسكر المعيصم ( ١ )</div>
+      <div class="eid-header-sub">موسم الحج 1447هـ</div>
+    </div>
+
+    <div class="eid-body">
+      <div class="eid-col eid-col-r"></div>
+
+      <div class="eid-center">
+
+        <!-- صورة — تبويب 1 -->
+        <div class="eid-photo-wrap" id="eid-photo-wrap">
+          <div class="eid-photo" id="eid-photo"></div>
+        </div>
+
+        <!-- زخرفة بديلة — تبويب 2 -->
+        <div class="eid-ornament" id="eid-ornament" style="display:none">
+          <div class="eid-orn-line"></div>
+          <div class="eid-orn-dot"></div>
+          <div class="eid-orn-line"></div>
+        </div>
+
+        <div class="eid-heading" id="eid-heading">عيد الأضحى مبارك</div>
+        <div class="eid-eng">EID AL-ADHA MUBARAK</div>
+
+        <div class="eid-divider">
+          <div class="eid-orn-line"></div>
+          <div class="eid-orn-dot"></div>
+          <div class="eid-orn-line"></div>
+        </div>
+
+        <div class="eid-greeting">
+          أهنئكم بمناسبة حلول<br>
+          عيد الأضحى المبارك<br>
+          أعاده الله علينا وعليكم باليمن والبركات<br>
+          وكل عام وأنتم بخير
+        </div>
+
+        <div class="eid-name-box">
+          <div class="eid-name-lbl">المُهنَّأ</div>
+          <div class="eid-name" id="c-name">—</div>
+        </div>
+
+      </div>
+
+      <div class="eid-col eid-col-l"></div>
+    </div>
+
+    <div class="eid-footer">
+      معسكر المعيصم ( ١ ) &nbsp;&nbsp;|&nbsp;&nbsp; 1447هـ
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="gold-btn" onclick="saveCard()">حفظ كصورة</button>
+    <button class="outline-btn" onclick="resetForm()">تعديل البيانات</button>
+  </div>
+  <p style="text-align:center;font-size:.78rem;color:#aaa;margin:10px 0 8px">اضغط "حفظ كصورة" لتنزيل البطاقة على جوالك</p>
+
+</div>
+
+<footer style="text-align:center;padding:28px 16px 40px;font-family:'Tajawal',sans-serif;background:#fff;border-top:2px solid #e8f5e9;margin-top:8px">
+  <div style="font-size:.85rem;color:#888;margin-bottom:6px">تصميم وبرمجة</div>
+  <div style="font-size:1.2rem;font-weight:900;color:#0a2e18">القائد / م.المهند حمدي</div>
+  <a href="https://wa.me/966599746324" target="_blank" style="display:inline-block;margin-top:8px;background:#25d366;color:#fff;font-family:'Tajawal',sans-serif;font-weight:700;font-size:.95rem;padding:8px 22px;border-radius:30px;text-decoration:none">تواصل واتساب</a>
+  <div style="width:48px;height:3px;background:#c9a227;border-radius:4px;margin:12px auto 0"></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var photoDataUrl = null;
+
+document.getElementById('photo-file').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    photoDataUrl = ev.target.result;
+    var circle = document.getElementById('photo-circle');
+    circle.style.backgroundImage = 'url(' + photoDataUrl + ')';
+    circle.classList.add('chosen');
+    circle.innerHTML = '';
+    document.getElementById('photo-status').textContent = 'تم اختيار الصورة';
+  };
+  reader.readAsDataURL(file);
+});
+
+function switchTab(t) {
+  document.getElementById('tab-photo').style.display = t === 'photo' ? '' : 'none';
+  document.getElementById('tab-text').style.display  = t === 'text'  ? '' : 'none';
+  document.getElementById('tb-photo').className = 'tab-btn' + (t === 'photo' ? ' active' : '');
+  document.getElementById('tb-text').className  = 'tab-btn' + (t === 'text'  ? ' active' : '');
+  document.getElementById('card-preview').style.display = 'none';
+}
+
+function generateCard(mode) {
+  var nameEl = document.getElementById(mode === 'photo' ? 'f-name-photo' : 'f-name-text');
+  var name   = nameEl.value.trim();
+
+  if (mode === 'photo' && !photoDataUrl) return showToast('اختر صورتك أولاً', 'err');
+  if (!name) return showToast('اكتب اسمك الكريم', 'err');
+
+  document.getElementById('c-name').textContent = name;
+
+  var photoWrap = document.getElementById('eid-photo-wrap');
+  var ornament  = document.getElementById('eid-ornament');
+  var heading   = document.getElementById('eid-heading');
+
+  if (mode === 'photo') {
+    photoWrap.style.display = '';
+    ornament.style.display  = 'none';
+    heading.className = 'eid-heading';
+    document.getElementById('eid-photo').style.backgroundImage = 'url(' + photoDataUrl + ')';
+  } else {
+    photoWrap.style.display = 'none';
+    ornament.style.display  = 'flex';
+    heading.className = 'eid-heading eid-heading-lg';
+  }
+
+  document.getElementById('card-preview').style.display = 'block';
+  document.getElementById('card-preview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function saveCard() {
+  var card = document.getElementById('the-card');
+  var name = document.getElementById('c-name').textContent || 'معايدة';
+  showToast('جارٍ تجهيز البطاقة...', '');
+  html2canvas(card, {
+    scale: 2,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#0a2e18'
+  }).then(function(canvas) {
+    var link = document.createElement('a');
+    link.download = 'معايدة_' + name + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('تم حفظ البطاقة بنجاح', 'ok');
+  }).catch(function() {
+    showToast('تعذّر حفظ الصورة', 'err');
+  });
+}
+
+function resetForm() {
+  document.getElementById('card-preview').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(function() { t.className = 'toast'; }, 3200);
+}
+</script>
+</body>
+</html>
