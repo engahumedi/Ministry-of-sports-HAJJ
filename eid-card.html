@@ -96,12 +96,13 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
 /* Body */
 .eid-body{display:flex;align-items:stretch}
 
-/* Decorative arabesque columns – 8-pointed Islamic star (SVG tile) */
+/* Decorative arabesque columns – Islamic 8-pointed star geometric tile */
 .eid-col{
   width:46px;flex-shrink:0;
   background-color:#061a0e;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' fill='%23061a0e'/%3E%3Cpolygon points='29,16 21.1,18.1 25.2,25.2 18.1,21.1 16,29 13.9,21.1 6.8,25.2 10.9,18.1 3,16 10.9,13.9 6.8,6.8 13.9,10.9 16,3 18.1,10.9 25.2,6.8 21.1,13.9' fill='rgba(201%2C162%2C39%2C.14)' stroke='rgba(201%2C162%2C39%2C.78)' stroke-width='.9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='rgba(201%2C162%2C39%2C.9)'/%3E%3Ccircle cx='0' cy='0' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='32' cy='0' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='0' cy='32' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3Ccircle cx='32' cy='32' r='2' fill='rgba(201%2C162%2C39%2C.55)'/%3E%3C/svg%3E");
-  background-size: 32px 32px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Crect width='44' height='44' fill='%23061a0e'/%3E%3Cpolygon points='41,22 29.4,25.1 35.4,35.4 25.1,29.4 22,41 18.9,29.4 8.6,35.4 14.6,25.1 3,22 14.6,18.9 8.6,8.6 18.9,14.6 22,3 25.1,14.6 35.4,8.6 29.4,18.9' fill='%23c9a22724' stroke='%23c9a227c8' stroke-width='1.1' stroke-linejoin='miter'/%3E%3Cpolygon points='22,10 24.3,21.8 36,22 24.3,22.2 22,34 19.7,22.2 8,22 19.7,21.8' fill='%23c9a22738' stroke='%23c9a227a0' stroke-width='.6'/%3E%3Ccircle cx='22' cy='22' r='2.8' fill='%23c9a227f0'/%3E%3C/svg%3E");
+  background-size: 44px 44px;
   background-repeat: repeat;
 }
 .eid-col-r{border-left:1.5px solid rgba(201,162,39,.4)}
@@ -148,6 +149,14 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
 }
 .eid-name{font-size:1.05rem;font-weight:900;color:#c9a227}
 
+/* ── Zoom Controls ── */
+.zoom-row{display:flex;align-items:center;gap:8px;margin:8px 0 14px}
+.zoom-btn{background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.5);color:#c9a227;width:32px;height:32px;border-radius:50%;font-size:1.4rem;line-height:1;cursor:pointer;font-family:'Tajawal',sans-serif;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding-bottom:1px}
+.zoom-btn:active{background:rgba(201,162,39,.3)}
+.zoom-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(201,162,39,.25);outline:none;cursor:pointer}
+.zoom-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#c9a227;cursor:pointer}
+.zoom-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#c9a227;cursor:pointer;border:none}
+
 /* Toast */
 .toast{position:fixed;bottom:20px;right:16px;left:16px;max-width:400px;margin:auto;background:#0a2e18;color:#fff;padding:12px 18px;border-radius:10px;font-size:.9rem;text-align:center;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none}
 .toast.show{opacity:1}
@@ -172,7 +181,12 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
     <div id="crop-viewport">
       <img id="crop-img" draggable="false" alt="">
     </div>
-    <div class="crop-hint">اسحب الصورة لضبط موضعها</div>
+    <div class="crop-hint">اسحب لتحريك • قرّب وبعّد بإصبعين أو بالشريط</div>
+    <div class="zoom-row">
+      <button class="zoom-btn" onclick="changeZoom(-0.15)">−</button>
+      <input type="range" id="zoom-slider" class="zoom-slider" min="80" max="500" value="100" step="5" oninput="setZoomSlider(this.value)">
+      <button class="zoom-btn" onclick="changeZoom(0.15)">+</button>
+    </div>
     <div class="crop-btns">
       <button class="crop-confirm" onclick="confirmCrop()">تأكيد</button>
       <button class="crop-cancel"  onclick="cancelCrop()">إلغاء</button>
@@ -288,6 +302,9 @@ var cropX = 0, cropY = 0;
 var dragStartX = 0, dragStartY = 0;
 var isDragging = false;
 var CROP_SIZE = 240;
+var zoomFactor = 1, baseW = 0, baseH = 0;
+var activePointers = {};
+var pinchInitDist = 0, pinchInitZoom = 1;
 
 // ── File input ──────────────────────────────────────────
 document.getElementById('photo-file').addEventListener('change', function(e) {
@@ -304,16 +321,18 @@ document.getElementById('photo-file').addEventListener('change', function(e) {
 function openCropper(dataUrl) {
   var modal = document.getElementById('crop-modal');
   var img   = document.getElementById('crop-img');
-  cropX = 0; cropY = 0;
+  cropX = 0; cropY = 0; zoomFactor = 1; activePointers = {};
   img.src = dataUrl;
   img.onload = function() {
     var scale = Math.max(CROP_SIZE / img.naturalWidth, CROP_SIZE / img.naturalHeight) * 1.05;
-    var w = img.naturalWidth  * scale;
-    var h = img.naturalHeight * scale;
-    img.style.width  = w + 'px';
-    img.style.height = h + 'px';
-    cropX = (CROP_SIZE - w) / 2;
-    cropY = (CROP_SIZE - h) / 2;
+    baseW = img.naturalWidth  * scale;
+    baseH = img.naturalHeight * scale;
+    img.style.width  = baseW + 'px';
+    img.style.height = baseH + 'px';
+    cropX = (CROP_SIZE - baseW) / 2;
+    cropY = (CROP_SIZE - baseH) / 2;
+    var sl = document.getElementById('zoom-slider');
+    if (sl) sl.value = 100;
     applyCropPos();
   };
   modal.style.display = 'flex';
@@ -331,25 +350,67 @@ function applyCropPos() {
   img.style.top  = cropY + 'px';
 }
 
+function setZoom(factor) {
+  factor = Math.max(0.8, Math.min(5, factor));
+  var img  = document.getElementById('crop-img');
+  var prevW = parseFloat(img.style.width)  || baseW;
+  var prevH = parseFloat(img.style.height) || baseH;
+  var newW = baseW * factor;
+  var newH = baseH * factor;
+  cropX += (prevW - newW) / 2;
+  cropY += (prevH - newH) / 2;
+  img.style.width  = newW + 'px';
+  img.style.height = newH + 'px';
+  zoomFactor = factor;
+  applyCropPos();
+  var sl = document.getElementById('zoom-slider');
+  if (sl) sl.value = Math.round(factor * 100);
+}
+function changeZoom(delta) { setZoom(zoomFactor + delta); }
+function setZoomSlider(val) { setZoom(val / 100); }
+
 var vp = document.getElementById('crop-viewport');
 vp.addEventListener('pointerdown', function(e) {
-  isDragging = true;
-  dragStartX = e.clientX - cropX;
-  dragStartY = e.clientY - cropY;
-  vp.setPointerCapture(e.pointerId);
+  activePointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+  var ids = Object.keys(activePointers);
+  if (ids.length === 1) {
+    isDragging = true;
+    dragStartX = e.clientX - cropX;
+    dragStartY = e.clientY - cropY;
+    vp.setPointerCapture(e.pointerId);
+  } else if (ids.length === 2) {
+    isDragging = false;
+    var pts = Object.values(activePointers);
+    pinchInitDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    pinchInitZoom = zoomFactor;
+  }
   e.preventDefault();
 }, { passive: false });
 
 vp.addEventListener('pointermove', function(e) {
-  if (!isDragging) return;
-  cropX = e.clientX - dragStartX;
-  cropY = e.clientY - dragStartY;
-  applyCropPos();
+  if (!activePointers[e.pointerId]) return;
+  activePointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+  var ids = Object.keys(activePointers);
+  if (ids.length >= 2) {
+    var pts = Object.values(activePointers);
+    var dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    if (pinchInitDist > 0) setZoom(pinchInitZoom * (dist / pinchInitDist));
+  } else if (isDragging) {
+    cropX = e.clientX - dragStartX;
+    cropY = e.clientY - dragStartY;
+    applyCropPos();
+  }
   e.preventDefault();
 }, { passive: false });
 
-vp.addEventListener('pointerup',     function() { isDragging = false; });
-vp.addEventListener('pointercancel', function() { isDragging = false; });
+vp.addEventListener('pointerup', function(e) {
+  delete activePointers[e.pointerId];
+  if (Object.keys(activePointers).length === 0) isDragging = false;
+});
+vp.addEventListener('pointercancel', function(e) {
+  delete activePointers[e.pointerId];
+  if (Object.keys(activePointers).length === 0) isDragging = false;
+});
 
 function confirmCrop() {
   var img = document.getElementById('crop-img');
@@ -372,10 +433,12 @@ function confirmCrop() {
   circle.classList.add('chosen');
   circle.innerHTML = '';
   document.getElementById('photo-status').textContent = 'تم اختيار الصورة';
+  activePointers = {}; isDragging = false;
   document.getElementById('crop-modal').style.display = 'none';
 }
 
 function cancelCrop() {
+  activePointers = {}; isDragging = false;
   document.getElementById('crop-modal').style.display = 'none';
 }
 
