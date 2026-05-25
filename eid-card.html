@@ -122,8 +122,9 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
   border:3px solid #c9a227;
   box-shadow:0 0 0 4px #0a2e18,0 0 0 8px rgba(201,162,39,.4);
   background:#0d3820;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
 }
+.eid-photo img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
 
 /* Ornament */
 .eid-ornament{display:flex;align-items:center;gap:6px;width:92%;margin-bottom:10px}
@@ -245,7 +246,7 @@ nav{background:#0a2e18;padding:14px 20px;display:flex;align-items:center;justify
       <div class="eid-center">
 
         <div class="eid-photo-wrap" id="eid-photo-wrap">
-          <div class="eid-photo" id="eid-photo"></div>
+          <div class="eid-photo" id="eid-photo"><img id="eid-photo-img" src="" alt="" style="display:none"></div>
         </div>
 
         <div class="eid-ornament" id="eid-ornament" style="display:none">
@@ -468,7 +469,8 @@ function generateCard(mode) {
     ornament.style.display  = 'none';
     heading.className = 'eid-heading';
     heading.innerHTML = 'عيد أضحى<br>مبارك';
-    document.getElementById('eid-photo').style.backgroundImage = 'url(' + photoDataUrl + ')';
+    var pi = document.getElementById('eid-photo-img');
+    pi.src = photoDataUrl; pi.style.display = 'block';
   } else {
     photoWrap.style.display = 'none';
     ornament.style.display  = 'flex';
@@ -520,6 +522,8 @@ function saveCard() {
 
 function resetForm() {
   document.getElementById('card-preview').style.display = 'none';
+  var pi = document.getElementById('eid-photo-img');
+  pi.src = ''; pi.style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
