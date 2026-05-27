@@ -290,17 +290,6 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     </div>
   </div>
   <div class="amain">
-    <div class="cfgbox" id="adm-cfg">
-      <p>⚙️ رابط Google Apps Script لتفعيل قاعدة البيانات المشتركة:</p>
-      <div class="cfg-row">
-        <input class="cfg-inp" id="gas-inp" placeholder="https://script.google.com/macros/s/…/exec">
-        <button class="btn bg" style="flex:0;padding:.46rem .95rem;font-size:.82rem" onclick="saveGas()">حفظ</button>
-      </div>
-      <p style="font-size:.76rem;color:rgba(240,230,204,.4);margin-top:.55rem">
-        لم تنشر الكود بعد؟
-        <a href="copy-tafweej-script.html" target="_blank" style="color:#e8c44a;text-decoration:none">📋 اضغط هنا لنسخ كود Apps Script</a>
-      </p>
-    </div>
     <div class="srow" id="adm-stats"></div>
     <div class="stitle" style="margin-bottom:.7rem">📈 توزيع المخالفات</div>
     <div id="adm-vbars" style="margin-bottom:1.5rem"></div>
@@ -406,7 +395,7 @@ var MONS = [{"e":"mor216@mor.com","z":"Min_001","c":["1/112","1/56","5/112","6/1
 var CU    = null;  // current user
 var ROLE  = null;  // 'monitor'|'supervisor'|'admin'
 var REPS  = [];    // loaded reports
-var GAS   = localStorage.getItem('tafweej_gas') || '';
+var GAS   = localStorage.getItem('tafweej_gas') || 'https://script.google.com/macros/s/AKfycbz41Of_7mvcyx7o5mlfrCDKYDr1jVZtkOAN9OoBA_iREqhDCx-RTLTeRWgY2PtF8fXy/exec';
 var MCMP  = '';    // modal camp
 var MGPS  = null;  // {lat, lng, acc}
 var MPHOTO = null; // base64 string
@@ -605,8 +594,6 @@ function renderSupTable() {
 // ADMIN VIEW
 // ════════════════════════════════════════
 function initAdmin() {
-  document.getElementById('gas-inp').value = GAS || '';
-
   // Populate supervisor filter
   var supSel = document.getElementById('af-sup');
   supSel.innerHTML = '<option value="">كل المتابعين</option>' +
@@ -712,13 +699,6 @@ function toggleStatus(id) {
   renderVBars(REPS);
   renderAdmTable();
   if (GAS) gasGet({action:'updateStatus',id:id,status:rep.status,pass:ADMIN_PASS}, function(){});
-}
-
-function saveGas() {
-  var url = document.getElementById('gas-inp').value.trim();
-  GAS = url; localStorage.setItem('tafweej_gas', url);
-  showToast(url ? 'تم حفظ رابط قاعدة البيانات ✓' : 'تم مسح الرابط');
-  if (url) { initAdmin(); }
 }
 
 function exportCSV() {
