@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>نظام مراقبة التفويج — وزارة الرياضة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a2e18;--bg2:#0f3d22;--bg3:#144d2c;
+  --gold:#c9a227;--gold2:#e8c44a;
+  --text:#f0e6cc;--t2:rgba(240,230,204,.7);--t3:rgba(240,230,204,.35);
+  --border:rgba(201,162,39,.2);--card:rgba(255,255,255,.05);
+  --r:16px;
+}
+body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+.pg{min-height:100vh;display:none;flex-direction:column}
+.pg.on{display:flex}
+/* ── LOGIN ── */
+#pg-login{align-items:center;justify-content:center;padding:2rem;
+  background:radial-gradient(ellipse at 50% 0%,#1a5e34 0%,var(--bg) 70%)}
+.lbox{background:var(--bg2);border:1px solid var(--border);border-radius:24px;
+  padding:2.5rem;width:100%;max-width:380px;text-align:center}
+.llogo{width:72px;height:72px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.lbox h2{font-size:1.3rem;font-weight:900;color:var(--gold);margin-bottom:.25rem}
+.lbox .sub{font-size:.82rem;color:var(--t2);margin-bottom:1.8rem}
+.fg{margin-bottom:1rem;text-align:right}
+.fg label{font-size:.78rem;color:var(--t2);display:block;margin-bottom:.35rem}
+.fg input{width:100%;background:rgba(255,255,255,.07);border:1px solid var(--border);
+  border-radius:10px;padding:.7rem 1rem;color:var(--text);font-family:'Tajawal',Arial,sans-serif;
+  font-size:.92rem;outline:none;transition:border .2s}
+.fg input:focus{border-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.7rem 1.4rem;border-radius:10px;border:none;cursor:pointer;
+  font-family:'Tajawal',Arial,sans-serif;font-size:.9rem;font-weight:700;transition:all .18s}
+.bg{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a3a10;width:100%}
+.bg:hover{opacity:.9;transform:translateY(-1px)}
+.bo{background:transparent;border:1px solid var(--border);color:var(--t2);padding:.4rem .9rem;font-size:.82rem}
+.bo:hover{border-color:var(--gold);color:var(--gold)}
+.br{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:#ef9a9a;padding:.4rem .8rem;font-size:.78rem}
+.lerr{color:#ef9a9a;font-size:.8rem;margin-top:.7rem;min-height:1.1rem}
+/* ── HEADER ── */
+.hdr{background:rgba(10,46,24,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:0 1.2rem;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;flex-shrink:0}
+.htitle{display:flex;align-items:center;gap:.7rem}
+.rbadge{padding:.2rem .65rem;border-radius:7px;font-size:.72rem;font-weight:700}
+.rbadge.mon{background:var(--gold);color:#1a3a10}
+.rbadge.sup{background:#1e88e5;color:#fff}
+.rbadge.adm{background:#e53935;color:#fff}
+.htitle h1{font-size:.95rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.hacts{display:flex;align-items:center;gap:.6rem}
+.huser{font-size:.75rem;color:var(--t2);background:rgba(255,255,255,.07);
+  padding:.28rem .7rem;border-radius:7px;white-space:nowrap}
+/* ── MAIN ── */
+.amain{flex:1;overflow-y:auto;padding:1.2rem}
+/* ── STATS ── */
+.srow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem;margin-bottom:1.4rem}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center}
+.sc-n{font-size:1.9rem;font-weight:900}
+.sc-l{font-size:.75rem;color:var(--t2);margin-top:.15rem}
+/* ── SECTION TITLE ── */
+.stitle{font-size:.92rem;font-weight:700;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.4rem}
+/* ── CAMPS ── */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.9rem;margin-bottom:1.8rem}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:1rem;text-align:center;cursor:pointer;transition:all .18s;position:relative}
+.cc:hover{background:rgba(201,162,39,.1);border-color:var(--gold);transform:translateY(-2px)}
+.cc-n{font-size:1.2rem;font-weight:900;color:var(--gold2);word-break:break-all}
+.cc-l{font-size:.68rem;color:var(--t3);margin-top:.15rem}
+.cc-cnt{font-size:.72rem;margin-top:.35rem;color:#fb8c00;font-weight:700}
+/* ── REPORT ITEM ── */
+.rlist{display:flex;flex-direction:column;gap:.7rem}
+.ri{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:.9rem 1.1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
+.ri-l{flex:1;min-width:0}
+.ri-v{font-weight:700;font-size:.88rem;margin-bottom:.25rem}
+.ri-m{font-size:.75rem;color:var(--t2)}
+.ri-note{font-size:.78rem;color:var(--t2);margin-top:.25rem;font-style:italic}
+/* ── BADGE ── */
+.vb{display:inline-block;padding:.18rem .55rem;border-radius:6px;font-size:.72rem;font-weight:700}
+.sb{padding:.18rem .55rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer}
+/* ── MONITOR ACCORDION ── */
+.mlist{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.6rem}
+.mi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.mi-hdr{padding:.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .18s}
+.mi-hdr:hover{background:rgba(255,255,255,.04)}
+.mi-email{font-weight:700;font-size:.88rem}
+.mi-zone{font-size:.72rem;color:var(--gold);margin-top:.1rem}
+.mi-stats{display:flex;gap:.7rem;font-size:.72rem;color:var(--t2);align-items:center}
+.mi-body{border-top:1px solid var(--border);padding:.9rem 1.1rem;display:none}
+.mi-body.open{display:block}
+/* ── TABLE ── */
+.twrap{overflow-x:auto;margin-bottom:1rem}
+.tbl{width:100%;border-collapse:collapse;font-size:.8rem}
+.tbl th{background:rgba(201,162,39,.1);color:var(--gold);padding:.6rem .7rem;
+  text-align:right;white-space:nowrap;border-bottom:1px solid var(--border)}
+.tbl td{padding:.65rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.tbl tr:hover td{background:rgba(255,255,255,.025)}
+/* ── FILTER BAR ── */
+.fbar{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem;align-items:center}
+.fsel{background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:8px;
+  padding:.45rem .75rem;color:var(--text);font-family:'Tajawal',Arial,sans-serif;
+  font-size:.8rem;outline:none;cursor:pointer}
+.fsel:focus{border-color:var(--gold)}
+.fsel option{background:#0f3d22}
+/* ── CONFIG BOX ── */
+.cfgbox{background:rgba(201,162,39,.04);border:1px dashed rgba(201,162,39,.3);
+  border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:1.4rem}
+.cfgbox p{font-size:.79rem;color:var(--t2);margin-bottom:.7rem}
+.cfg-row{display:flex;gap:.5rem}
+.cfg-inp{flex:1;background:rgba(255,255,255,.07);border:1px solid var(--border);
+  border-radius:8px;padding:.48rem .85rem;color:var(--text);font-family:'Tajawal',Arial,sans-serif;
+  font-size:.78rem;outline:none}
+/* ── VIOL BARS ── */
+.vbar-item{margin-bottom:.65rem}
+.vbar-labels{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.22rem}
+.vbar-track{height:7px;border-radius:4px;background:rgba(255,255,255,.08)}
+.vbar-fill{height:100%;border-radius:4px;transition:width .6s}
+/* ── MODAL ── */
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(5px);
+  display:none;align-items:center;justify-content:center;padding:1rem;z-index:200}
+.moverlay.open{display:flex}
+.mbox{background:var(--bg2);border:1px solid var(--border);border-radius:22px;
+  padding:1.8rem;width:100%;max-width:460px;max-height:92vh;overflow-y:auto}
+.mbox h3{font-size:1.05rem;font-weight:900;color:var(--gold);margin-bottom:1.1rem}
+.mcamp{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);
+  border-radius:9px;padding:.6rem .9rem;margin-bottom:1rem;font-weight:700;text-align:center}
+.radios{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.1rem}
+.ritem{display:flex;align-items:center;gap:.65rem;padding:.55rem .8rem;
+  border:1px solid var(--border);border-radius:9px;cursor:pointer;transition:all .18s}
+.ritem:hover{border-color:var(--gold);background:rgba(201,162,39,.07)}
+.ritem.sel{border-color:var(--gold);background:rgba(201,162,39,.12)}
+.ritem input{accent-color:var(--gold);width:15px;height:15px;flex-shrink:0}
+.ritem label{cursor:pointer;font-size:.85rem;flex:1}
+.mnotes{width:100%;background:rgba(255,255,255,.07);border:1px solid var(--border);
+  border-radius:9px;padding:.65rem .9rem;color:var(--text);font-family:'Tajawal',Arial,sans-serif;
+  font-size:.86rem;resize:vertical;min-height:75px;outline:none;margin-bottom:1.1rem}
+.mnotes:focus{border-color:var(--gold)}
+.macts{display:flex;gap:.7rem}
+.macts .btn{flex:1}
+/* ── CAMP SELECT IN MODAL ── */
+.mcamp-sel{width:100%;background:rgba(255,255,255,.07);border:1px solid var(--border);
+  border-radius:9px;padding:.6rem .9rem;color:var(--text);font-family:'Tajawal',Arial,sans-serif;
+  font-size:.92rem;font-weight:700;outline:none;margin-bottom:1.1rem;cursor:pointer}
+.mcamp-sel:focus{border-color:var(--gold)}
+.mcamp-sel option{background:#0f3d22}
+/* ── PHOTO UPLOAD ── */
+.photo-box{margin-bottom:1rem}
+.photo-box > span{display:block;font-size:.8rem;color:var(--t2);margin-bottom:.45rem}
+.photo-btn{display:flex;align-items:center;gap:.55rem;padding:.6rem .85rem;
+  background:rgba(255,255,255,.06);border:1.5px dashed rgba(201,162,39,.35);
+  border-radius:9px;cursor:pointer;color:var(--t2);font-size:.84rem;transition:all .18s;width:100%}
+.photo-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,162,39,.06)}
+.photo-prev{width:100%;max-height:150px;object-fit:cover;border-radius:8px;margin-top:.6rem;display:none}
+.photo-clear{font-size:.75rem;color:#ef9a9a;cursor:pointer;margin-top:.3rem;display:none;text-align:center}
+/* ── GPS ── */
+.gps-row{display:flex;align-items:center;gap:.6rem;font-size:.78rem;margin-bottom:1.1rem;
+  padding:.48rem .8rem;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid var(--border)}
+.gdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:#fb8c00}
+.gdot.pend{animation:gpspls .9s ease-in-out infinite}
+.gdot.ok{background:#43a047}
+.gdot.err{background:#e53935}
+@keyframes gpspls{0%,100%{opacity:1}50%{opacity:.25}}
+/* ── REPORT IMAGE THUMB ── */
+.ri-img{width:56px;height:40px;object-fit:cover;border-radius:5px;cursor:pointer;flex-shrink:0}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%);
+  background:#1a5e34;border:1px solid rgba(67,160,71,.4);border-radius:11px;
+  padding:.7rem 1.4rem;color:#a5d6a7;font-size:.85rem;font-weight:700;
+  z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+/* ── LOADING ── */
+.ldg{text-align:center;padding:1.8rem;color:var(--t2);font-size:.85rem}
+.sp{display:inline-block;width:20px;height:20px;border:2.5px solid rgba(201,162,39,.2);
+  border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite;vertical-align:middle;margin-left:.4rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ── WARN BOX ── */
+.warnbox{background:rgba(251,140,0,.07);border:1px solid rgba(251,140,0,.3);
+  border-radius:var(--r);padding:.85rem 1.1rem;margin-bottom:1.2rem;font-size:.82rem;color:#ffcc80}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,162,39,.25);border-radius:3px}
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  .amain{padding:.9rem}
+  .srow{grid-template-columns:repeat(2,1fr)}
+  .htitle h1{max-width:130px}
+  .huser{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="pg-login" class="pg on">
+  <div class="lbox">
+    <div class="llogo">⚡</div>
+    <h2>نظام مراقبة التفويج</h2>
+    <p class="sub">الوردية الثانية — الحج 1447هـ</p>
+    <div class="fg">
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="inp-email" placeholder="example@mor.com" autocomplete="username">
+    </div>
+    <div class="fg">
+      <label>كلمة المرور</label>
+      <input type="password" id="inp-pass" placeholder="••••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn bg" onclick="doLogin()">دخول</button>
+    <p class="lerr" id="lerr"></p>
+  </div>
+</div>
+
+<!-- ═══════════════ MONITOR ═══════════════ -->
+<div id="pg-mon" class="pg">
+  <div class="hdr">
+    <div class="htitle">
+      <span class="rbadge mon">مراقب</span>
+      <h1 id="mon-zone">—</h1>
+    </div>
+    <div class="hacts">
+      <span class="huser" id="mon-email">—</span>
+      <button class="btn bo" onclick="logout()">خروج</button>
+    </div>
+  </div>
+  <div class="amain">
+    <div class="srow" id="mon-stats"></div>
+    <div class="stitle">🏕️ المخيمات المسؤول عنها</div>
+    <div class="cgrid" id="mon-camps"></div>
+    <div class="stitle">📋 بلاغاتي</div>
+    <div id="mon-rlist"><div class="ldg">لا توجد بلاغات بعد</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ SUPERVISOR ═══════════════ -->
+<div id="pg-sup" class="pg">
+  <div class="hdr">
+    <div class="htitle">
+      <span class="rbadge sup">متابع</span>
+      <h1 id="sup-name">—</h1>
+    </div>
+    <div class="hacts">
+      <span class="huser" id="sup-email">—</span>
+      <button class="btn bo" onclick="logout()">خروج</button>
+    </div>
+  </div>
+  <div class="amain">
+    <div class="srow" id="sup-stats"></div>
+    <div class="stitle">👁️ المراقبون</div>
+    <div class="mlist" id="sup-mlist"></div>
+    <div class="stitle">📊 جميع البلاغات</div>
+    <div class="fbar">
+      <select class="fsel" id="sf-v" onchange="renderSupTable()">
+        <option value="">كل المخالفات</option>
+        <option>فوج بدون قائد</option>
+        <option>خروج فوج في غير موعد التفويج للمخيم</option>
+        <option>تكدس مفرط في البوابات</option>
+        <option>الافتراش</option>
+        <option>وجود عوائق</option>
+        <option>وجود مخلفات</option>
+      </select>
+      <select class="fsel" id="sf-m" onchange="renderSupTable()"><option value="">كل المراقبين</option></select>
+    </div>
+    <div class="twrap">
+      <table class="tbl">
+        <thead><tr>
+          <th>المخيم</th><th>المنطقة</th><th>المراقب</th>
+          <th>المخالفة</th><th>الوقت</th><th>الحالة</th>
+        </tr></thead>
+        <tbody id="sup-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ADMIN ═══════════════ -->
+<div id="pg-adm" class="pg">
+  <div class="hdr">
+    <div class="htitle">
+      <span class="rbadge adm">مشرف النظام</span>
+      <h1>لوحة التحكم</h1>
+    </div>
+    <div class="hacts">
+      <button class="btn bo" onclick="exportCSV()" style="padding:.38rem .85rem">📤 تصدير</button>
+      <button class="btn bo" onclick="logout()">خروج</button>
+    </div>
+  </div>
+  <div class="amain">
+    <div class="cfgbox" id="adm-cfg">
+      <p>⚙️ رابط Google Apps Script لتفعيل قاعدة البيانات المشتركة:</p>
+      <div class="cfg-row">
+        <input class="cfg-inp" id="gas-inp" placeholder="https://script.google.com/macros/s/…/exec">
+        <button class="btn bg" style="flex:0;padding:.46rem .95rem;font-size:.82rem" onclick="saveGas()">حفظ</button>
+      </div>
+      <p style="font-size:.76rem;color:rgba(240,230,204,.4);margin-top:.55rem">
+        لم تنشر الكود بعد؟
+        <a href="copy-tafweej-script.html" target="_blank" style="color:#e8c44a;text-decoration:none">📋 اضغط هنا لنسخ كود Apps Script</a>
+      </p>
+    </div>
+    <div class="srow" id="adm-stats"></div>
+    <div class="stitle" style="margin-bottom:.7rem">📈 توزيع المخالفات</div>
+    <div id="adm-vbars" style="margin-bottom:1.5rem"></div>
+    <div class="stitle">📋 جميع البلاغات</div>
+    <div class="fbar">
+      <select class="fsel" id="af-sup" onchange="renderAdmTable()"><option value="">كل المتابعين</option></select>
+      <select class="fsel" id="af-v" onchange="renderAdmTable()">
+        <option value="">كل المخالفات</option>
+        <option>فوج بدون قائد</option>
+        <option>خروج فوج في غير موعد التفويج للمخيم</option>
+        <option>تكدس مفرط في البوابات</option>
+        <option>الافتراش</option>
+        <option>وجود عوائق</option>
+        <option>وجود مخلفات</option>
+      </select>
+      <select class="fsel" id="af-st" onchange="renderAdmTable()">
+        <option value="">كل الحالات</option><option>مفتوح</option><option>مُعالج</option>
+      </select>
+    </div>
+    <div class="twrap">
+      <table class="tbl">
+        <thead><tr>
+          <th>المخيم</th><th>المنطقة</th><th>المراقب</th><th>المتابع</th>
+          <th>المخالفة</th><th>الملاحظات</th><th>الموقع</th><th>صورة</th><th>الوقت</th><th>الحالة</th>
+        </tr></thead>
+        <tbody id="adm-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ REPORT MODAL ═══════════════ -->
+<div class="moverlay" id="modal">
+  <div class="mbox">
+    <h3>🚨 رفع بلاغ جديد</h3>
+
+    <!-- Camp selector -->
+    <div style="font-size:.8rem;color:var(--t2);margin-bottom:.4rem">🏕️ اختر المخيم:</div>
+    <select class="mcamp-sel" id="m-camp-sel"></select>
+
+    <!-- Violation type -->
+    <div style="font-size:.8rem;color:var(--t2);margin-bottom:.55rem">⚠️ نوع المخالفة:</div>
+    <div class="radios" id="m-radios"></div>
+
+    <!-- Notes -->
+    <textarea class="mnotes" id="m-notes" placeholder="ملاحظات إضافية (اختياري)…"></textarea>
+
+    <!-- Photo upload -->
+    <div class="photo-box">
+      <span>📸 صورة توثيقية (اختياري):</span>
+      <label class="photo-btn" for="m-photo">
+        <span>📷</span><span id="m-photo-lbl">اضغط لالتقاط أو رفع صورة</span>
+      </label>
+      <input type="file" id="m-photo" accept="image/*" capture="environment" style="display:none" onchange="onPhotoChange(this)">
+      <img id="m-photo-prev" class="photo-prev" alt="">
+      <div id="m-photo-clr" class="photo-clear" onclick="clearPhoto()">✕ إزالة الصورة</div>
+    </div>
+
+    <!-- GPS -->
+    <div class="gps-row">
+      <div class="gdot pend" id="gps-dot"></div>
+      <span id="gps-txt" style="color:var(--t2)">جارٍ تحديد الموقع…</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="macts">
+      <button class="btn bg" onclick="submitReport()">📤 إرسال البلاغ</button>
+      <button class="btn bo" onclick="closeModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════
+// CONSTANTS & DATA
+// ════════════════════════════════════════
+var MON_PASS   = 'Aa@12345678';
+var ADMIN_PASS = 'admin1447';
+var ADMIN_EMAIL = 'admin@tafweej.com';
+var SHIFT = 'الوردية الثانية';
+
+var VIOLATIONS = [
+  'فوج بدون قائد',
+  'خروج فوج في غير موعد التفويج للمخيم',
+  'تكدس مفرط في البوابات',
+  'الافتراش',
+  'وجود عوائق',
+  'وجود مخلفات'
+];
+var VCOLORS = ['#e53935','#fb8c00','#e53935','#1e88e5','#fb8c00','#8e24aa'];
+
+// Supervisors: {e, n, z[]}
+var SUPS = [{"e":"mot101@mot.com","n":"المهند بن محمد بن أحمد مشهور حمدي","z":["Min_001","Min_002","Min_003","Min_004","Min_005","Min_006","Min_007"]},{"e":"mot102@mot.com","n":"المهند بن محمد بن أحمد مشهور حمدي","z":["Min_0010","Min_0011","Min_0012","Min_0013","Min_0014","Min_008","Min_009"]},{"e":"mot103@mot.com","n":"احمد صالح علي الزمامي عسيري","z":["Min_0015","Min_0016","Min_0017","Min_0018","Min_0020","Min_0021","Min_0022"]},{"e":"mot104@mot.com","n":"احمد صالح علي الزمامي عسيري","z":["Min_0023","Min_0024","Min_0025","Min_0026","Min_0027","Min_0028","Min_0029"]},{"e":"mot107@mot.com","n":"احمد عبدالرحمن يحي الهوسه","z":["Min_0042","Min_0043","Min_0044","Min_0045","Min_0046","Min_0047","Min_0048"]},{"e":"mot108@mot.com","n":"احمد عبدالرحمن يحي الهوسه","z":["Min_0049","Min_0050","Min_0051","Min_0052","Min_0053","Min_0054","Min_0055"]},{"e":"mot109@mot.com","n":"علي عبده علي قحم","z":["Min_0056","Min_0057","Min_0058","Min_0059","Min_0060","Min_0061","Min_0062"]},{"e":"mot1010@mot.com","n":"علي عبده علي قحم","z":["Min_0063","Min_0064","Min_0065","Min_0066","Min_0067","Min_0068","Min_0069"]},{"e":"mot1011@mot.com","n":"معاذ سعد ناصر العبدان","z":["Min_0070","Min_0071","Min_0072","Min_0073","Min_0074","Min_0075","Min_0076"]},{"e":"mot1012@mot.com","n":"معاذ سعد ناصر العبدان","z":["Min_0077","Min_0078","Min_0079","Min_0080","Min_0081","Min_0082"]},{"e":"mot1013@mot.com","n":"أحمد بن سالم بن محمد باصحيح","z":["Min_0083","Min_0084","Min_0085","Min_0086","Min_0087","Min_0088","Min_0089"]},{"e":"mot1014@mot.com","n":"أحمد بن سالم بن محمد باصحيح","z":["Min_0090","Min_0091","Min_0092","Min_0093","Min_0094","Min_0095","Min_0096"]},{"e":"mot1015@mot.com","n":"سالم فرحان سعيد آل زعفران","z":["Min_00100","Min_00101","Min_00102","Min_00103","Min_0097","Min_0098","Min_0099"]},{"e":"mot1016@mot.com","n":"سالم فرحان سعيد آل زعفران","z":["Min_00104","Min_00105","Min_00106","Min_00107","Min_00108","Min_00109","Min_00110"]},{"e":"mot1019@mot.com","n":"وجدي محمد حمود ال خيرات","z":["Min_00124","Min_00125","Min_00126","Min_00127","Min_00128","Min_00129","Min_00130"]},{"e":"mot1020@mot.com","n":"وجدي محمد حمود ال خيرات","z":["Min_00131","Min_00132","Min_00133","Min_00134","Min_00136","Min_00137","Min_00138"]},{"e":"mot1021@mot.com","n":"محمد بن سعيد بن سالم السلمي المالكي","z":["Min_00139","Min_00140","Min_00141","Min_00142","Min_00143","Min_00144","Min_00145"]},{"e":"mot1022@mot.com","n":"محمد بن سعيد بن سالم السلمي المالكي","z":["Min_00146","Min_00147","Min_00148","Min_00149","Min_00150","Min_00151","Min_00152"]},{"e":"mot1023@mot.com","n":"يحيى علي علي مطاري","z":["Min_00153","Min_00154","Min_00155","Min_00156","Min_00157","Min_00158","Min_00159"]},{"e":"mot1024@mot.com","n":"يحيى علي علي مطاري","z":["Min_00160","Min_00161","Min_00162","Min_00163","Min_00164","Min_00165","Min_00166"]},{"e":"mot1025@mot.com","n":"عبدالرحمن محمد يوسف عسيس","z":["Min_00167","Min_00168","Min_00169","Min_00170","Min_00171","Min_00172","Min_00173"]},{"e":"mot1026@mot.com","n":"عبدالرحمن محمد يوسف عسيس","z":["Min_00175","Min_00176","Min_00177","Min_00178","Min_00179","Min_00180","Min_00181"]},{"e":"mot1027@mot.com","n":"عبدالرحمن بن راشد بن عبدالرحمن السبيعي","z":["Min_00182","Min_00183","Min_00184","Min_00185","Min_00186","Min_00187","Min_00188"]},{"e":"mot1028@mot.com","n":"عبدالرحمن بن راشد بن عبدالرحمن السبيعي","z":["Min_00189","Min_00190","Min_00191","Min_00192","Min_00193","Min_00194","Min_00195"]}];
+
+// Monitors: {e, z, c[]}
+var MONS = [{"e":"mor216@mor.com","z":"Min_001","c":["1/112","1/56","5/112","6/112"]},{"e":"mor217@mor.com","z":"Min_002","c":["10/56","13/56","7/56","9/56"]},{"e":"mor218@mor.com","z":"Min_003","c":["12/56","16/56","17/56","21/56","25/56"]},{"e":"mor219@mor.com","z":"Min_004","c":["20/56","24/56","29/56"]},{"e":"mor220@mor.com","z":"Min_005","c":["28/56","32/56","39/56","43/56"]},{"e":"mor221@mor.com","z":"Min_006","c":["34/56","36/56","38/56","40/56","49/56"]},{"e":"mor222@mor.com","z":"Min_007","c":["2/62","6/114","8/114"]},{"e":"mor223@mor.com","z":"Min_008","c":["11/62","12/62","13/62","15/62","16/62"]},{"e":"mor224@mor.com","z":"Min_009","c":["17/62","19/62","20/62","24/62"]},{"e":"mor225@mor.com","z":"Min_0010","c":["32/62"]},{"e":"mor226@mor.com","z":"Min_0011","c":["21/62","23/62","25/62","28/62"]},{"e":"mor227@mor.com","z":"Min_0012","c":["29/62","33/62","39/62"]},{"e":"mor228@mor.com","z":"Min_0013","c":["42/62","43/62","46/62","49/62"]},{"e":"mor229@mor.com","z":"Min_0014","c":["51/62","52/62","53/62","55/62","57/62"]},{"e":"mor230@mor.com","z":"Min_0015","c":["18/204","20/204","25/204"]},{"e":"mor231@mor.com","z":"Min_0016","c":["36/204","39/204","40/204","41/204","43/204"]},{"e":"mor232@mor.com","z":"Min_0017","c":["4/202","5/202","8/202","9/202"]},{"e":"mor233@mor.com","z":"Min_0018","c":["12/202","13/202","14/202","16/202"]},{"e":"mor234@mor.com","z":"Min_0020","c":["1/406","6/406"]},{"e":"mor235@mor.com","z":"Min_0021","c":["4/404"]},{"e":"mor236@mor.com","z":"Min_0022","c":["4/421","8/421"]},{"e":"mor237@mor.com","z":"Min_0023","c":["1/408","5/408","7/408"]},{"e":"mor238@mor.com","z":"Min_0024","c":["1/425","2/425","9/408"]},{"e":"mor239@mor.com","z":"Min_0025","c":["1/427","11/408","2/427","3/427"]},{"e":"mor240@mor.com","z":"Min_0026","c":["10/421","13/406","3/421"]},{"e":"mor241@mor.com","z":"Min_0027","c":["4/50","6/50","A/108"]},{"e":"mor242@mor.com","z":"Min_0028","c":["4/38"]},{"e":"mor243@mor.com","z":"Min_0029","c":["1/206","A/206","C/206","E/206"]},{"e":"mor244@mor.com","z":"Min_0030","c":["13/206","16/206","20/206","7/206"]},{"e":"mor245@mor.com","z":"Min_0031","c":["17/206","19/206","21/206"]},{"e":"mor246@mor.com","z":"Min_0032","c":["54/68","56/68","58/68"]},{"e":"mor247@mor.com","z":"Min_0033","c":["40/68","44/68"]},{"e":"mor248@mor.com","z":"Min_0034","c":["1/620","4/620","7/620","8/620"]},{"e":"mor249@mor.com","z":"Min_0035","c":["10/612","11/612","7/612","8/612"]},{"e":"mor250@mor.com","z":"Min_0036","c":["1/608","1/613","2/613","3/613","5/613"]},{"e":"mor251@mor.com","z":"Min_0037","c":["1/602","2/611"]},{"e":"mor252@mor.com","z":"Min_0038","c":["7/613","9/613"]},{"e":"mor253@mor.com","z":"Min_0039","c":["1/616","1/628","3/616"]},{"e":"mor254@mor.com","z":"Min_0040","c":["2/632","2/634","4/632","4/634"]},{"e":"mor255@mor.com","z":"Min_0041","c":["11/613","13/613","15/613"]},{"e":"mor256@mor.com","z":"Min_0042","c":["2/631","4/631","5/631","6/631","8/631"]},{"e":"mor257@mor.com","z":"Min_0043","c":["1/637","3/637","4/637","5/637","7/637"]},{"e":"mor258@mor.com","z":"Min_0044","c":["5/656","7/656"]},{"e":"mor259@mor.com","z":"Min_0045","c":["2/639","3/639","4/25","5/616"]},{"e":"mor260@mor.com","z":"Min_0046","c":["1/649","2/649","6/649"]},{"e":"mor261@mor.com","z":"Min_0047","c":["1/655","2/655","4/655","6/655"]},{"e":"mor262@mor.com","z":"Min_0048","c":["11/88","13/88","14/88"]},{"e":"mor263@mor.com","z":"Min_0049","c":["10/651","14/651","18/651"]},{"e":"mor264@mor.com","z":"Min_0050","c":["19/649","20/649","21/649","23/649"]},{"e":"mor265@mor.com","z":"Min_0051","c":["20/651","22/651","24/651"]},{"e":"mor266@mor.com","z":"Min_0052","c":["10/643","2/643","4/643","6/643","8/643"]},{"e":"mor267@mor.com","z":"Min_0053","c":["16/643","3/652","8/641"]},{"e":"mor268@mor.com","z":"Min_0054","c":["1/654","3/654"]},{"e":"mor269@mor.com","z":"Min_0055","c":["1/561","2/561"]},{"e":"mor270@mor.com","z":"Min_0056","c":["1/552","2/552","3/552","4/552","5/552"]},{"e":"mor271@mor.com","z":"Min_0057","c":["2/554","4/554","5/554","6/554","7/554"]},{"e":"mor272@mor.com","z":"Min_0058","c":["15/68","17/68","19/68"]},{"e":"mor273@mor.com","z":"Min_0059","c":["21/68","23/68"]},{"e":"mor274@mor.com","z":"Min_0060","c":["1/15","2/15","3/15"]},{"e":"mor275@mor.com","z":"Min_0061","c":["29/68","31/68","33/68"]},{"e":"mor276@mor.com","z":"Min_0062","c":["0/68","37/68","39/68"]},{"e":"mor277@mor.com","z":"Min_0063","c":["2/212","4/212"]},{"e":"mor278@mor.com","z":"Min_0064","c":["45/68","47/68"]},{"e":"mor279@mor.com","z":"Min_0065","c":["3/214","4/214"]},{"e":"mor280@mor.com","z":"Min_0066","c":["2/216","4/216","6/216"]},{"e":"mor281@mor.com","z":"Min_0067","c":["51/68","53/68","55/68","57/68"]},{"e":"mor282@mor.com","z":"Min_0068","c":["15/608","17/608","19/608","24/608"]},{"e":"mor283@mor.com","z":"Min_0069","c":["10/616","12/616","8/616"]},{"e":"mor284@mor.com","z":"Min_0070","c":["16/616","18/616","2/625","4/625"]},{"e":"mor285@mor.com","z":"Min_0071","c":["10/126","5/126","9/126"]},{"e":"mor286@mor.com","z":"Min_0072","c":["2/128","2A/128","4/128","6/128"]},{"e":"mor287@mor.com","z":"Min_0073","c":["2/108","3/108","8/108"]},{"e":"mor288@mor.com","z":"Min_0074","c":["B/108","C/108","D/108","E/108"]},{"e":"mor289@mor.com","z":"Min_0075","c":["1/301","10/110","22/50"]},{"e":"mor290@mor.com","z":"Min_0076","c":["9/50"]},{"e":"mor291@mor.com","z":"Min_0077","c":["11/50","13/50"]},{"e":"mor292@mor.com","z":"Min_0078","c":["28/50"]},{"e":"mor293@mor.com","z":"Min_0079","c":["1/518","2/518","3/518","4/518","5/518"]},{"e":"mor294@mor.com","z":"Min_0080","c":["10/518","12/518"]},{"e":"mor295@mor.com","z":"Min_0081","c":["10/520","12/520","14/520","8/520","9/520"]},{"e":"mor296@mor.com","z":"Min_0082","c":["16/522"]},{"e":"mor297@mor.com","z":"Min_0083","c":["12/522","13/522","9/522"]},{"e":"mor298@mor.com","z":"Min_0084","c":["11/524","12/524","16/524","7/524"]},{"e":"mor299@mor.com","z":"Min_0085","c":["3/531","5/531"]},{"e":"mor300@mor.com","z":"Min_0086","c":["1/526","4/526","8/526","8/528"]},{"e":"mor301@mor.com","z":"Min_0087","c":["1/527","1/528","3/528","4/528","5/526"]},{"e":"mor302@mor.com","z":"Min_0088","c":["2/522","3/522","6/522","7/522"]},{"e":"mor303@mor.com","z":"Min_0089","c":["1/524","3/524","4/524","5/524","6/524"]},{"e":"mor304@mor.com","z":"Min_0090","c":["1/204","2/204","3/204","4/116","6/204"]},{"e":"mor305@mor.com","z":"Min_0091","c":["1/124","4/124"]},{"e":"mor306@mor.com","z":"Min_0092","c":["7/68"]},{"e":"mor307@mor.com","z":"Min_0093","c":["1/126","2/126"]},{"e":"mor308@mor.com","z":"Min_0094","c":["1/530","2/530","3/530","4/530"]},{"e":"mor309@mor.com","z":"Min_0095","c":["2/542","2/547","4/547"]},{"e":"mor310@mor.com","z":"Min_0096","c":["1/548","2/548","4/548"]},{"e":"mor311@mor.com","z":"Min_0097","c":["78/68","80/68","82/68","84/68"]},{"e":"mor312@mor.com","z":"Min_0098","c":["2/533","4/533"]},{"e":"mor313@mor.com","z":"Min_0099","c":["1/535","4/535"]},{"e":"mor314@mor.com","z":"Min_00100","c":["1/506","2/506","4/506"]},{"e":"mor315@mor.com","z":"Min_00101","c":["1/504","2/504","3/504"]},{"e":"mor316@mor.com","z":"Min_00102","c":["16/502","19/502","31/502","6/502","8/502"]},{"e":"mor317@mor.com","z":"Min_00103","c":["B/62","C/62","F/62"]},{"e":"mor318@mor.com","z":"Min_00104","c":["1A/720","1B/720","3/720"]},{"e":"mor319@mor.com","z":"Min_00105","c":["17/716","21/716"]},{"e":"mor320@mor.com","z":"Min_00106","c":["1/714","5/714","9/714"]},{"e":"mor321@mor.com","z":"Min_00107","c":["3/716"]},{"e":"mor322@mor.com","z":"Min_00108","c":["25/50","27/50"]},{"e":"mor323@mor.com","z":"Min_00109","c":["0/50","33/44","56/50"]},{"e":"mor324@mor.com","z":"Min_00110","c":["52/50","52A/50","54/50"]},{"e":"mor325@mor.com","z":"Min_00111","c":["66A/38","66B/38","66C/38"]},{"e":"mor326@mor.com","z":"Min_00112","c":["11/44","13/44","18/44","48/50","50/50"]},{"e":"mor327@mor.com","z":"Min_00113","c":["10/44","14/44"]},{"e":"mor328@mor.com","z":"Min_00114","c":["44/50","46/50"]},{"e":"mor329@mor.com","z":"Min_00115","c":["56/38"]},{"e":"mor330@mor.com","z":"Min_00116","c":["45/38","50/38","52/38"]},{"e":"mor331@mor.com","z":"Min_00117","c":["9/44"]},{"e":"mor332@mor.com","z":"Min_00118","c":["49/44","51/44","56/44","62/44"]},{"e":"mor333@mor.com","z":"Min_00119","c":["T1/527","T2/527","T3/527","T4/527"]},{"e":"mor334@mor.com","z":"Min_00120","c":["10/68"]},{"e":"mor335@mor.com","z":"Min_00121","c":["1/68"]},{"e":"mor336@mor.com","z":"Min_00122","c":["1/618","3/608","5/618"]},{"e":"mor337@mor.com","z":"Min_00123","c":["2/616","4/616"]},{"e":"mor338@mor.com","z":"Min_00124","c":["4/622","6/622"]},{"e":"mor339@mor.com","z":"Min_00125","c":["11/610","3/610","9/610"]},{"e":"mor340@mor.com","z":"Min_00126","c":["2/608"]},{"e":"mor341@mor.com","z":"Min_00127","c":["12/614","2/614","8/614"]},{"e":"mor342@mor.com","z":"Min_00128","c":["16/647","20/647","22/647"]},{"e":"mor343@mor.com","z":"Min_00129","c":["8/88"]},{"e":"mor344@mor.com","z":"Min_00130","c":["4/88"]},{"e":"mor345@mor.com","z":"Min_00131","c":["2/641","4/641","6/641"]},{"e":"mor346@mor.com","z":"Min_00132","c":["11/25","13/25","2/637","9/25"]},{"e":"mor347@mor.com","z":"Min_00133","c":["1/635","7/25"]},{"e":"mor348@mor.com","z":"Min_00134","c":["24/206","26/206"]},{"e":"mor349@mor.com","z":"Min_00136","c":["5/510","6/510","7/510","8/510"]},{"e":"mor350@mor.com","z":"Min_00137","c":["3/508","5/508","6/508"]},{"e":"mor351@mor.com","z":"Min_00138","c":["1/513","10/513","4/513","6/513","8/513"]},{"e":"mor352@mor.com","z":"Min_00139","c":["1/519","59/62","63/62"]},{"e":"mor353@mor.com","z":"Min_00140","c":["7/521","9/521"]},{"e":"mor354@mor.com","z":"Min_00141","c":["11/204","5/204","8/204","9/204","B/204"]},{"e":"mor355@mor.com","z":"Min_00142","c":["2/520","3/520","4/520","6/520","7/520"]},{"e":"mor356@mor.com","z":"Min_00143","c":["10/128","12/128","8/128"]},{"e":"mor357@mor.com","z":"Min_00144","c":["4/62","6/62","8/62"]},{"e":"mor358@mor.com","z":"Min_00145","c":["11/406","17/406","18/406"]},{"e":"mor359@mor.com","z":"Min_00146","c":["26/204","28/204","32/204","33/204","37/204"]},{"e":"mor360@mor.com","z":"Min_00147","c":["1/116","3/116"]},{"e":"mor361@mor.com","z":"Min_00148","c":["15/44","28A/44","28C/44"]},{"e":"mor362@mor.com","z":"Min_00149","c":["1/716","21/50","4/716"]},{"e":"mor363@mor.com","z":"Min_00150","c":["11/714","19/714"]},{"e":"mor364@mor.com","z":"Min_00151","c":["95/38","97/38"]},{"e":"mor365@mor.com","z":"Min_00152","c":["35/50"]},{"e":"mor366@mor.com","z":"Min_00153","c":["1/502","2/502","7/502"]},{"e":"mor367@mor.com","z":"Min_00154","c":["71/62"]},{"e":"mor368@mor.com","z":"Min_00155","c":["35/533","37/533"]},{"e":"mor369@mor.com","z":"Min_00156","c":["A1/527","A2/527","A3/527"]},{"e":"mor370@mor.com","z":"Min_00157","c":["16/608","18/608","20/608"]},{"e":"mor371@mor.com","z":"Min_00158","c":["1/604","6/611"]},{"e":"mor372@mor.com","z":"Min_00159","c":["1/643","3/643"]},{"e":"mor373@mor.com","z":"Min_00160","c":["13/649","16/649","17/649"]},{"e":"mor374@mor.com","z":"Min_00161","c":["3/88","7/88"]},{"e":"mor375@mor.com","z":"Min_00162","c":["12/408","13/408","16/421","18/421"]},{"e":"mor376@mor.com","z":"Min_00163","c":["16/68"]},{"e":"mor377@mor.com","z":"Min_00164","c":["11/210","3/210","9/210"]},{"e":"mor378@mor.com","z":"Min_00165","c":["5/208","9/208"]},{"e":"mor379@mor.com","z":"Min_00166","c":["1/208","34/68"]},{"e":"mor380@mor.com","z":"Min_00167","c":["13/214"]},{"e":"mor381@mor.com","z":"Min_00168","c":["25/68","27/68"]},{"e":"mor382@mor.com","z":"Min_00169","c":["3/38","3A/38","A2/38"]},{"e":"mor383@mor.com","z":"Min_00170","c":["2/207","4/207"]},{"e":"mor384@mor.com","z":"Min_00171","c":["4/639","6/25","6/639","8/639"]},{"e":"mor385@mor.com","z":"Min_00172","c":["33/38"]},{"e":"mor386@mor.com","z":"Min_00173","c":["32C/50","4/44","40/50"]},{"e":"mor387@mor.com","z":"Min_00175","c":["48/68","50/68","52/68"]},{"e":"mor388@mor.com","z":"Min_00176","c":["13/620","14/620","18/620"]},{"e":"mor389@mor.com","z":"Min_00177","c":["12/204","14/204","D/204","F/204","H/204"]},{"e":"mor390@mor.com","z":"Min_00178","c":["3/56","4/56","6/56"]},{"e":"mor391@mor.com","z":"Min_00179","c":["10/529","4/529","6/529","8/529"]},{"e":"mor392@mor.com","z":"Min_00180","c":["15/716","9/716"]},{"e":"mor393@mor.com","z":"Min_00181","c":["1/550","3/550","5/550"]},{"e":"mor394@mor.com","z":"Min_00182","c":["10/62","7/62","9/62"]},{"e":"mor395@mor.com","z":"Min_00183","c":["11/552","6/552","7/552","9/552"]},{"e":"mor396@mor.com","z":"Min_00184","c":["79/38"]},{"e":"mor397@mor.com","z":"Min_00185","c":["1/114","2/114","2/116"]},{"e":"mor398@mor.com","z":"Min_00186","c":["3/122","4/122"]},{"e":"mor399@mor.com","z":"Min_00187","c":["13/608","22/608","5/608","9/608"]},{"e":"mor400@mor.com","z":"Min_00188","c":["1/631","3/633"]},{"e":"mor401@mor.com","z":"Min_00189","c":["17/88"]},{"e":"mor402@mor.com","z":"Min_00190","c":["5/563"]},{"e":"mor403@mor.com","z":"Min_00191","c":["23/206","25/206","28/206","30/206","32/206"]},{"e":"mor404@mor.com","z":"Min_00192","c":["10/649","14/649","4/647","7/649"]},{"e":"mor405@mor.com","z":"Min_00193","c":["20/616","22/616","24/616"]},{"e":"mor406@mor.com","z":"Min_00194","c":["13/520","16/520","18/520"]},{"e":"mor407@mor.com","z":"Min_00195","c":["1/521","8/521"]},{"e":"mor409@mor.com","z":"Min_00196","c":["1/510","2/510","3/510","4/510"]},{"e":"mor411@mor.com","z":"Min_00197","c":["6/518","7/518","8/518"]},{"e":"mor413@mor.com","z":"Min_00198","c":["22/204","24/204","29/204"]},{"e":"mor414@mor.com","z":"Min_00199","c":["5/206","G/206","I/206"]},{"e":"mor415@mor.com","z":"Min_00201","c":["1/612","4/612","5/612"]},{"e":"mor417@mor.com","z":"Min_00202","c":["21/608","23/608","26/608","28/608","6/625"]},{"e":"mor418@mor.com","z":"Min_00203","c":["12/643","14/643","7/643"]},{"e":"mor419@mor.com","z":"Min_00204","c":["2/604","3/604","4/604"]},{"e":"mor421@mor.com","z":"Min_00205","c":["12/88","5/655","8/655"]},{"e":"mor423@mor.com","z":"Min_00206","c":["25/608","27/608","29/608","30/608","59/68"]},{"e":"mor424@mor.com","z":"Min_00208","c":["T5/527","T6/527","T7/527","T8/527"]},{"e":"mor426@mor.com","z":"Min_00209","c":["1/102","2/102"]},{"e":"mor427@mor.com","z":"Min_00210","c":["D/62","E/62"]},{"e":"mor429@mor.com","z":"Min_00211","c":["2/529","20/520"]}];
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+var CU    = null;  // current user
+var ROLE  = null;  // 'monitor'|'supervisor'|'admin'
+var REPS  = [];    // loaded reports
+var GAS   = localStorage.getItem('tafweej_gas') || '';
+var MCMP  = '';    // modal camp
+var MGPS  = null;  // {lat, lng, acc}
+var MPHOTO = null; // base64 string
+
+// ════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════
+document.getElementById('inp-pass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('inp-email').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('inp-pass').focus(); });
+
+function doLogin() {
+  var email = document.getElementById('inp-email').value.trim().toLowerCase();
+  var pass  = document.getElementById('inp-pass').value;
+  var err   = document.getElementById('lerr');
+  err.textContent = '';
+  if (!email || !pass) { err.textContent = 'يرجى إدخال البريد وكلمة المرور'; return; }
+
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    CU = {email: email}; ROLE = 'admin';
+    showPg('pg-adm'); initAdmin(); return;
+  }
+  if (pass === MON_PASS) {
+    var sup = SUPS.find(function(s){ return s.e === email; });
+    if (sup) { CU = {email:email, data:sup}; ROLE = 'supervisor'; showPg('pg-sup'); initSup(); return; }
+    var mon = MONS.find(function(m){ return m.e === email; });
+    if (mon) { CU = {email:email, data:mon}; ROLE = 'monitor'; showPg('pg-mon'); initMon(); return; }
+  }
+  err.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+}
+
+function logout() {
+  CU = null; ROLE = null; REPS = [];
+  document.getElementById('inp-email').value = '';
+  document.getElementById('inp-pass').value = '';
+  showPg('pg-login');
+}
+
+// ════════════════════════════════════════
+// ROUTER
+// ════════════════════════════════════════
+function showPg(id) {
+  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+
+// ════════════════════════════════════════
+// MONITOR VIEW
+// ════════════════════════════════════════
+function initMon() {
+  var mon = CU.data;
+  var pfx = CU.email.split('@')[0].toUpperCase();
+  document.getElementById('mon-zone').textContent  = 'المنطقة: ' + mon.z;
+  document.getElementById('mon-email').textContent = pfx;
+
+  var cgrid = document.getElementById('mon-camps');
+  cgrid.innerHTML = mon.c.map(function(camp) {
+    var esc = camp.replace(/'/g,"\\'");
+    return '<div class="cc" onclick="openModal(\'' + esc + '\')">' +
+           '<div class="cc-n">' + camp + '</div><div class="cc-l">مخيم</div></div>';
+  }).join('');
+
+  document.getElementById('mon-rlist').innerHTML = '<div class="ldg"><span class="sp"></span></div>';
+  loadReps('monitor', function(rs) {
+    REPS = rs;
+    renderMonStats();
+    renderMonReps();
+    refreshCampCounts();
+  });
+}
+
+function renderMonStats() {
+  var open = REPS.filter(function(r){ return r.status==='مفتوح'; }).length;
+  document.getElementById('mon-stats').innerHTML =
+    sc(REPS.length,'إجمالي البلاغات','#e8c44a') +
+    sc(open,'مفتوحة','#fb8c00') +
+    sc(CU.data.c.length,'المخيمات','#1e88e5');
+}
+
+function renderMonReps() {
+  var el = document.getElementById('mon-rlist');
+  if (!REPS.length) { el.innerHTML = '<div class="ldg">لا توجد بلاغات بعد</div>'; return; }
+  el.innerHTML = '<div class="rlist">' + REPS.slice().reverse().map(repItem).join('') + '</div>';
+}
+
+function refreshCampCounts() {
+  CU.data.c.forEach(function(camp) {
+    var cnt = REPS.filter(function(r){ return r.camp===camp; }).length;
+    document.querySelectorAll('.cc').forEach(function(el) {
+      if (el.querySelector('.cc-n').textContent === camp) {
+        var old = el.querySelector('.cc-cnt');
+        if (old) old.remove();
+        if (cnt > 0) {
+          var d = document.createElement('div');
+          d.className='cc-cnt'; d.textContent = cnt + ' بلاغ'; el.appendChild(d);
+        }
+      }
+    });
+  });
+}
+
+// ════════════════════════════════════════
+// SUPERVISOR VIEW
+// ════════════════════════════════════════
+function initSup() {
+  var sup = CU.data;
+  document.getElementById('sup-name').textContent  = sup.n.split(' ').slice(0,3).join(' ');
+  document.getElementById('sup-email').textContent = CU.email.split('@')[0].toUpperCase();
+
+  var myMons = MONS.filter(function(m){ return sup.z.indexOf(m.z) !== -1; });
+
+  // Populate monitor filter
+  var sfm = document.getElementById('sf-m');
+  sfm.innerHTML = '<option value="">كل المراقبين</option>' +
+    myMons.map(function(m){
+      return '<option value="' + m.e + '">' + m.e.split('@')[0].toUpperCase() + '</option>';
+    }).join('');
+
+  renderSupMonList(myMons, []);
+
+  var tbody = document.getElementById('sup-tbody');
+  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--t2)"><span class="sp"></span></td></tr>';
+
+  loadReps('supervisor', function(rs) {
+    REPS = rs;
+    renderSupStats(myMons, rs);
+    renderSupMonList(myMons, rs);
+    renderSupTable();
+  });
+}
+
+function renderSupStats(mons, rs) {
+  var open = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
+  document.getElementById('sup-stats').innerHTML =
+    sc(mons.length,'المراقبون','#1e88e5') +
+    sc(rs.length,'إجمالي البلاغات','#e8c44a') +
+    sc(open,'مفتوحة','#fb8c00') +
+    sc(CU.data.z.length,'المناطق','#8e24aa');
+}
+
+function renderSupMonList(mons, rs) {
+  var cont = document.getElementById('sup-mlist');
+  cont.innerHTML = mons.map(function(mon) {
+    var mr = rs.filter(function(r){ return r.monitorEmail===mon.e; });
+    var open = mr.filter(function(r){ return r.status==='مفتوح'; }).length;
+    var pfx = mon.e.split('@')[0].toUpperCase();
+    var campsStr = mon.c.slice(0,4).join(', ') + (mon.c.length>4?' …':'');
+    return '<div class="mi">' +
+      '<div class="mi-hdr" onclick="toggleAcc(this)">' +
+        '<div>' +
+          '<div class="mi-email">' + pfx + '</div>' +
+          '<div class="mi-zone">📍 ' + mon.z + ' &nbsp;|&nbsp; 🏕️ ' + campsStr + '</div>' +
+        '</div>' +
+        '<div class="mi-stats">' +
+          '<span>📋 ' + mr.length + '</span>' +
+          (open ? '<span style="color:#fb8c00">⚠️ ' + open + '</span>' : '') +
+          '<span style="color:var(--gold)">▼</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mi-body">' +
+        (mr.length ? '<div class="rlist">' + mr.slice().reverse().slice(0,5).map(repItem).join('') + '</div>'
+          : '<p style="color:var(--t2);font-size:.82rem;text-align:center;padding:.5rem">لا توجد بلاغات</p>') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleAcc(hdr) {
+  var body = hdr.nextElementSibling;
+  body.classList.toggle('open');
+  var arrow = hdr.querySelector('.mi-stats span:last-child');
+  if (arrow) arrow.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+function renderSupTable() {
+  var fv = document.getElementById('sf-v').value;
+  var fm = document.getElementById('sf-m').value;
+  var filtered = REPS.filter(function(r){
+    return (!fv || r.violation===fv) && (!fm || r.monitorEmail===fm);
+  });
+  var tbody = document.getElementById('sup-tbody');
+  tbody.innerHTML = filtered.length
+    ? filtered.slice().reverse().map(function(r){
+        return '<tr>' +
+          '<td>' + r.camp + '</td>' +
+          '<td>' + r.zone + '</td>' +
+          '<td>' + r.monitorEmail.split('@')[0].toUpperCase() + '</td>' +
+          '<td>' + vbadge(r.violation) + '</td>' +
+          '<td>' + fmtTs(r.ts) + '</td>' +
+          '<td>' + sbadge(r.status, r.id) + '</td>' +
+        '</tr>';
+      }).join('')
+    : '<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
+}
+
+// ════════════════════════════════════════
+// ADMIN VIEW
+// ════════════════════════════════════════
+function initAdmin() {
+  document.getElementById('gas-inp').value = GAS || '';
+
+  // Populate supervisor filter
+  var supSel = document.getElementById('af-sup');
+  supSel.innerHTML = '<option value="">كل المتابعين</option>' +
+    SUPS.map(function(s){
+      return '<option value="' + s.e + '">' + s.n.split(' ').slice(0,3).join(' ') + '</option>';
+    }).join('');
+
+  document.getElementById('adm-tbody').innerHTML =
+    '<tr><td colspan="8" style="text-align:center;padding:1.5rem;color:var(--t2)"><span class="sp"></span></td></tr>';
+
+  loadReps('admin', function(rs) {
+    REPS = rs;
+    renderAdmStats(rs);
+    renderVBars(rs);
+    renderAdmTable();
+  });
+}
+
+function renderAdmStats(rs) {
+  var open  = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
+  var done  = rs.filter(function(r){ return r.status==='مُعالج'; }).length;
+  var actMons = (function(){ var s={}; rs.forEach(function(r){ s[r.monitorEmail]=1; }); return Object.keys(s).length; })();
+  document.getElementById('adm-stats').innerHTML =
+    sc(rs.length,'إجمالي البلاغات','#e8c44a') +
+    sc(open,'مفتوحة','#fb8c00') +
+    sc(done,'مُعالجة','#43a047') +
+    sc(actMons,'مراقبون نشطون','#1e88e5') +
+    sc(MONS.length,'إجمالي المراقبين','rgba(240,230,204,.45)') +
+    sc(SUPS.length,'إجمالي المتابعين','rgba(240,230,204,.45)');
+}
+
+function renderVBars(rs) {
+  var cont = document.getElementById('adm-vbars');
+  if (!rs.length) { cont.innerHTML=''; return; }
+  var max = 0;
+  var data = VIOLATIONS.map(function(v,i){
+    var cnt = rs.filter(function(r){ return r.violation===v; }).length;
+    if (cnt>max) max=cnt;
+    return {v:v, cnt:cnt, color:VCOLORS[i]};
+  });
+  cont.innerHTML = data.map(function(d){
+    var pct = max>0 ? Math.round(d.cnt/max*100) : 0;
+    return '<div class="vbar-item">' +
+      '<div class="vbar-labels"><span style="color:var(--t2)">' + d.v + '</span><span style="font-weight:700;color:' + d.color + '">' + d.cnt + '</span></div>' +
+      '<div class="vbar-track"><div class="vbar-fill" style="width:' + pct + '%;background:' + d.color + '"></div></div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderAdmTable() {
+  var fSup  = document.getElementById('af-sup').value;
+  var fViol = document.getElementById('af-v').value;
+  var fSt   = document.getElementById('af-st').value;
+
+  var filtered = REPS.filter(function(r) {
+    var vOk  = !fViol || r.violation===fViol;
+    var stOk = !fSt   || r.status===fSt;
+    var sOk  = true;
+    if (fSup) {
+      var mon = MONS.find(function(m){ return m.e===r.monitorEmail; });
+      var sup = mon ? SUPS.find(function(s){ return s.z.indexOf(mon.z)!==-1; }) : null;
+      sOk = !!(sup && sup.e===fSup);
+    }
+    return vOk && stOk && sOk;
+  });
+
+  var tbody = document.getElementById('adm-tbody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.slice().reverse().map(function(r) {
+    var mon = MONS.find(function(m){ return m.e===r.monitorEmail; });
+    var sup = mon ? SUPS.find(function(s){ return s.z.indexOf(mon.z)!==-1; }) : null;
+    var supShort = sup ? sup.n.split(' ').slice(0,2).join(' ') : '—';
+    var gpsCell = (r.lat&&r.lng)
+      ? '<a href="https://maps.google.com/?q='+r.lat+','+r.lng+'" target="_blank" style="color:#1e88e5">📍</a>'
+      : '—';
+    var photoCell = r.photo
+      ? '<img src="'+r.photo+'" class="ri-img" onclick="viewPhoto(this.src)">'
+      : '—';
+    return '<tr>' +
+      '<td>' + r.camp + '</td>' +
+      '<td>' + r.zone + '</td>' +
+      '<td>' + r.monitorEmail.split('@')[0].toUpperCase() + '</td>' +
+      '<td style="font-size:.76rem">' + supShort + '</td>' +
+      '<td>' + vbadge(r.violation) + '</td>' +
+      '<td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (r.notes||'—') + '</td>' +
+      '<td style="text-align:center">' + gpsCell + '</td>' +
+      '<td style="text-align:center">' + photoCell + '</td>' +
+      '<td>' + fmtTs(r.ts) + '</td>' +
+      '<td>' + sbadge(r.status, r.id) + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function toggleStatus(id) {
+  var rep = REPS.find(function(r){ return String(r.id)===String(id); });
+  if (!rep) return;
+  rep.status = rep.status==='مفتوح' ? 'مُعالج' : 'مفتوح';
+  saveAllLocal();
+  renderAdmStats(REPS);
+  renderVBars(REPS);
+  renderAdmTable();
+  if (GAS) gasGet({action:'updateStatus',id:id,status:rep.status,pass:ADMIN_PASS}, function(){});
+}
+
+function saveGas() {
+  var url = document.getElementById('gas-inp').value.trim();
+  GAS = url; localStorage.setItem('tafweej_gas', url);
+  showToast(url ? 'تم حفظ رابط قاعدة البيانات ✓' : 'تم مسح الرابط');
+  if (url) { initAdmin(); }
+}
+
+function exportCSV() {
+  var rows = [['ID','الوقت','المراقب','المنطقة','المخيم','المخالفة','الملاحظات','الوردية','الحالة']];
+  REPS.forEach(function(r){
+    rows.push([r.id,r.ts,r.monitorEmail,r.zone,r.camp,r.violation,r.notes||'',r.shift||SHIFT,r.status]);
+  });
+  var csv = rows.map(function(r){
+    return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(',');
+  }).join('\r\n');
+  var blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href=url; a.download='تقارير_التفويج_1447.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ════════════════════════════════════════
+// REPORT MODAL
+// ════════════════════════════════════════
+function openModal(camp) {
+  MCMP = camp;
+  MGPS = null;
+  MPHOTO = null;
+
+  // Build camp selector
+  var sel = document.getElementById('m-camp-sel');
+  sel.innerHTML = CU.data.c.map(function(c){
+    return '<option value="' + c + '"' + (c===camp?' selected':'') + '>' + c + '</option>';
+  }).join('');
+
+  // Build violation radios
+  document.getElementById('m-radios').innerHTML = VIOLATIONS.map(function(v,i){
+    return '<div class="ritem' + (i===0?' sel':'') + '" onclick="selV(this,' + i + ')">' +
+           '<input type="radio" name="vr" id="vr' + i + '" value="' + v + '"' + (i===0?' checked':'') + '>' +
+           '<label for="vr' + i + '">' + v + '</label></div>';
+  }).join('');
+
+  // Reset photo
+  document.getElementById('m-photo').value = '';
+  document.getElementById('m-photo-prev').style.display = 'none';
+  document.getElementById('m-photo-clr').style.display = 'none';
+  document.getElementById('m-photo-lbl').textContent = 'اضغط لالتقاط أو رفع صورة';
+  document.getElementById('m-notes').value = '';
+
+  // Reset GPS
+  setGPS('pend', 'جارٍ تحديد الموقع…');
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        MGPS = {lat: pos.coords.latitude.toFixed(6), lng: pos.coords.longitude.toFixed(6), acc: Math.round(pos.coords.accuracy)};
+        setGPS('ok', '📍 ' + MGPS.lat + ', ' + MGPS.lng + ' (دقة ±' + MGPS.acc + 'م)');
+      },
+      function() { setGPS('err', 'تعذّر تحديد الموقع'); },
+      {enableHighAccuracy: true, timeout: 10000}
+    );
+  } else {
+    setGPS('err', 'الجهاز لا يدعم تحديد الموقع');
+  }
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function setGPS(state, txt) {
+  var dot = document.getElementById('gps-dot');
+  dot.className = 'gdot ' + state;
+  document.getElementById('gps-txt').textContent = txt;
+}
+
+function selV(el, i) {
+  document.querySelectorAll('.ritem').forEach(function(r){ r.classList.remove('sel'); });
+  el.classList.add('sel');
+  document.getElementById('vr'+i).checked = true;
+}
+
+function onPhotoChange(input) {
+  var file = input.files && input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      // Compress: max 600px, JPEG 0.55
+      var maxW = 600, maxH = 600;
+      var w = img.width, h = img.height;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      if (h > maxH) { w = Math.round(w * maxH / h); h = maxH; }
+      var cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      cv.getContext('2d').drawImage(img, 0, 0, w, h);
+      MPHOTO = cv.toDataURL('image/jpeg', 0.55);
+      var prev = document.getElementById('m-photo-prev');
+      prev.src = MPHOTO;
+      prev.style.display = 'block';
+      document.getElementById('m-photo-clr').style.display = 'block';
+      document.getElementById('m-photo-lbl').textContent = '✓ تم اختيار الصورة';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPhoto() {
+  MPHOTO = null;
+  document.getElementById('m-photo').value = '';
+  document.getElementById('m-photo-prev').style.display = 'none';
+  document.getElementById('m-photo-clr').style.display = 'none';
+  document.getElementById('m-photo-lbl').textContent = 'اضغط لالتقاط أو رفع صورة';
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+document.getElementById('modal').addEventListener('click', function(e){
+  if (e.target===this) closeModal();
+});
+
+function submitReport() {
+  var sel = document.querySelector('input[name="vr"]:checked');
+  if (!sel) { showToast('اختر نوع المخالفة أولاً'); return; }
+  var camp = document.getElementById('m-camp-sel').value;
+  if (!camp) { showToast('اختر المخيم أولاً'); return; }
+
+  var rep = {
+    id: Date.now(),
+    ts: new Date().toISOString(),
+    monitorEmail: CU.email,
+    zone: CU.data.z,
+    camp: camp,
+    violation: sel.value,
+    notes: document.getElementById('m-notes').value.trim(),
+    shift: SHIFT,
+    status: 'مفتوح',
+    lat: MGPS ? MGPS.lat : '',
+    lng: MGPS ? MGPS.lng : '',
+    acc: MGPS ? MGPS.acc : '',
+    photo: MPHOTO || ''
+  };
+
+  // Save locally
+  var local = getMyLocal();
+  local.push(rep);
+  setMyLocal(local);
+  REPS.push(rep);
+
+  renderMonStats();
+  renderMonReps();
+  refreshCampCounts();
+  closeModal();
+  showToast('تم إرسال البلاغ بنجاح ✓');
+
+  // Send to GAS async (without photo to avoid size limits)
+  if (GAS) {
+    var gasRep = Object.assign({}, rep, {action:'add', photo: rep.photo ? '[image]' : ''});
+    gasPost(gasRep, function(){});
+  }
+}
+
+// ════════════════════════════════════════
+// DATA / STORAGE / API
+// ════════════════════════════════════════
+function loadReps(role, cb) {
+  var local = [];
+  if (role==='monitor') {
+    local = getMyLocal();
+  } else if (role==='supervisor') {
+    var zones = CU.data.z;
+    local = getAllLocal().filter(function(r){ return zones.indexOf(r.zone)!==-1; });
+  } else {
+    local = getAllLocal();
+  }
+
+  if (!GAS) { cb(local); return; }
+
+  var params = {action:'list', pass:ADMIN_PASS};
+  if (role==='monitor')    { params.email=CU.email; params.pass=MON_PASS; }
+  if (role==='supervisor') { params.action='listByZones'; params.zones=CU.data.z.join(','); params.pass=MON_PASS; }
+
+  gasGet(params, function(data) {
+    if (Array.isArray(data)) {
+      var ids = {};
+      data.forEach(function(r){ ids[String(r.id)]=1; });
+      var localOnly = local.filter(function(r){ return !ids[String(r.id)]; });
+      cb(data.concat(localOnly));
+    } else {
+      cb(local);
+    }
+  });
+}
+
+function getMyLocal() {
+  if (!CU) return [];
+  try { return JSON.parse(localStorage.getItem('tr_'+CU.email)||'[]'); } catch(e){ return []; }
+}
+function setMyLocal(arr) {
+  if (!CU) return;
+  localStorage.setItem('tr_'+CU.email, JSON.stringify(arr));
+}
+function getAllLocal() {
+  var all = [];
+  for (var i=0; i<localStorage.length; i++) {
+    var k = localStorage.key(i);
+    if (k && k.startsWith('tr_')) {
+      try { all = all.concat(JSON.parse(localStorage.getItem(k)||'[]')); } catch(e){}
+    }
+  }
+  return all;
+}
+function saveAllLocal() {
+  if (ROLE==='monitor') setMyLocal(REPS);
+}
+
+function gasPost(data, cb) {
+  fetch(GAS, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})
+    .then(function(r){ return r.json(); }).then(cb).catch(function(){ cb(null); });
+}
+function gasGet(params, cb) {
+  var qs = Object.keys(params).map(function(k){
+    return encodeURIComponent(k)+'='+encodeURIComponent(params[k]);
+  }).join('&');
+  fetch(GAS+'?'+qs)
+    .then(function(r){ return r.json(); }).then(cb).catch(function(){ cb(null); });
+}
+
+// ════════════════════════════════════════
+// UTILITIES
+// ════════════════════════════════════════
+function sc(n, label, color) {
+  return '<div class="sc"><div class="sc-n" style="color:'+color+'">'+n+'</div><div class="sc-l">'+label+'</div></div>';
+}
+
+function repItem(r) {
+  var gpsLink = (r.lat && r.lng)
+    ? '<a href="https://maps.google.com/?q='+r.lat+','+r.lng+'" target="_blank" style="color:#1e88e5;text-decoration:none" title="عرض الموقع">📍 الموقع</a> &nbsp;|&nbsp; '
+    : '';
+  var photoEl = r.photo
+    ? '<img src="'+r.photo+'" class="ri-img" onclick="viewPhoto(this.src)" title="عرض الصورة">'
+    : '';
+  return '<div class="ri">' +
+    '<div class="ri-l">' +
+      '<div class="ri-v">'+vbadge(r.violation)+'</div>' +
+      '<div class="ri-m">🏕️ '+r.camp+' &nbsp;|&nbsp; '+gpsLink+fmtTs(r.ts)+'</div>' +
+      (r.notes ? '<div class="ri-note">'+r.notes+'</div>' : '') +
+    '</div>' +
+    '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;flex-shrink:0">' +
+      sbadge(r.status,r.id) +
+      photoEl +
+    '</div>' +
+  '</div>';
+}
+
+function viewPhoto(src) {
+  var ov = document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:flex;align-items:center;justify-content:center;cursor:zoom-out';
+  var img = document.createElement('img');
+  img.src=src; img.style.cssText='max-width:95%;max-height:90vh;border-radius:10px';
+  ov.appendChild(img);
+  ov.addEventListener('click',function(){ document.body.removeChild(ov); });
+  document.body.appendChild(ov);
+}
+
+function vbadge(v) {
+  var i = VIOLATIONS.indexOf(v);
+  var c = VCOLORS[i>=0?i:0];
+  return '<span class="vb" style="background:'+c+'22;color:'+c+'">'+v+'</span>';
+}
+
+function sbadge(s, id) {
+  var isOpen = s==='مفتوح';
+  var bg = isOpen ? 'rgba(251,140,0,.18)' : 'rgba(67,160,71,.18)';
+  var cl = isOpen ? '#ffcc80' : '#a5d6a7';
+  var onclick = (ROLE==='admin' && id) ? ' onclick="toggleStatus(\''+id+'\')" title="اضغط لتغيير الحالة"' : '';
+  return '<span class="sb" style="background:'+bg+';color:'+cl+'"'+onclick+'>'+s+'</span>';
+}
+
+function fmtTs(ts) {
+  if (!ts) return '—';
+  try {
+    var d = new Date(ts);
+    return d.toLocaleDateString('ar-SA',{day:'2-digit',month:'2-digit'}) + ' ' +
+           d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
+  } catch(e){ return ts; }
+}
+
+function showToast(msg) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  setTimeout(function(){ el.classList.remove('on'); }, 2800);
+}
+</script>
+</body>
+</html>
