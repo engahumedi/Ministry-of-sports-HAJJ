@@ -11,9 +11,13 @@
  * 4. انسخ رابط الـ Web App والصقه في صفحة المشرف بـ tafweej.html
  */
 
-var ADMIN_PASS = 'admin1447';
-var MON_PASS   = 'Aa@12345678';
-var SHEET_KEY  = 'TAFWEEJ_SHEET_ID';
+// Passwords stored in Script Properties only — never hardcoded here
+// Setup: GAS → Project Settings → Script Properties → add ADMIN_PASS, MON_PASS, ADMIN_EMAIL
+var _p         = PropertiesService.getScriptProperties();
+var ADMIN_PASS  = _p.getProperty('ADMIN_PASS');
+var MON_PASS    = _p.getProperty('MON_PASS');
+var ADMIN_EMAIL = (_p.getProperty('ADMIN_EMAIL') || '').toLowerCase();
+var SHEET_KEY   = 'TAFWEEJ_SHEET_ID';
 var COLS       = ['id','ts','monitorEmail','zone','camp','violation','notes','shift','status','lat','lng','acc','photoNote'];
 
 function getSheet() {
@@ -71,6 +75,15 @@ function doPost(e) {
 function doGet(e) {
   var action = (e.parameter.action || 'list').trim();
   var pass   = (e.parameter.pass   || '').trim();
+
+  // ── validateAdmin (admin login — credentials verified here, never in frontend) ──
+  if (action === 'validateAdmin') {
+    var em = (e.parameter.email || '').toLowerCase();
+    var pw = e.parameter.pass  || '';
+    if (!ADMIN_PASS || !ADMIN_EMAIL) return out({error:'properties not configured'});
+    if (em === ADMIN_EMAIL && pw === ADMIN_PASS) return out({ok: true});
+    return out({error: 'unauthorized'});
+  }
 
   // ── add via GET (avoids POST/CORS/redirect issues on mobile) ──
   if (action === 'add') {

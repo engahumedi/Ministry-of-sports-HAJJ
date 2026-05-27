@@ -407,9 +407,8 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
 // ════════════════════════════════════════
 // CONSTANTS & DATA
 // ════════════════════════════════════════
-var MON_PASS   = 'Aa@12345678';
-var ADMIN_PASS = 'admin1447';
-var ADMIN_EMAIL = 'admin@tafweej.com';
+var MON_PASS    = 'Aa@12345678';
+var ADMIN_TOKEN = null; // set in memory after GAS validates admin — never in source
 var SHIFT_NAMES = {1:'الوردية الأولى',2:'الوردية الثانية',3:'الوردية الثالثة'};
 var SHIFT = 'الوردية الثانية';
 
@@ -450,18 +449,32 @@ function doLogin() {
   var email = document.getElementById('inp-email').value.trim().toLowerCase();
   var pass  = document.getElementById('inp-pass').value;
   var err   = document.getElementById('lerr');
+  var btn   = document.querySelector('#pg-login .btn.bg');
   err.textContent = '';
   if (!email || !pass) { err.textContent = 'يرجى إدخال البريد وكلمة المرور'; return; }
 
-  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-    CU = {email: email}; ROLE = 'admin';
-    showPg('pg-adm'); initAdmin(); return;
-  }
+  // Monitor / Supervisor — validated locally
   if (pass === MON_PASS) {
     var sup = SUPS.find(function(s){ return s.e === email; });
     if (sup) { SHIFT = SHIFT_NAMES[sup.s] || 'الوردية الثانية'; CU = {email:email, data:sup}; ROLE = 'supervisor'; showPg('pg-sup'); initSup(); return; }
     var mon = MONS.find(function(m){ return m.e === email; });
     if (mon) { SHIFT = SHIFT_NAMES[mon.s] || 'الوردية الثانية'; CU = {email:email, data:mon}; ROLE = 'monitor'; showPg('pg-mon'); initMon(); return; }
+  }
+
+  // Admin — validated via GAS only (password never stored in this file)
+  if (GAS) {
+    btn.disabled = true; err.textContent = 'جارٍ التحقق…';
+    gasGet({action:'validateAdmin', email:email, pass:pass}, function(res) {
+      btn.disabled = false; err.textContent = '';
+      if (res && res.ok) {
+        ADMIN_TOKEN = pass;
+        CU = {email: email}; ROLE = 'admin';
+        showPg('pg-adm'); initAdmin();
+      } else {
+        err.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+      }
+    });
+    return;
   }
   err.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
 }
@@ -770,7 +783,7 @@ function toggleStatus(id) {
   renderAdmStats(REPS);
   renderVBars(REPS);
   renderAdmTable();
-  if (GAS) gasGet({action:'updateStatus',id:id,status:rep.status,pass:ADMIN_PASS}, function(){});
+  if (GAS) gasGet({action:'updateStatus',id:id,status:rep.status,pass:ADMIN_TOKEN}, function(){});
 }
 
 // ── VIEW REPORT ──
@@ -861,7 +874,7 @@ function deleteRep(id, role) {
 
   // Delete from GAS
   if (GAS) {
-    gasGet({action:'deleteReport', id:id, pass: role==='admin' ? ADMIN_PASS : MON_PASS}, function(){});
+    gasGet({action:'deleteReport', id:id, pass: ROLE==='admin' ? ADMIN_TOKEN : MON_PASS}, function(){});
   }
 }
 
@@ -1064,7 +1077,7 @@ function loadReps(role, cb) {
 
   if (!GAS) { cb(local); return; }
 
-  var params = {action:'list', pass:ADMIN_PASS};
+  var params = {action:'list', pass:ADMIN_TOKEN};
   if (role==='monitor')    { params.email=CU.email; params.pass=MON_PASS; }
   if (role==='supervisor') { params.action='listByZones'; params.zones=CU.data.z.join(','); params.pass=MON_PASS; }
 
