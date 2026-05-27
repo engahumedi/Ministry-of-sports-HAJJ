@@ -168,6 +168,18 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
 @keyframes gpspls{0%,100%{opacity:1}50%{opacity:.25}}
 /* ── REPORT IMAGE THUMB ── */
 .ri-img{width:56px;height:40px;object-fit:cover;border-radius:5px;cursor:pointer;flex-shrink:0}
+/* ── ACTION BUTTONS ── */
+.act-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .6rem;border-radius:6px;
+  border:none;cursor:pointer;font-family:'Tajawal',Arial,sans-serif;font-size:.75rem;font-weight:700;transition:all .15s}
+.act-view{background:rgba(30,136,229,.18);color:#90caf9}
+.act-view:hover{background:rgba(30,136,229,.32)}
+.act-del{background:rgba(229,57,53,.15);color:#ef9a9a}
+.act-del:hover{background:rgba(229,57,53,.3)}
+/* ── VIEW MODAL ── */
+.vfield{margin-bottom:.9rem}
+.vfield-lbl{font-size:.72rem;color:var(--t2);margin-bottom:.25rem}
+.vfield-val{font-size:.88rem;font-weight:700}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 /* ── TOAST ── */
 .toast{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%);
   background:#1a5e34;border:1px solid rgba(67,160,71,.4);border-radius:11px;
@@ -268,8 +280,8 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     <div class="twrap">
       <table class="tbl">
         <thead><tr>
-          <th>المخيم</th><th>المنطقة</th><th>المراقب</th>
-          <th>المخالفة</th><th>الوقت</th><th>الحالة</th>
+          <th>رمز المراقب</th><th>المخيم</th><th>المنطقة</th>
+          <th>المخالفة</th><th>الوقت</th><th>الحالة</th><th></th>
         </tr></thead>
         <tbody id="sup-tbody"></tbody>
       </table>
@@ -358,6 +370,31 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     <div class="macts">
       <button class="btn bg" onclick="submitReport()">📤 إرسال البلاغ</button>
       <button class="btn bo" onclick="closeModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW REPORT MODAL ═══════════════ -->
+<div class="moverlay" id="view-modal">
+  <div class="mbox">
+    <h3>📋 تفاصيل البلاغ</h3>
+    <div class="vgrid">
+      <div class="vfield"><div class="vfield-lbl">رمز المراقب</div><div class="vfield-val" id="vf-mon"></div></div>
+      <div class="vfield"><div class="vfield-lbl">المنطقة</div><div class="vfield-val" id="vf-zone"></div></div>
+      <div class="vfield"><div class="vfield-lbl">المخيم</div><div class="vfield-val" id="vf-camp"></div></div>
+      <div class="vfield"><div class="vfield-lbl">الوردية</div><div class="vfield-val" id="vf-shift"></div></div>
+    </div>
+    <div class="vfield"><div class="vfield-lbl">نوع المخالفة</div><div id="vf-viol"></div></div>
+    <div class="vfield"><div class="vfield-lbl">الملاحظات</div><div class="vfield-val" id="vf-notes" style="white-space:pre-wrap;font-weight:400;color:var(--t2)"></div></div>
+    <div class="vfield"><div class="vfield-lbl">الوقت</div><div class="vfield-val" id="vf-ts"></div></div>
+    <div class="vfield" id="vf-gps-wrap"><div class="vfield-lbl">الموقع</div><div id="vf-gps"></div></div>
+    <div class="vfield" id="vf-img-wrap" style="display:none">
+      <div class="vfield-lbl">الصورة التوثيقية</div>
+      <img id="vf-img" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;cursor:zoom-in" onclick="viewPhoto(this.src)">
+    </div>
+    <div style="display:flex;gap:.7rem;margin-top:1rem">
+      <button class="btn act-del" style="flex:1;padding:.6rem" id="vf-del-btn">🗑️ حذف البلاغ</button>
+      <button class="btn bo" style="flex:1;padding:.6rem" onclick="closeViewModal()">إغلاق</button>
     </div>
   </div>
 </div>
@@ -501,7 +538,7 @@ function refreshCampCounts() {
 // ════════════════════════════════════════
 function initSup() {
   var sup = CU.data;
-  document.getElementById('sup-name').textContent  = sup.n.split(' ').slice(0,3).join(' ');
+  document.getElementById('sup-name').textContent  = sup.n;
   document.getElementById('sup-email').textContent = CU.email.split('@')[0].toUpperCase();
 
   var myMons = MONS.filter(function(m){ return sup.z.indexOf(m.z) !== -1; });
@@ -541,11 +578,12 @@ function renderSupMonList(mons, rs) {
     var mr = rs.filter(function(r){ return r.monitorEmail===mon.e; });
     var open = mr.filter(function(r){ return r.status==='مفتوح'; }).length;
     var pfx = mon.e.split('@')[0].toUpperCase();
+    var num = pfx.replace(/^MOR/i,'');
     var campsStr = mon.c.slice(0,4).join(', ') + (mon.c.length>4?' …':'');
     return '<div class="mi">' +
       '<div class="mi-hdr" onclick="toggleAcc(this)">' +
         '<div>' +
-          '<div class="mi-email">' + pfx + '</div>' +
+          '<div class="mi-email">🪪 ' + pfx + ' &nbsp;<span style="font-weight:400;font-size:.75rem;color:var(--t2)">(رقم ' + num + ')</span></div>' +
           '<div class="mi-zone">📍 ' + mon.z + ' &nbsp;|&nbsp; 🏕️ ' + campsStr + '</div>' +
         '</div>' +
         '<div class="mi-stats">' +
@@ -578,16 +616,22 @@ function renderSupTable() {
   var tbody = document.getElementById('sup-tbody');
   tbody.innerHTML = filtered.length
     ? filtered.slice().reverse().map(function(r){
+        var pfx = r.monitorEmail.split('@')[0].toUpperCase();
+        var num = pfx.replace(/^MOR/i,'');
         return '<tr>' +
+          '<td><span style="font-weight:700">' + pfx + '</span> <span style="font-size:.72rem;color:var(--t2)">#' + num + '</span></td>' +
           '<td>' + r.camp + '</td>' +
           '<td>' + r.zone + '</td>' +
-          '<td>' + r.monitorEmail.split('@')[0].toUpperCase() + '</td>' +
           '<td>' + vbadge(r.violation) + '</td>' +
           '<td>' + fmtTs(r.ts) + '</td>' +
           '<td>' + sbadge(r.status, r.id) + '</td>' +
+          '<td style="white-space:nowrap">' +
+            '<button class="act-btn act-view" onclick="viewRep(\'' + r.id + '\')">👁️</button> ' +
+            '<button class="act-btn act-del" onclick="deleteRep(\'' + r.id + '\',\'supervisor\')">🗑️</button>' +
+          '</td>' +
         '</tr>';
       }).join('')
-    : '<tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
+    : '<tr><td colspan="7" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
 }
 
 // ════════════════════════════════════════
@@ -598,7 +642,7 @@ function initAdmin() {
   var supSel = document.getElementById('af-sup');
   supSel.innerHTML = '<option value="">كل المتابعين</option>' +
     SUPS.map(function(s){
-      return '<option value="' + s.e + '">' + s.n.split(' ').slice(0,3).join(' ') + '</option>';
+      return '<option value="' + s.e + '">' + s.n + '</option>';
     }).join('');
 
   document.getElementById('adm-tbody').innerHTML =
@@ -668,7 +712,7 @@ function renderAdmTable() {
   tbody.innerHTML = filtered.slice().reverse().map(function(r) {
     var mon = MONS.find(function(m){ return m.e===r.monitorEmail; });
     var sup = mon ? SUPS.find(function(s){ return s.z.indexOf(mon.z)!==-1; }) : null;
-    var supShort = sup ? sup.n.split(' ').slice(0,2).join(' ') : '—';
+    var supShort = sup ? sup.n : '—';
     var gpsCell = (r.lat&&r.lng)
       ? '<a href="https://maps.google.com/?q='+r.lat+','+r.lng+'" target="_blank" style="color:#1e88e5">📍</a>'
       : '—';
@@ -699,6 +743,98 @@ function toggleStatus(id) {
   renderVBars(REPS);
   renderAdmTable();
   if (GAS) gasGet({action:'updateStatus',id:id,status:rep.status,pass:ADMIN_PASS}, function(){});
+}
+
+// ── VIEW REPORT ──
+function viewRep(id) {
+  var r = REPS.find(function(x){ return String(x.id)===String(id); });
+  if (!r) return;
+  var pfx = r.monitorEmail.split('@')[0].toUpperCase();
+  var num = pfx.replace(/^MOR/i,'');
+  document.getElementById('vf-mon').textContent   = pfx + '  (رقم ' + num + ')';
+  document.getElementById('vf-zone').textContent  = r.zone;
+  document.getElementById('vf-camp').textContent  = r.camp;
+  document.getElementById('vf-shift').textContent = r.shift || SHIFT;
+  document.getElementById('vf-viol').innerHTML    = vbadge(r.violation);
+  document.getElementById('vf-notes').textContent = r.notes || '—';
+  document.getElementById('vf-ts').textContent    = fmtTs(r.ts);
+
+  var gpsWrap = document.getElementById('vf-gps-wrap');
+  if (r.lat && r.lng) {
+    document.getElementById('vf-gps').innerHTML =
+      '<a href="https://maps.google.com/?q='+r.lat+','+r.lng+'" target="_blank" style="color:#1e88e5;text-decoration:none">📍 ' +
+      r.lat+', '+r.lng + (r.acc ? ' (±'+r.acc+'م)' : '') + '</a>';
+    gpsWrap.style.display = '';
+  } else {
+    gpsWrap.style.display = 'none';
+  }
+
+  var imgWrap = document.getElementById('vf-img-wrap');
+  if (r.photo) {
+    document.getElementById('vf-img').src = r.photo;
+    imgWrap.style.display = '';
+  } else {
+    imgWrap.style.display = 'none';
+  }
+
+  var delBtn = document.getElementById('vf-del-btn');
+  delBtn.onclick = function(){ deleteRep(id, ROLE); closeViewModal(); };
+
+  document.getElementById('view-modal').classList.add('open');
+}
+
+function closeViewModal() {
+  document.getElementById('view-modal').classList.remove('open');
+}
+document.getElementById('view-modal').addEventListener('click', function(e){
+  if (e.target===this) closeViewModal();
+});
+
+// ── DELETE REPORT ──
+function deleteRep(id, role) {
+  if (!confirm('هل تريد حذف هذا البلاغ نهائياً؟')) return;
+  REPS = REPS.filter(function(r){ return String(r.id)!==String(id); });
+
+  // Update local storage
+  if (role==='monitor') {
+    setMyLocal(REPS);
+  } else {
+    // Remove from all local keys
+    for (var i=0; i<localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.startsWith('tr_')) {
+        try {
+          var arr = JSON.parse(localStorage.getItem(k)||'[]');
+          var filtered = arr.filter(function(r){ return String(r.id)!==String(id); });
+          if (filtered.length !== arr.length) localStorage.setItem(k, JSON.stringify(filtered));
+        } catch(e){}
+      }
+    }
+  }
+
+  // Re-render
+  if (role==='supervisor') {
+    var sup = CU.data;
+    var myMons = MONS.filter(function(m){ return sup.z.indexOf(m.z)!==-1; });
+    renderSupStats(myMons, REPS);
+    renderSupMonList(myMons, REPS);
+    renderSupTable();
+  } else if (role==='admin') {
+    renderAdmStats(REPS);
+    renderVBars(REPS);
+    renderAdmTable();
+  } else {
+    renderMonStats();
+    renderMonReps();
+    refreshCampCounts();
+  }
+
+  showToast('تم حذف البلاغ ✓');
+
+  // Delete from GAS
+  if (GAS) {
+    gasGet({action:'deleteReport', id:id, pass: role==='admin' ? ADMIN_PASS : MON_PASS}, function(){});
+  }
 }
 
 function exportCSV() {

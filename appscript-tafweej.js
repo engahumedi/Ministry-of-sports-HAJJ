@@ -96,6 +96,21 @@ function doGet(e) {
     return out({ok: true});
   }
 
+  // ── deleteReport (supervisor or admin) ──
+  if (action === 'deleteReport') {
+    if (pass !== MON_PASS && pass !== ADMIN_PASS) return out({error:'unauthorized'});
+    var id    = e.parameter.id;
+    var sheet = getSheet();
+    var vals  = sheet.getDataRange().getValues();
+    for (var i = vals.length - 1; i >= 1; i--) {
+      if (String(vals[i][0]) === String(id)) {
+        sheet.deleteRow(i + 1);
+        break;
+      }
+    }
+    return out({ok: true});
+  }
+
   // ── stats (admin) ──
   if (action === 'stats') {
     if (pass !== ADMIN_PASS) return out({error:'unauthorized'});
