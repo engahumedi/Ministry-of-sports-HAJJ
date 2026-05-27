@@ -1,15 +1,3 @@
-/*
- * نظام مراقبة التفويج — Google Apps Script Backend
- * الحج 1447هـ
- *
- * الإعداد:
- * 1. افتح script.google.com وأنشئ مشروعاً جديداً
- * 2. الصق هذا الكود بالكامل
- * 3. من قائمة "نشر" → "نشر كتطبيق ويب"
- *    - تنفيذ باسم: أنا
- *    - من لديه حق الوصول: أي شخص
- * 4. انسخ رابط الـ Web App والصقه في صفحة المشرف بـ tafweej.html
- */
 
 // MON_PASS: fallback to default so monitors work immediately
 // ADMIN_PASS: must be set in Script Properties (Project Settings → Script Properties)
