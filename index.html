@@ -370,6 +370,31 @@ footer { background:var(--g1); padding:2.5rem 2rem; text-align:center; }
   </ul>
 </nav>
 
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="side-drawer" id="sideDrawer">
+  <div class="drawer-head">
+    <div class="drawer-logo">معسكر المعيصم ( ١ )<span>موسم الحج 1447هـ</span></div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-sec">
+    <div class="drawer-sec-lbl">الخدمات</div>
+    <a href="attendance.html" class="drawer-link svc">تسجيل الحضور</a>
+    <a href="exit.html" class="drawer-link svc">استئذان الخروج</a>
+    <a href="id-card.html" class="drawer-link svc">بطاقة الهوية</a>
+    <a href="eid-card.html" class="drawer-link svc">بطاقة المعايدة</a>
+    <a href="tafweej.html" class="drawer-link svc">مراقبة التفويج ⚡</a>
+  </div>
+  <div class="drawer-sec">
+    <div class="drawer-sec-lbl">تنقل الصفحة</div>
+    <a href="#announcements" class="drawer-link" onclick="closeDrawer()">الإعلانات</a>
+    <a href="#dashboard" class="drawer-link" onclick="closeDrawer()">الإحصائيات</a>
+    <a href="#mina-map" class="drawer-link" onclick="closeDrawer()">خريطة منى</a>
+    <a href="#schedule" class="drawer-link" onclick="closeDrawer()">الجدول</a>
+    <a href="#programs" class="drawer-link" onclick="closeDrawer()">البرامج</a>
+    <a href="#duty" class="drawer-link" onclick="closeDrawer()">الدوري</a>
+    <a href="#guide" class="drawer-link" onclick="closeDrawer()">دليل المشارك</a>
+  </div>
+</div>
 <!-- HERO -->
 <section id="hero">
   <div class="hero-pattern"></div>
