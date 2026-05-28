@@ -835,9 +835,8 @@ function renderAdmTable() {
     var gpsCell = (r.lat&&r.lng&&safeNum(r.lat)&&safeNum(r.lng))
       ? '<a href="https://maps.google.com/?q='+safeNum(r.lat)+','+safeNum(r.lng)+'" target="_blank" style="color:#1e88e5">📍</a>'
       : '—';
-    var photoCell = (r.photo && r.photo !== '[image]')
+    var photoCell = r.photo
       ? '<img src="'+r.photo+'" class="ri-img" onclick="viewPhoto(this.src)">'
-      : r.photo === '[image]' ? '<span title="الصورة محفوظة على جهاز المراقب" style="font-size:1.1rem;cursor:default">📷</span>'
       : '—';
     return '<tr>' +
       '<td>' + esc(r.camp) + '</td>' +
@@ -892,20 +891,9 @@ function viewRep(id) {
   }
 
   var imgWrap = document.getElementById('vf-img-wrap');
-  if (r.photo && r.photo !== '[image]') {
+  if (r.photo) {
     document.getElementById('vf-img').src = r.photo;
     imgWrap.style.display = '';
-  } else if (r.photo === '[image]') {
-    imgWrap.style.display = '';
-    document.getElementById('vf-img').style.display = 'none';
-    var noPhoto = imgWrap.querySelector('.no-photo-note');
-    if (!noPhoto) {
-      noPhoto = document.createElement('div');
-      noPhoto.className = 'no-photo-note';
-      noPhoto.style.cssText = 'text-align:center;color:var(--t2);font-size:.85rem;padding:.8rem 0';
-      noPhoto.textContent = '📷 الصورة محفوظة على جهاز المراقب فقط';
-      imgWrap.appendChild(noPhoto);
-    }
   } else {
     imgWrap.style.display = 'none';
   }
@@ -1096,17 +1084,17 @@ document.getElementById('modal').addEventListener('click', function(e){
   if (e.target===this) closeModal();
 });
 
-// ضغط الصورة قبل الإرسال (max 640px، JPEG 65%)
+// ضغط الصورة للتخزين في Sheets (max 240px، JPEG 40%) → ~5KB
 function compressPhoto(dataUrl, cb) {
   var img = new Image();
   img.onload = function() {
-    var MAX = 640, w = img.width, h = img.height;
+    var MAX = 240, w = img.width, h = img.height;
     if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
     if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
     var c = document.createElement('canvas');
     c.width = w; c.height = h;
     c.getContext('2d').drawImage(img, 0, 0, w, h);
-    cb(c.toDataURL('image/jpeg', 0.65));
+    cb(c.toDataURL('image/jpeg', 0.40));
   };
   img.onerror = function(){ cb(dataUrl); };
   img.src = dataUrl;
@@ -1292,9 +1280,8 @@ function repItem(r) {
   var gpsLink = (r.lat && r.lng && safeNum(r.lat) && safeNum(r.lng))
     ? '<a href="https://maps.google.com/?q='+safeNum(r.lat)+','+safeNum(r.lng)+'" target="_blank" style="color:#1e88e5;text-decoration:none" title="عرض الموقع">📍 الموقع</a> &nbsp;|&nbsp; '
     : '';
-  var photoEl = (r.photo && r.photo !== '[image]')
+  var photoEl = r.photo
     ? '<img src="'+r.photo+'" class="ri-img" onclick="viewPhoto(this.src)" title="عرض الصورة">'
-    : r.photo === '[image]' ? '<span title="الصورة محفوظة على جهاز المراقب" style="font-size:1.1rem">📷</span>'
     : '';
   var syncEl = '';
   if (ROLE === 'monitor') {

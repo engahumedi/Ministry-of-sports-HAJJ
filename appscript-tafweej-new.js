@@ -69,22 +69,8 @@ function doPost(e) {
       if (rows.some(function(r){ return r.id === rid; }))
         return resp({ok:true, dup:true});
 
-      // رفع الصورة لـ Google Drive إن وُجدت
-      var photoUrl = '';
-      if (d.photo && d.photo.indexOf('data:') === 0) {
-        try {
-          var base64 = d.photo.replace(/^data:image\/[^;]+;base64,/, '');
-          var bytes  = Utilities.base64Decode(base64);
-          var blob   = Utilities.newBlob(bytes, 'image/jpeg', rid + '.jpg');
-          var fldItr = DriveApp.getFoldersByName('TafweejPhotos');
-          var folder = fldItr.hasNext() ? fldItr.next() : DriveApp.createFolder('TafweejPhotos');
-          var file   = folder.createFile(blob);
-          file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-          photoUrl = 'https://drive.google.com/uc?export=view&id=' + file.getId();
-        } catch(imgErr) {
-          photoUrl = '[image]';
-        }
-      }
+      // حفظ الصورة base64 مباشرة في الشيت (مضغوطة ~5KB)
+      var photoData = (d.photo && d.photo.indexOf('data:') === 0) ? d.photo : '';
 
       sh.appendRow([
         rid,
@@ -98,7 +84,7 @@ function doPost(e) {
         d.status       || 'مفتوح',
         d.lat          || '',
         d.lng          || '',
-        photoUrl
+        photoData
       ]);
       return resp({ok:true, id:rid});
     }
