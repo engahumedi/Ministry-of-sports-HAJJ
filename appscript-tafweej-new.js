@@ -50,51 +50,6 @@ function getRows(sh) {
 }
 
 // ════════════════════════════════════════
-// POST HANDLER — يُستخدم عند وجود صورة
-// ════════════════════════════════════════
-function doPost(e) {
-  var cfg = getCfg();
-  try {
-    var d    = JSON.parse(e.postData.contents);
-    var pass = d.pass || '';
-
-    if ((d.action || '') === 'add') {
-      if (!cfg.MON_PASS || pass !== cfg.MON_PASS)
-        return resp({ok:false, err:'unauthorized'});
-
-      var sh   = getSheet();
-      var rows = getRows(sh);
-      var rid  = String(d.id || new Date().getTime());
-
-      if (rows.some(function(r){ return r.id === rid; }))
-        return resp({ok:true, dup:true});
-
-      // حفظ الصورة base64 مباشرة في الشيت (مضغوطة ~5KB)
-      var photoData = (d.photo && d.photo.indexOf('data:') === 0) ? d.photo : '';
-
-      sh.appendRow([
-        rid,
-        d.ts           || new Date().toISOString(),
-        d.monitorEmail || '',
-        d.zone         || '',
-        d.camp         || '',
-        d.violation    || '',
-        d.notes        || '',
-        d.shift        || '',
-        d.status       || 'مفتوح',
-        d.lat          || '',
-        d.lng          || '',
-        photoData
-      ]);
-      return resp({ok:true, id:rid});
-    }
-  } catch(err) {
-    return resp({ok:false, err:err.message});
-  }
-  return resp({ok:false, err:'unknown action'});
-}
-
-// ════════════════════════════════════════
 // MAIN HANDLER
 // ════════════════════════════════════════
 function doGet(e) {
