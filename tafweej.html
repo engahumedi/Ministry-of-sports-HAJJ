@@ -1096,48 +1096,65 @@ document.getElementById('modal').addEventListener('click', function(e){
   if (e.target===this) closeModal();
 });
 
+// ضغط الصورة قبل الإرسال (max 640px، JPEG 65%)
+function compressPhoto(dataUrl, cb) {
+  var img = new Image();
+  img.onload = function() {
+    var MAX = 640, w = img.width, h = img.height;
+    if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+    if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    cb(c.toDataURL('image/jpeg', 0.65));
+  };
+  img.onerror = function(){ cb(dataUrl); };
+  img.src = dataUrl;
+}
+
 function submitReport() {
   var sel = document.querySelector('input[name="vr"]:checked');
   if (!sel) { showToast('اختر نوع المخالفة أولاً'); return; }
   var camp = document.getElementById('m-camp-sel').value;
   if (!camp) { showToast('اختر المخيم أولاً'); return; }
 
-  var rep = {
-    id: Date.now(),
-    ts: new Date().toISOString(),
-    monitorEmail: CU.email,
-    zone: CU.data.z,
-    camp: camp,
-    violation: sel.value,
-    notes: document.getElementById('m-notes').value.trim(),
-    shift: SHIFT,
-    status: 'مفتوح',
-    lat: MGPS ? MGPS.lat : '',
-    lng: MGPS ? MGPS.lng : '',
-    acc: MGPS ? MGPS.acc : '',
-    photo: MPHOTO || ''
-  };
+  function doSubmit(photo) {
+    var rep = {
+      id: Date.now(),
+      ts: new Date().toISOString(),
+      monitorEmail: CU.email,
+      zone: CU.data.z,
+      camp: camp,
+      violation: sel.value,
+      notes: document.getElementById('m-notes').value.trim(),
+      shift: SHIFT,
+      status: 'مفتوح',
+      lat: MGPS ? MGPS.lat : '',
+      lng: MGPS ? MGPS.lng : '',
+      acc: MGPS ? MGPS.acc : '',
+      photo: photo
+    };
+    var local = getMyLocal();
+    local.push(rep);
+    setMyLocal(local);
+    REPS.push(rep);
+    renderMonStats();
+    renderMonReps();
+    refreshCampCounts();
+    closeModal();
+    showToast('تم إرسال البلاغ بنجاح ✓');
+    if (GAS) {
+      var gasRep = Object.assign({}, rep, {action:'add'});
+      gasPost(gasRep, function(res) {
+        if (res && res.ok) { markSynced(rep.id); }
+      });
+    }
+  }
 
-  // Save locally
-  var local = getMyLocal();
-  local.push(rep);
-  setMyLocal(local);
-  REPS.push(rep);
-
-  renderMonStats();
-  renderMonReps();
-  refreshCampCounts();
-  closeModal();
-  showToast('تم إرسال البلاغ بنجاح ✓');
-
-  // Send to GAS async (without photo to avoid size limits)
-  if (GAS) {
-    var gasRep = Object.assign({}, rep, {action:'add', photo: rep.photo ? '[image]' : ''});
-    gasPost(gasRep, function(res) {
-      if (res && res.ok) {
-        markSynced(rep.id);
-      }
-    });
+  if (MPHOTO) {
+    compressPhoto(MPHOTO, function(compressed) { doSubmit(compressed); });
+  } else {
+    doSubmit('');
   }
 }
 
@@ -1154,7 +1171,7 @@ function retrySend(id) {
   var r = REPS.find(function(x){ return String(x.id)===String(id); });
   if (!r) return;
   showToast('جارٍ الإرسال…');
-  var gasRep = Object.assign({}, r, {action:'add', photo: r.photo ? '[image]' : ''});
+  var gasRep = Object.assign({}, r, {action:'add'});
   gasPost(gasRep, function(res) {
     if (res && res.ok) {
       markSynced(id);
@@ -1230,17 +1247,19 @@ function saveAllLocal() {
 }
 
 function gasPost(data, cb, _attempt) {
-  // Use GET to avoid CORS/redirect issues with GAS
   var payload = Object.assign({}, data, {pass: SESSION_TOKEN || ''});
-  var qs = Object.keys(payload).map(function(k){
-    return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]||'');
-  }).join('&');
   _attempt = _attempt || 1;
-  fetch(GAS+'?'+qs)
+  // استخدام POST عند وجود صورة base64 لتجنب حدود URL
+  var hasPhoto = payload.photo && payload.photo.indexOf('data:') === 0;
+  var req = hasPhoto
+    ? fetch(GAS, {method:'POST', body: JSON.stringify(payload)})
+    : fetch(GAS+'?'+Object.keys(payload).map(function(k){
+        return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]||'');
+      }).join('&'));
+  req
     .then(function(r){ return r.json(); })
     .then(function(res){
       if ((!res || !res.ok) && _attempt < 4) {
-        // Retry with exponential backoff: 2s, 4s, 8s
         setTimeout(function(){ gasPost(data, cb, _attempt + 1); }, _attempt * 2000);
       } else {
         cb(res);

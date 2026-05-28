@@ -50,6 +50,65 @@ function getRows(sh) {
 }
 
 // ════════════════════════════════════════
+// POST HANDLER — يُستخدم عند وجود صورة
+// ════════════════════════════════════════
+function doPost(e) {
+  var cfg = getCfg();
+  try {
+    var d    = JSON.parse(e.postData.contents);
+    var pass = d.pass || '';
+
+    if ((d.action || '') === 'add') {
+      if (!cfg.MON_PASS || pass !== cfg.MON_PASS)
+        return resp({ok:false, err:'unauthorized'});
+
+      var sh   = getSheet();
+      var rows = getRows(sh);
+      var rid  = String(d.id || new Date().getTime());
+
+      if (rows.some(function(r){ return r.id === rid; }))
+        return resp({ok:true, dup:true});
+
+      // رفع الصورة لـ Google Drive إن وُجدت
+      var photoUrl = '';
+      if (d.photo && d.photo.indexOf('data:') === 0) {
+        try {
+          var base64 = d.photo.replace(/^data:image\/[^;]+;base64,/, '');
+          var bytes  = Utilities.base64Decode(base64);
+          var blob   = Utilities.newBlob(bytes, 'image/jpeg', rid + '.jpg');
+          var fldItr = DriveApp.getFoldersByName('TafweejPhotos');
+          var folder = fldItr.hasNext() ? fldItr.next() : DriveApp.createFolder('TafweejPhotos');
+          var file   = folder.createFile(blob);
+          file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+          photoUrl = 'https://drive.google.com/uc?export=view&id=' + file.getId();
+        } catch(imgErr) {
+          photoUrl = '[image]';
+        }
+      }
+
+      sh.appendRow([
+        rid,
+        d.ts           || new Date().toISOString(),
+        d.monitorEmail || '',
+        d.zone         || '',
+        d.camp         || '',
+        d.violation    || '',
+        d.notes        || '',
+        d.shift        || '',
+        d.status       || 'مفتوح',
+        d.lat          || '',
+        d.lng          || '',
+        photoUrl
+      ]);
+      return resp({ok:true, id:rid});
+    }
+  } catch(err) {
+    return resp({ok:false, err:err.message});
+  }
+  return resp({ok:false, err:'unknown action'});
+}
+
+// ════════════════════════════════════════
 // MAIN HANDLER
 // ════════════════════════════════════════
 function doGet(e) {
