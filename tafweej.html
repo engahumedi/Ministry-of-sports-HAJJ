@@ -197,6 +197,8 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(201,162,39,.25);border-radius:3px}
+/* ── SIGNATURE ── */
+.sig{text-align:center;font-size:.65rem;color:rgba(255,255,255,.2);padding:.6rem 0 .4rem;letter-spacing:.03em;flex-shrink:0}
 /* ── RESPONSIVE ── */
 @media(max-width:480px){
   .amain{padding:.9rem}
@@ -224,6 +226,7 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     </div>
     <button class="btn bg" onclick="doLogin()">دخول</button>
     <p class="lerr" id="lerr"></p>
+  <div class="sig">تصميم وتطوير القائد / م.المهند حمدي</div>
   </div>
 </div>
 
@@ -248,6 +251,8 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     <div id="mon-rlist"><div class="ldg">لا توجد بلاغات بعد</div></div>
   </div>
 </div>
+  <div class="sig">تصميم وتطوير القائد / م.المهند حمدي</div>
+
 
 <!-- ═══════════════ SUPERVISOR ═══════════════ -->
 <div id="pg-sup" class="pg">
@@ -291,6 +296,8 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     </div>
   </div>
 </div>
+  <div class="sig">تصميم وتطوير القائد / م.المهند حمدي</div>
+
 
 <!-- ═══════════════ ADMIN ═══════════════ -->
 <div id="pg-adm" class="pg">
@@ -321,7 +328,7 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
         <option>وجود مخلفات</option>
       </select>
       <select class="fsel" id="af-st" onchange="renderAdmTable()">
-        <option value="">كل الحالات</option><option>مفتوح</option><option>مُعالج</option>
+        <option value="">كل الحالات</option><option>مفتوح</option><option>مؤرشف</option><option>مُصعَّد</option>
       </select>
     </div>
     <div class="twrap">
@@ -334,6 +341,7 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
       </table>
     </div>
   </div>
+  <div class="sig">تصميم وتطوير القائد / م.المهند حمدي</div>
 </div>
 
 <!-- ═══════════════ REPORT MODAL ═══════════════ -->
@@ -635,10 +643,12 @@ function refreshMon() {
 
 function renderSupStats(mons, rs) {
   var open = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
+  var esc  = rs.filter(function(r){ return r.status==='مُصعَّد'; }).length;
   document.getElementById('sup-stats').innerHTML =
     sc(mons.length,'المراقبون','#1e88e5') +
     sc(rs.length,'إجمالي البلاغات','#e8c44a') +
     sc(open,'مفتوحة','#fb8c00') +
+    sc(esc,'مُصعَّدة','#e53935') +
     sc(CU.data.z.length,'المناطق','#8e24aa');
 }
 
@@ -670,6 +680,19 @@ function renderSupMonList(mons, rs) {
   }).join('');
 }
 
+function supSetStatus(id, newStatus) {
+  var rep = REPS.find(function(r){ return String(r.id)===String(id); });
+  if (!rep) return;
+  rep.status = newStatus;
+  saveAllLocal();
+  var sup = CU.data;
+  var myMons = MONS.filter(function(m){ return sup.z.indexOf(m.z)!==-1 && m.s===sup.s; });
+  renderSupStats(myMons, REPS);
+  renderSupMonList(myMons, REPS);
+  renderSupTable();
+  if (GAS) gasGet({action:'updateStatus',id:id,status:newStatus,pass:MON_PASS}, function(){});
+}
+
 function toggleAcc(hdr) {
   var body = hdr.nextElementSibling;
   body.classList.toggle('open');
@@ -697,6 +720,8 @@ function renderSupTable() {
           '<td>' + sbadge(r.status, r.id) + '</td>' +
           '<td style="white-space:nowrap">' +
             '<button class="act-btn act-view" onclick="viewRep(\'' + r.id + '\')">👁️</button> ' +
+            (r.status==='مفتوح' ? '<button class="act-btn" style="background:rgba(67,160,71,.2);color:#a5d6a7;font-size:.7rem;padding:.18rem .4rem" onclick="supSetStatus(\'' + r.id + '\',\'مؤرشف\')">🗃️ أرشف</button> ' +
+            '<button class="act-btn" style="background:rgba(229,57,53,.2);color:#ef9a9a;font-size:.7rem;padding:.18rem .4rem" onclick="supSetStatus(\'' + r.id + '\',\'مُصعَّد\')">⬆️ تصعيد</button> ' : '') +
             '<button class="act-btn act-del" onclick="deleteRep(\'' + r.id + '\',\'supervisor\')">🗑️</button>' +
           '</td>' +
         '</tr>';
@@ -727,13 +752,15 @@ function initAdmin() {
 }
 
 function renderAdmStats(rs) {
-  var open  = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
-  var done  = rs.filter(function(r){ return r.status==='مُعالج'; }).length;
+  var open   = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
+  var arch   = rs.filter(function(r){ return r.status==='مؤرشف'; }).length;
+  var esc    = rs.filter(function(r){ return r.status==='مُصعَّد'; }).length;
   var actMons = (function(){ var s={}; rs.forEach(function(r){ s[r.monitorEmail]=1; }); return Object.keys(s).length; })();
   document.getElementById('adm-stats').innerHTML =
     sc(rs.length,'إجمالي البلاغات','#e8c44a') +
     sc(open,'مفتوحة','#fb8c00') +
-    sc(done,'مُعالجة','#43a047') +
+    sc(arch,'مؤرشفة','#43a047') +
+    sc(esc,'مُصعَّدة','#e53935') +
     sc(actMons,'مراقبون نشطون','#1e88e5') +
     sc(MONS.length,'إجمالي المراقبين','rgba(240,230,204,.45)') +
     sc(SUPS.length,'إجمالي المتابعين','rgba(240,230,204,.45)');
@@ -807,7 +834,8 @@ function renderAdmTable() {
 function toggleStatus(id) {
   var rep = REPS.find(function(r){ return String(r.id)===String(id); });
   if (!rep) return;
-  rep.status = rep.status==='مفتوح' ? 'مُعالج' : 'مفتوح';
+  var cycle = {'مفتوح':'مؤرشف','مؤرشف':'مُصعَّد','مُصعَّد':'مفتوح'};
+  rep.status = cycle[rep.status] || 'مفتوح';
   saveAllLocal();
   renderAdmStats(REPS);
   renderVBars(REPS);
@@ -1201,6 +1229,27 @@ function repItem(r) {
   '</div>';
 }
 
+function exportCSV() {
+  if (!REPS.length) { showToast('لا توجد بيانات للتصدير'); return; }
+  var headers = ['ID','الوقت','المراقب','المنطقة','المخيم','المخالفة','الملاحظات','الوردية','الحالة','خط العرض','خط الطول'];
+  var rows = REPS.map(function(r) {
+    return [r.id, fmtTs(r.ts), r.monitorEmail, r.zone, r.camp, r.violation, (r.notes||'').replace(/
+/g,' '), r.shift||'', r.status, r.lat||'', r.lng||''];
+  });
+  var csv = '﻿' + headers.join(',') + '
+' + rows.map(function(row){
+    return row.map(function(c){
+      var s = String(c);
+      return (s.includes(',') || s.includes('"')) ? '"' + s.replace(/"/g,'""') + '"' : s;
+    }).join(',');
+  }).join('
+');
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'تقارير_التفويج_' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
 function viewPhoto(src) {
   var ov = document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:flex;align-items:center;justify-content:center;cursor:zoom-out';
@@ -1218,11 +1267,14 @@ function vbadge(v) {
 }
 
 function sbadge(s, id) {
-  var isOpen = s==='مفتوح';
-  var bg = isOpen ? 'rgba(251,140,0,.18)' : 'rgba(67,160,71,.18)';
-  var cl = isOpen ? '#ffcc80' : '#a5d6a7';
+  var cfg = {
+    'مفتوح':  {bg:'rgba(251,140,0,.18)',  cl:'#ffcc80'},
+    'مؤرشف':   {bg:'rgba(67,160,71,.18)',  cl:'#a5d6a7'},
+    'مُصَّعَّد': {bg:'rgba(229,57,53,.22)', cl:'#ef9a9a'}
+  };
+  var c = cfg[s] || cfg['مفتوح'];
   var onclick = (ROLE==='admin' && id) ? ' onclick="toggleStatus(\''+id+'\')" title="اضغط لتغيير الحالة"' : '';
-  return '<span class="sb" style="background:'+bg+';color:'+cl+'"'+onclick+'>'+s+'</span>';
+  return '<span class="sb" style="background:'+c.bg+';color:'+c.cl+'"'+onclick+'>'+s+'</span>';
 }
 
 function fmtTs(ts) {

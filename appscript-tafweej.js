@@ -120,9 +120,9 @@ function doGet(e) {
     return out(getRows(function(r){ return zones.indexOf(r.zone) !== -1; }));
   }
 
-  // ── updateStatus (admin) ──
+  // ── updateStatus (admin or supervisor) ──
   if (action === 'updateStatus') {
-    if (pass !== ADMIN_PASS) return out({error:'unauthorized'});
+    if (pass !== ADMIN_PASS && pass !== MON_PASS) return out({error:'unauthorized'});
     var id     = e.parameter.id;
     var status = e.parameter.status;
     var sheet  = getSheet();
