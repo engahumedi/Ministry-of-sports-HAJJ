@@ -264,6 +264,7 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
   </div>
   <div class="amain">
     <div class="srow" id="sup-stats"></div>
+    <div style="font-size:.72rem;color:var(--t2);text-align:left;margin:-0.8rem 0 0.8rem;padding-right:.2rem" id="sup-last-refresh"></div>
     <div class="stitle">👁️ المراقبون</div>
     <div class="mlist" id="sup-mlist"></div>
     <div class="stitle">📊 جميع البلاغات</div>
@@ -481,6 +482,7 @@ function doLogin() {
 
 function logout() {
   CU = null; ROLE = null; REPS = [];
+  if (window._autoRefreshTimer) { clearInterval(window._autoRefreshTimer); window._autoRefreshTimer = null; }
   document.getElementById('inp-email').value = '';
   document.getElementById('inp-pass').value = '';
   showPg('pg-login');
@@ -576,6 +578,32 @@ function initSup() {
     renderSupStats(myMons, rs);
     renderSupMonList(myMons, rs);
     renderSupTable();
+    updateSupLastRefresh();
+  });
+
+  // Auto-refresh every 30 seconds
+  if (window._autoRefreshTimer) clearInterval(window._autoRefreshTimer);
+  window._autoRefreshTimer = setInterval(function() {
+    if (ROLE === 'supervisor') silentRefreshSup();
+  }, 30000);
+}
+
+function updateSupLastRefresh() {
+  var el = document.getElementById('sup-last-refresh');
+  if (el) el.textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA', {hour:'2-digit', minute:'2-digit'});
+}
+
+function silentRefreshSup() {
+  var sup = CU.data;
+  var myMons = MONS.filter(function(m){ return sup.z.indexOf(m.z)!==-1 && m.s===sup.s; });
+  loadReps('supervisor', function(rs) {
+    var hadChange = rs.length !== REPS.length;
+    REPS = rs;
+    renderSupStats(myMons, rs);
+    renderSupMonList(myMons, rs);
+    renderSupTable();
+    updateSupLastRefresh();
+    if (hadChange) showToast('🔔 وصلت بلاغات جديدة');
   });
 }
 
@@ -590,6 +618,7 @@ function refreshSup() {
     renderSupMonList(myMons, rs);
     renderSupTable();
     btn.textContent = '🔄'; btn.disabled = false;
+    updateSupLastRefresh();
   });
 }
 
