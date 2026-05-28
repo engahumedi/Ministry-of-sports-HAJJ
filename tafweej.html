@@ -312,6 +312,10 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
     </div>
   </div>
   <div class="amain">
+    <div id="adm-total" style="background:rgba(232,196,74,.12);border:1px solid rgba(232,196,74,.35);border-radius:16px;padding:1.2rem;text-align:center;margin-bottom:1.2rem">
+      <div id="adm-total-n" style="font-size:2.6rem;font-weight:900;color:#e8c44a;line-height:1">—</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.6);margin-top:.3rem">إجمالي البلاغات المرفوعة على النظام</div>
+    </div>
     <div class="srow" id="adm-stats"></div>
     <div class="stitle" style="margin-bottom:.7rem">📈 توزيع المخالفات</div>
     <div id="adm-vbars" style="margin-bottom:1.5rem"></div>
@@ -335,7 +339,7 @@ body{font-family:'Tajawal',Arial,sans-serif;background:var(--bg);color:var(--tex
       <table class="tbl">
         <thead><tr>
           <th>المخيم</th><th>المنطقة</th><th>المراقب</th><th>المتابع</th>
-          <th>المخالفة</th><th>الملاحظات</th><th>الموقع</th><th>صورة</th><th>الوقت</th><th>الحالة</th>
+          <th>المخالفة</th><th>الملاحظات</th><th>الموقع</th><th>صورة</th><th>الوقت</th><th>الحالة</th><th></th>
         </tr></thead>
         <tbody id="adm-tbody"></tbody>
       </table>
@@ -768,12 +772,14 @@ function initAdmin() {
 }
 
 function renderAdmStats(rs) {
-  var open   = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
-  var arch   = rs.filter(function(r){ return r.status==='مؤرشف'; }).length;
-  var esc    = rs.filter(function(r){ return r.status==='مُصعَّد'; }).length;
+  var open    = rs.filter(function(r){ return r.status==='مفتوح'; }).length;
+  var arch    = rs.filter(function(r){ return r.status==='مؤرشف'; }).length;
+  var esc     = rs.filter(function(r){ return r.status==='مُصعَّد'; }).length;
   var actMons = (function(){ var s={}; rs.forEach(function(r){ s[r.monitorEmail]=1; }); return Object.keys(s).length; })();
+  // Update big total counter
+  var tn = document.getElementById('adm-total-n');
+  if (tn) tn.textContent = rs.length;
   document.getElementById('adm-stats').innerHTML =
-    sc(rs.length,'إجمالي البلاغات','#e8c44a') +
     sc(open,'مفتوحة','#fb8c00') +
     sc(arch,'مؤرشفة','#43a047') +
     sc(esc,'مُصعَّدة','#e53935') +
@@ -819,7 +825,7 @@ function renderAdmTable() {
 
   var tbody = document.getElementById('adm-tbody');
   if (!filtered.length) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:1.5rem;color:var(--t2)">لا توجد بلاغات</td></tr>';
     return;
   }
   tbody.innerHTML = filtered.slice().reverse().map(function(r) {
@@ -843,6 +849,7 @@ function renderAdmTable() {
       '<td style="text-align:center">' + photoCell + '</td>' +
       '<td>' + fmtTs(r.ts) + '</td>' +
       '<td>' + sbadge(r.status, r.id) + '</td>' +
+      '<td style="text-align:center"><button class="act-btn act-del" onclick="deleteRep(\'' + r.id + '\',\'admin\')" title="حذف البلاغ">🗑️</button></td>' +
     '</tr>';
   }).join('');
 }
