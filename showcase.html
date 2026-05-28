@@ -94,12 +94,14 @@ body{font-family:'Tajawal',sans-serif;background:var(--g1);color:#fff;overflow-x
   border-radius:22px;overflow:hidden;
   transition:transform .3s,box-shadow .3s,border-color .3s;
   display:flex;flex-direction:column;
+  cursor:pointer;text-decoration:none;color:inherit;
 }
 .svc-card:hover{
   transform:translateY(-8px);
   box-shadow:0 16px 50px rgba(0,0,0,.4);
-  border-color:rgba(201,162,39,.45);
+  border-color:rgba(201,162,39,.55);
 }
+.svc-card:active{ transform:translateY(-2px); }
 .svc-card.featured{
   border-color:rgba(201,162,39,.5);
   box-shadow:0 0 0 1px rgba(201,162,39,.2);
@@ -204,10 +206,10 @@ footer{
     <img src="logo.png" alt="وزارة الرياضة">
   </div>
   <div class="hero-tag">موسم الحج 1447هـ — وزارة الرياضة</div>
-  <h1>منظومة الخدمات الرقمية<br><span>معسكر المعيصم ( ١ )</span></h1>
+  <h1>منظومة الخدمات الرقمية<br><span>عمل م.المهند حمدي</span></h1>
   <p class="hero-sub">
     مجموعة متكاملة من الأنظمة والخدمات الرقمية المطوَّرة لدعم العمليات الميدانية
-    وتعزيز التواصل بين منسوبي المعسكر خلال موسم الحج المبارك.
+    وتعزيز التواصل بين منسوبي وزارة الرياضة خلال موسم الحج المبارك.
   </p>
   <div class="hero-meta">
     <div class="hero-badge"><strong>6</strong> خدمات رقمية</div>
@@ -252,7 +254,7 @@ footer{
     <div class="services-grid">
 
       <!-- الموقع الرئيسي -->
-      <div class="svc-card featured reveal">
+      <a href="index.html" class="svc-card featured reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(201,162,39,.15)">🌐</div>
           <div class="svc-info">
@@ -261,7 +263,7 @@ footer{
           </div>
         </div>
         <div class="svc-body">
-          <p class="svc-desc">الواجهة الرئيسية للمعسكر — تعرض إحصائيات المعسكر، الإعلانات، جدول البرامج، خريطة منى، جدول الخدمة، ودليل المشارك.</p>
+          <p class="svc-desc">الواجهة الرئيسية — تعرض إحصائيات المعسكر، الإعلانات، جدول البرامج، خريطة منى، جدول الخدمة، ودليل المشارك.</p>
           <ul class="svc-features">
             <li>إحصائيات وأرقام المعسكر</li>
             <li>ويجت الطقس ومؤشر الأشعة UV</li>
@@ -271,12 +273,12 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="index.html" class="svc-btn gold">فتح الموقع الرئيسي</a>
+          <div class="svc-btn gold">فتح الموقع الرئيسي ←</div>
         </div>
-      </div>
+      </a>
 
       <!-- نظام التفويج -->
-      <div class="svc-card featured reveal">
+      <a href="tafweej.html" class="svc-card featured reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(229,57,53,.12)">⚡</div>
           <div class="svc-info">
@@ -295,12 +297,12 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="tafweej.html" class="svc-btn gold">فتح نظام التفويج</a>
+          <div class="svc-btn gold">فتح نظام التفويج ←</div>
         </div>
-      </div>
+      </a>
 
       <!-- تسجيل الحضور -->
-      <div class="svc-card reveal">
+      <a href="attendance.html" class="svc-card reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(46,139,87,.15)">✅</div>
           <div class="svc-info">
@@ -317,12 +319,12 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="attendance.html" class="svc-btn outline">فتح نظام الحضور</a>
+          <div class="svc-btn outline">فتح نظام الحضور ←</div>
         </div>
-      </div>
+      </a>
 
       <!-- استئذان الخروج -->
-      <div class="svc-card reveal">
+      <a href="exit.html" class="svc-card reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(30,136,229,.12)">🚪</div>
           <div class="svc-info">
@@ -339,12 +341,12 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="exit.html" class="svc-btn outline">فتح نظام الاستئذان</a>
+          <div class="svc-btn outline">فتح نظام الاستئذان ←</div>
         </div>
-      </div>
+      </a>
 
       <!-- بطاقة الهوية -->
-      <div class="svc-card reveal">
+      <a href="id-card.html" class="svc-card reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(103,58,183,.12)">🪪</div>
           <div class="svc-info">
@@ -361,12 +363,12 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="id-card.html" class="svc-btn outline">فتح بطاقة الهوية</a>
+          <div class="svc-btn outline">فتح بطاقة الهوية ←</div>
         </div>
-      </div>
+      </a>
 
       <!-- بطاقة المعايدة -->
-      <div class="svc-card reveal">
+      <a href="eid-card.html" class="svc-card reveal">
         <div class="svc-header">
           <div class="svc-icon" style="background:rgba(233,30,99,.1)">🎉</div>
           <div class="svc-info">
@@ -383,9 +385,9 @@ footer{
           </ul>
         </div>
         <div class="svc-footer">
-          <a href="eid-card.html" class="svc-btn outline">فتح بطاقة المعايدة</a>
+          <div class="svc-btn outline">فتح بطاقة المعايدة ←</div>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -396,17 +398,15 @@ footer{
   <div class="author-card reveal">
     <div class="author-avatar">👨‍💻</div>
     <div class="author-name">م. المهند حمدي</div>
-    <div class="author-title">قائد المعسكر — مصمم ومطور المنظومة الرقمية</div>
     <div class="author-divider"></div>
     <p style="font-size:.85rem;color:rgba(255,255,255,.45);line-height:1.8">
-      تم تصميم وتطوير جميع هذه الأنظمة خلال موسم الحج 1447هـ<br>
-      لخدمة منسوبي معسكر المعيصم ( ١ ) التابع لوزارة الرياضة
+      تم تصميم وتطوير جميع هذه الأنظمة خلال موسم الحج 1447هـ
     </p>
   </div>
 </div>
 
 <footer>
-  منظومة الخدمات الرقمية — معسكر المعيصم ( ١ ) — موسم الحج 1447هـ &nbsp;|&nbsp; وزارة الرياضة السعودية
+  موسم الحج 1447هـ &nbsp;|&nbsp; وزارة الرياضة السعودية
 </footer>
 
 <script>
